@@ -91,6 +91,8 @@ jobs:
       - lint
       - audit
       - build
+    permissions:
+      pull-requests: write
     strategy:
       max-parallel: 12
       matrix:
