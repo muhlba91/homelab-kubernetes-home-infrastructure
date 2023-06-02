@@ -87,6 +87,9 @@ jobs:
       - vpn
     name: Pulumi Preview
     needs:
+      - conform
+      - lint
+      - audit
       - build
     strategy:
       max-parallel: 12
