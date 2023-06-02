@@ -312,10 +312,10 @@
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
-"@pulumi/google-native@^0.30.0":
-  version "0.30.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/google-native/-/google-native-0.30.0.tgz#5144686c425ae183695cbead9285063d0edff019"
-  integrity sha512-uOcyd9jvSr/RGNbM/6R+NZF1pKMU5skBrKF+WO3TRK5Du99PIioUZieMEyoC9+lGIzM+GWz2pj5gywocJVftOQ==
+"@pulumi/google-native@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/google-native/-/google-native-0.31.0.tgz#e31f8fbdc05d77bdcd69cb8b911b9f831aa646ad"
+  integrity sha512-Q5KGtF/fypvEvImVzQr2FOodvL9u0hE2VEN2AbK/x0Vfn7TFprRe1knQW0CVxzV39J9jiqcL49V4zyf5j0QIIA==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
