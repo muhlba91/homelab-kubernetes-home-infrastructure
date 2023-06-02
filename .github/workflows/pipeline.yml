@@ -1,0 +1,141 @@
+---
+name: Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  HELM_EXPERIMENTAL_OCI: true
+
+jobs:
+  conform:
+    runs-on: ubuntu-latest
+    name: Conform
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: siderolabs/conform@v0.1.0-alpha.27
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  preview:
+    runs-on:
+      - tuxnet
+      - vpn
+    name: Pulumi Preview
+    strategy:
+      max-parallel: 12
+      matrix:
+        node-version: ["16"]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: |
+          npm install -g yarn
+
+      - run: |
+          yarn install
+          yarn build
+
+      - uses: pulumi/actions@v4
+        with:
+          command: preview
+          stack-name: prod
+        env:
+          GITHUB_TOKEN: "${{ secrets.GH_PAT_TOKEN }}"
+          CLOUDSDK_COMPUTE_REGION: "${{ secrets.CLOUDSDK_COMPUTE_REGION }}"
+          CLOUDSDK_CORE_PROJECT: "${{ secrets.CLOUDSDK_CORE_PROJECT }}"
+          DOPPLER_TOKEN: "${{ secrets.DOPPLER_TOKEN }}"
+          PULUMI_ACCESS_TOKEN: "${{ secrets.PULUMI_ACCESS_TOKEN }}"
+          GOOGLE_CREDENTIALS: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}"
+          PROXMOX_VE_USERNAME: "${{ secrets.PROXMOX_VE_USERNAME }}"
+          PROXMOX_VE_PASSWORD: "${{ secrets.PROXMOX_VE_PASSWORD }}"
+          PROXMOX_VE_ENDPOINT: "${{ secrets.PROXMOX_VE_ENDPOINT }}"
+          PROXMOX_VE_INSECURE: "${{ secrets.PROXMOX_VE_INSECURE }}"
+
+  deploy:
+    runs-on:
+      - tuxnet
+      - vpn
+    name: Pulumi Deploy
+    needs:
+      - preview
+    strategy:
+      max-parallel: 12
+      matrix:
+        node-version: ["16"]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: jaxxstorm/action-install-gh-release@v1.10.0
+        with:
+          repo: k0sproject/k0sctl
+          extension-matching: disable
+          rename-to: k0sctl
+          chmod: 0755
+
+      - uses: yokawasa/action-setup-kube-tools@v0.9.3
+        with:
+          setup-tools: helm
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: |
+          npm install -g yarn
+
+      - run: |
+          yarn install
+          yarn build
+
+      - uses: pulumi/actions@v4
+        with:
+          command: up
+          stack-name: prod
+        env:
+          GITHUB_TOKEN: "${{ secrets.GH_PAT_TOKEN }}"
+          CLOUDSDK_COMPUTE_REGION: "${{ secrets.CLOUDSDK_COMPUTE_REGION }}"
+          CLOUDSDK_CORE_PROJECT: "${{ secrets.CLOUDSDK_CORE_PROJECT }}"
+          DOPPLER_TOKEN: "${{ secrets.DOPPLER_TOKEN }}"
+          PULUMI_ACCESS_TOKEN: "${{ secrets.PULUMI_ACCESS_TOKEN }}"
+          GOOGLE_CREDENTIALS: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}"
+          PROXMOX_VE_USERNAME: "${{ secrets.PROXMOX_VE_USERNAME }}"
+          PROXMOX_VE_PASSWORD: "${{ secrets.PROXMOX_VE_PASSWORD }}"
+          PROXMOX_VE_ENDPOINT: "${{ secrets.PROXMOX_VE_ENDPOINT }}"
+          PROXMOX_VE_INSECURE: "${{ secrets.PROXMOX_VE_INSECURE }}"
+
+  triggers:
+    runs-on: ubuntu-latest
+    name: Trigger Downstream Pipelines
+    needs:
+      - deploy
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Deploy Services
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: deploy.yml
+          repo: muhlba91/homelab-ansible-common-services
+          inputs: '{ "s3_asset_bucket": "infrastructure-assets-5274ba70-fde0-47de-8e9a-f1bc64c11157/cluster/home/prod" }'
+          token: "${{ secrets.GH_PAT_TOKEN }}"

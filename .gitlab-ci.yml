@@ -1,0 +1,188 @@
+---
+variables:
+  CONFORM_VERSION: v0.1.0-alpha.27
+  K0SCTL_VERSION: v0.15.0
+  STACK_NAME: dev
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
+    - if: "$CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH"
+
+.node_runner: &node_runner
+  name: node:16-alpine
+  entrypoint: [""]
+
+.pulumi_runner: &pulumi_runner
+  name: pulumi/pulumi-nodejs:3.65.1
+  entrypoint: [""]
+
+.yarn_install: &yarn_install
+  - yarn install
+
+.pulumi_setup: &pulumi_setup
+  - |
+      curl "https://github.com/k0sproject/k0sctl/releases/download/${K0SCTL_VERSION}/k0sctl-linux-arm64" -o k0sctl
+      chmod +x k0sctl
+      export PATH="${PWD}/k0sctl:$PATH"
+  - |
+      curl "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3" -o get_helm.sh
+      chmod +x get_helm.sh
+      ./get_helm.sh
+  - yarn install
+  - yarn build
+
+.cache_yarn: &cache_yarn
+  key: "${CI_COMMIT_REF_SLUG}-yarn"
+  policy: pull
+  paths:
+    - .yarn/
+    - node_modules/
+
+stages:
+  - verify
+  - build
+  - deploy
+
+conform:verify:
+  image:
+    name: alpine:latest
+    entrypoint: [""]
+  stage: verify
+  needs: []
+  before_script:
+    - |
+        wget -O conform "https://github.com/talos-systems/conform/releases/download/${CONFORM_VERSION}/conform-linux-amd64"
+        chmod +x conform
+  script:
+    - ./conform enforce
+
+lint:yarn:
+  image:
+    <<: *node_runner
+  stage: verify
+  variables:
+    ESLINT_CODE_QUALITY_REPORT: eslint.json
+  needs: []
+  before_script: *yarn_install
+  script:
+    - yarn lint
+  cache:
+    - <<: *cache_yarn
+      policy: pull-push
+
+audit:yarn:
+  image:
+    <<: *node_runner
+  stage: verify
+  needs: []
+  before_script: *yarn_install
+  script:
+    - yarn audit
+  cache:
+    - <<: *cache_yarn
+      policy: pull-push
+  allow_failure: true
+
+build:yarn:
+  image:
+    <<: *node_runner
+  stage: build
+  needs:
+    - job: lint:yarn
+      artifacts: false
+    - job: audit:yarn
+      artifacts: false
+  before_script: *yarn_install
+  script:
+    - yarn build
+  artifacts:
+    paths:
+      - build/
+    expire_in: 1 days
+  cache:
+    - <<: *cache_yarn
+
+preview:dev:
+  image:
+    <<: *pulumi_runner
+  stage: deploy
+  needs:
+    - job: build:yarn
+      artifacts: true
+  before_script: *pulumi_setup
+  script:
+    - pulumi preview --stack ${STACK_NAME}
+  cache:
+    - <<: *cache_yarn
+  tags:
+    - tuxnet
+    - linux
+    - container
+    - vpn
+    - prod
+  rules:
+    - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
+
+preview:prod:
+  image:
+    <<: *pulumi_runner
+  stage: deploy
+  variables:
+    STACK_NAME: prod
+  needs:
+    - job: build:yarn
+      artifacts: true
+  before_script: *pulumi_setup
+  script:
+    - pulumi preview --stack ${STACK_NAME}
+  cache:
+    - <<: *cache_yarn
+  tags:
+    - tuxnet
+    - linux
+    - container
+    - vpn
+    - prod
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+
+deploy:prod:
+  image:
+    <<: *pulumi_runner
+  stage: deploy
+  variables:
+    STACK_NAME: prod
+  needs:
+    - job: build:yarn
+      artifacts: true
+    - job: preview:prod
+      artifacts: false
+  before_script: *pulumi_setup
+  script:
+    - pulumi up --stack ${STACK_NAME} --yes
+  cache:
+    - <<: *cache_yarn
+  tags:
+    - tuxnet
+    - linux
+    - container
+    - vpn
+    - prod
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+
+deploy:trigger:services:
+  stage: deploy
+  variables:
+    S3_ASSETS_BUCKET: infrastructure-assets-5274ba70-fde0-47de-8e9a-f1bc64c11157/cluster/home/prod
+  needs:
+    - job: deploy:prod
+      artifacts: false
+  trigger:
+    project: daniel.muehlbachler/tuxnet/infrastructure/ansible/services
+    strategy: depend
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH

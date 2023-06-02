@@ -1,0 +1,6 @@
+name: home_cluster-infrastructure-proxmox
+description: "Homelab: Kubernetes Home Cluster - Infrastructure"
+runtime:
+  name: nodejs
+  options:
+    typescript: false

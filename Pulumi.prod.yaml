@@ -1,0 +1,89 @@
+secretsprovider: gcpkms://projects/tuxnet-385112/locations/europe/keyRings/infrastructure-encryption/cryptoKeys/infrastructure-encryption
+encryptedkey: CiQA9PdEcDR9kUapJh5zJ7obNp3tBRFIxaEMnWzboNVMgag5ZfQSSQA2N6cCQ2m7UJhDZ9DmT+rj+nHm1z7/8z/R5/4PH3X0dq8wSQSAK2KUuynQGp+goV0tgsQ12smkPhBUI1NGjVzLuYOi39XW/W8=
+config:
+  home_cluster-infrastructure-proxmox:argocd:
+    applicationsRepository:
+      branch: HEAD
+      repository: muhlba91/homelab-kubernetes-home-applications
+    valuesRepository:
+      branch: HEAD
+      repository: muhlba91/homelab-kubernetes-home-values
+  home_cluster-infrastructure-proxmox:bucketId: infrastructure-assets-5274ba70-fde0-47de-8e9a-f1bc64c11157
+  home_cluster-infrastructure-proxmox:cluster:
+    name: home
+    nodes:
+      home-cluster-001:
+        cpu: 8
+        diskSize: 256
+        host: pve1
+        ipv4Address: 10.0.80.1
+        ipv6Address: 2a01:aea0:dd3:25a:1000:4:1:1
+        labels:
+          usb: zwave-controller
+        memory:
+          max: 16384
+          min: 10240
+        roles:
+          - controller+worker
+      home-cluster-002:
+        cpu: 8
+        diskSize: 256
+        host: pve2
+        ipv4Address: 10.0.80.2
+        ipv6Address: 2a01:aea0:dd3:25a:1000:4:1:2
+        memory:
+          max: 16384
+          min: 10240
+        roles:
+          - controller+worker
+      home-cluster-003:
+        cpu: 8
+        diskSize: 256
+        host: pve3
+        ipv4Address: 10.0.80.11
+        ipv6Address: 2a01:aea0:dd3:25a:1000:4:1:11
+        memory:
+          max: 16384
+          min: 10240
+        roles:
+          - controller+worker
+  home_cluster-infrastructure-proxmox:gcp:
+    encryptionKey:
+      cryptoKeyId: infrastructure-encryption
+      keyringId: infrastructure-encryption
+      location: europe
+    project: tuxnet-385112
+  home_cluster-infrastructure-proxmox:k0s:
+    apiLoadBalancer: 10.0.80.0
+    argocdApps:
+      version: 1.2.0
+    cilium:
+      version: 1.13.1
+    version: 1.27.1+k0s.0
+  home_cluster-infrastructure-proxmox:network:
+    domain: internal.muehlbachler.io
+    ipv4:
+      cidrMask: 16
+      enabled: true
+      gateway: 10.0.0.1
+    ipv6:
+      cidrMask: 64
+      enabled: true
+      gateway: 2a01:aea0:dd3:25a::1
+    nameservers:
+      - 10.0.71.10
+      - 1.1.1.1
+      - 2a01:aea0:dd3:25a:1000:3:2:10
+      - 2606:4700:4700::1111
+  home_cluster-infrastructure-proxmox:pve:
+    cpuType: host
+    imageName: local:iso/debian-bullseye-genericcloud.img
+    localStoragePool: local
+    networkBridge: vmbr0
+    storagePool:
+      pve1: minpool
+      pve2: minpool
+      pve3: minpool
+  home_cluster-infrastructure-proxmox:ufw:
+    enabled: false
+  home_cluster-infrastructure-proxmox:username: proxmox

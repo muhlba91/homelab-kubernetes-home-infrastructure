@@ -1,0 +1,126 @@
+---
+name: Pull Request
+
+on:
+  pull_request:
+
+jobs:
+  conform:
+    runs-on: ubuntu-latest
+    name: Conform
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: siderolabs/conform@v0.1.0-alpha.27
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  lint:
+    runs-on: ubuntu-latest
+    name: ESLint
+    strategy:
+      max-parallel: 12
+      matrix:
+        node-version: ["16"]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: |
+          yarn lint
+
+  audit:
+    runs-on: ubuntu-latest
+    name: Node Audit
+    strategy:
+      max-parallel: 12
+      matrix:
+        node-version: ["16"]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: |
+          yarn audit
+        continue-on-error: true
+
+  build:
+    runs-on: ubuntu-latest
+    name: Build IaC code
+    strategy:
+      max-parallel: 12
+      matrix:
+        node-version: ["16"]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: |
+          yarn install
+          yarn build
+
+  preview:
+    runs-on:
+      - tuxnet
+      - vpn
+    name: Pulumi Preview
+    needs:
+      - build
+    strategy:
+      max-parallel: 12
+      matrix:
+        node-version: ["16"]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: |
+          npm install -g yarn
+
+      - run: |
+          yarn install
+          yarn build
+
+      - uses: pulumi/actions@v4
+        with:
+          command: preview
+          stack-name: prod
+          comment-on-pr: true
+        env:
+          GITHUB_TOKEN: "${{ secrets.GH_PAT_TOKEN }}"
+          CLOUDSDK_COMPUTE_REGION: "${{ secrets.CLOUDSDK_COMPUTE_REGION }}"
+          CLOUDSDK_CORE_PROJECT: "${{ secrets.CLOUDSDK_CORE_PROJECT }}"
+          DOPPLER_TOKEN: "${{ secrets.DOPPLER_TOKEN }}"
+          PULUMI_ACCESS_TOKEN: "${{ secrets.PULUMI_ACCESS_TOKEN }}"
+          GOOGLE_CREDENTIALS: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}"
+          PROXMOX_VE_USERNAME: "${{ secrets.PROXMOX_VE_USERNAME }}"
+          PROXMOX_VE_PASSWORD: "${{ secrets.PROXMOX_VE_PASSWORD }}"
+          PROXMOX_VE_ENDPOINT: "${{ secrets.PROXMOX_VE_ENDPOINT }}"
+          PROXMOX_VE_INSECURE: "${{ secrets.PROXMOX_VE_INSECURE }}"

@@ -1,0 +1,71 @@
+---
+apiVersion: k0sctl.k0sproject.io/v1beta1
+kind: Cluster
+metadata:
+  name: {{ clusterName }}-{{ environment }}
+spec:
+  hosts:
+{%- for node in clusterNodes %}
+    - ssh:
+        address: {{ node.ipv4Address }}
+        user: {{ username }}
+        port: 22
+        keyPath: outputs/ssh.key
+      role: {{ clusterRoles[node.hostname][0] }}
+      noTaints: true
+      installFlags:
+        - --disable-components konnectivity-server
+        - --labels="{{ nodeLabels[node.hostname] }}"
+{%- endfor %}
+  k0s:
+    version: {{ k0s.version }}
+    dynamicConfig: false
+    config:
+      apiVersion: k0s.k0sproject.io/v1beta1
+      kind: Cluster
+      metadata:
+        name: {{ clusterName }}-{{ environment }}
+      spec:
+        api:
+          # externalAddress: null
+          sans:
+            - {{ k0s.apiLoadBalancer }}
+          k0sApiPort: 9443
+          port: 6443
+        installConfig:
+          users:
+            etcdUser: etcd
+            kineUser: kube-apiserver
+            konnectivityUser: konnectivity-server
+            kubeAPIserverUser: kube-apiserver
+            kubeSchedulerUser: kube-scheduler
+        konnectivity:
+          adminPort: 8133
+          agentPort: 8132
+        network:
+          provider: custom
+          podCIDR: 10.244.0.0/16
+          serviceCIDR: 10.96.0.0/12
+          dualStack:
+            enabled: true
+            IPv6podCIDR: "fd85:ee78:d8a6:8607:1::0000/108"
+            IPv6serviceCIDR: "fd85:ee78:d8a6:8607:2::0000/108"
+          nodeLocalLoadBalancing:
+            enabled: true
+            type: EnvoyProxy
+          kubeProxy:
+            disabled: true
+            mode: ipvs
+            ipvs:
+              strictARP: true
+          kuberouter:
+            autoMTU: true
+            mtu: 0
+            peerRouterASNs: ""
+            peerRouterIPs: ""
+        podSecurityPolicy:
+          defaultPolicy: 00-k0s-privileged
+        storage:
+          type: etcd
+        telemetry:
+          enabled: true
