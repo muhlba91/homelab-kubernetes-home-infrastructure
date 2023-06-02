@@ -10,7 +10,8 @@
         "main"
     ],
     "enabledManagers": [
-        "github-actions"
+        "github-actions",
+        "npm"
     ],
     "github-actions": {
         "commitMessageTopic": "chore(deps): update github actions {{ depName }}",
