@@ -92,6 +92,8 @@ jobs:
       - audit
       - build
     permissions:
+      id-token: write
+      contents: read
       pull-requests: write
     strategy:
       max-parallel: 12
