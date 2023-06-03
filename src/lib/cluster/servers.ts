@@ -18,7 +18,7 @@ export const _createServers = (
 ): StringMap<ServerData> => {
   // eslint-disable-next-line functional/no-let
   let servers = <StringMap<ServerData>>{};
-  // eslint-disable-next-line functional/no-loop-statement
+  // eslint-disable-next-line functional/no-loop-statements
   for (const nodeName in clusterConfig.nodes) {
     const node = clusterConfig.nodes[nodeName];
     const server = createServer(
