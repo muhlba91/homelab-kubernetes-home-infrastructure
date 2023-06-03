@@ -27,12 +27,12 @@
     "node": ">=16"
   },
   "dependencies": {
-    "@muhlba91/pulumi-proxmoxve": "^4.0.0",
+    "@muhlba91/pulumi-proxmoxve": "^5.1.0",
     "@pulumi/command": "^0.7.2",
     "@pulumi/gcp": "^6.55.0",
     "@pulumi/github": "^5.9.1",
-    "@pulumi/google-native": "^0.30.0",
-    "@pulumi/kubernetes": "^3.26.0",
+    "@pulumi/google-native": "^0.31.0",
+    "@pulumi/kubernetes": "^3.29.0",
     "@pulumi/pulumi": "^3.65.1",
     "@pulumi/random": "^4.13.0",
     "@pulumi/tls": "^4.10.0",
@@ -45,7 +45,7 @@
     "@types/nunjucks": "^3.2.2",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
-    "eslint": "^8.7.0",
+    "eslint": "^8.42.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-functional": "^4.1.1",
@@ -53,8 +53,8 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.5.1",
     "ts-node": "^10.4.0",
-    "typedoc": "^0.22.11",
-    "typescript": "^4.5.5"
+    "typedoc": "^0.24.0",
+    "typescript": "^5.0.0"
   },
   "files": [
     "build/main",
