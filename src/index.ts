@@ -18,6 +18,7 @@ import {
 } from './lib/configuration';
 import { createExternalDNSResources } from './lib/external_dns';
 import { uploadToS3 } from './lib/gcp/storage/upload';
+import { createHomeAssistantResources } from './lib/home_assistant';
 import { createKSopsResources } from './lib/ksops';
 import { createDir } from './lib/util/create_dir';
 import { writeFilePulumi } from './lib/util/file';
@@ -88,6 +89,7 @@ export = async () => {
 
   // Kubernetes cloud resources
   const ksopsKey = await createKSopsResources(gcpConfig.project, {});
+  await createHomeAssistantResources(gcpConfig.project, {});
   await createExternalDNSResources(gcpConfig.project, {});
   await createCertManagerResources(gcpConfig.project, {});
 
