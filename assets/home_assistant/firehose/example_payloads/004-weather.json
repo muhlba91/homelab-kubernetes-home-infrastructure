@@ -1,0 +1,27 @@
+{
+    "fields": {
+        "humidity": 66,
+        "precipitation_unit_str": "mm",
+        "pressure": 1018,
+        "pressure_unit_str": "hPa",
+        "state": "partlycloudy",
+        "temperature": 28.3,
+        "temperature_unit_str": "°C",
+        "visibility_unit_str": "km",
+        "wind_bearing": 104.2,
+        "wind_speed": 9,
+        "wind_speed_unit_str": "km/h"
+    },
+    "name": "state",
+    "tags": {
+        "day": "22",
+        "domain": "weather",
+        "entity_id": "home",
+        "environment": "prod",
+        "friendly_name": "Weather Forecast: Home",
+        "month": "06",
+        "source": "homeassistant",
+        "year": "2023"
+    },
+    "timestamp": 1687425359481
+}

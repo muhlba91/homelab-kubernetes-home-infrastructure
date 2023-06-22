@@ -11,7 +11,7 @@ import { createServiceAccount } from '../../gcp/iam/serviceaccount';
  * @param {string} name the name
  * @param {string} project the project
  * @param {string[]} roles the roles to add (optional)
- * @returns {IamUserData} the user data
+ * @returns {ServiceAccountData} the user data
  */
 export const createGCPServiceAccountAndKey = (
   name: string,

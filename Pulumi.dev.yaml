@@ -53,6 +53,24 @@ config:
       keyringId: infrastructure-encryption
       location: europe
     project: tuxnet-385112
+  home_cluster-infrastructure-proxmox:homeAssistant:
+    athena:
+      bytesScannedCutoffPerQuery: 10000000000
+      resultsExpiryInDays: 7
+    bucketArn: arn:aws:s3:::home-assistant-5274ba70-fde0-47de-8e9a-f1bc64c11157
+    firehose:
+      buffer:
+        interval: 900
+        size: 64
+      compression: GZIP
+      lambda:
+        buffer:
+          interval: 900
+          size: 3
+        memory: 128
+        timeout: 300
+    glue:
+      schedule: cron(0 1 1 * ? *)
   home_cluster-infrastructure-proxmox:k0s:
     apiLoadBalancer: 10.0.210.0
     argocdApps:

@@ -1,0 +1,21 @@
+{
+    "fields": {
+        "azimuth": 144.61,
+        "elevation": 61.99,
+        "rising": 1,
+        "state": "above_horizon",
+        "value": 1
+    },
+    "name": "state",
+    "tags": {
+        "day": "22",
+        "domain": "sun",
+        "entity_id": "sun",
+        "environment": "prod",
+        "friendly_name": "Sun",
+        "month": "06",
+        "source": "homeassistant",
+        "year": "2023"
+    },
+    "timestamp": 1687427276969
+}
