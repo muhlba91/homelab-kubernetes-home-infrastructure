@@ -1,0 +1,126 @@
+[build-system]
+requires = [
+    "poetry-core"
+]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "homelab-home-assistant-firehose-processor"
+version = "0.0.0"
+description = "Lambda Processor for transforming Home Assistant data in an Amazon Kinesis Data Firehose stream."
+license = "MIT"
+authors = [
+    "Daniel Muehlbachler-Pietrzykowski <daniel.muehlbachler@niftyside.io>"
+]
+repository = "https://github.com/muhlba91/homelab-kubernetes-home-infrastructure"
+keywords = [
+    "home-assistant",
+    "kinesis-firehose-processor",
+    "homelab"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Home Automation"
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.dev-dependencies]
+flakeheaven = "^3.2.1"
+black = "^23.1.0"
+
+[tool.flakeheaven]
+exclude = [
+    "README.md"
+]
+format = "colored"
+max_line_length = 88
+show_source = true
+whitelist = ".flake8.whitelist"
+
+[tool.flakeheaven.plugins]
+flake8-bandit = [
+    "+*",
+    "-S322"
+]
+flake8-bugbear = [
+    "+*"
+]
+flake8-builtins = [
+    "+*"
+]
+flake8-comprehensions = [
+    "+*"
+]
+flake8-darglint = [
+    "+*"
+]
+flake8-docstrings = [
+    "+*"
+]
+flake8-eradicate = [
+    "+*"
+]
+flake8-isort = [
+    "+*"
+]
+flake8-mutable = [
+    "+*"
+]
+flake8-pytest-style = [
+    "+*"
+]
+flake8-spellcheck = [
+    "+*"
+]
+mccabe = [
+    "+*"
+]
+pep8-naming = [
+    "+*"
+]
+pycodestyle = [
+    "+*",
+    "-E402",
+    "-E126",
+    "-W503",
+    "-E203"
+]
+pyflakes = [
+    "+*"
+]
+pylint = [
+    "+*",
+    "-C0330",
+    "-C0326"
+]
+
+[tool.black]
+line-length = 88
+target-version = [
+    "py38"
+]
+include = "\\.pyi?$"
+exclude = """
+(
+  /(
+      \\.eggs         # exclude a few common directories in the
+    | \\.git          # root of the project
+    | \\.hg
+    | \\.mypy_cache
+    | \\.tox
+    | \\.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+  | foo.py           # also separately exclude a file named foo.py in
+                     # the root of the project
+)
+"""

@@ -3,6 +3,7 @@ import { Config, getStack } from '@pulumi/pulumi';
 import { ArgocdConfig } from '../model/config/argocd';
 import { ClusterConfig } from '../model/config/cluster/cluster';
 import { GCPConfig } from '../model/config/gcp';
+import { HomeAssistantConfig } from '../model/config/home_assistant';
 import { K0sConfig } from '../model/config/k0s';
 import { NetworkConfig } from '../model/config/network';
 import { ProxmoxConfig } from '../model/config/proxmox';
@@ -18,6 +19,8 @@ export const k0sConfig = config.requireObject<K0sConfig>('k0s');
 export const argocdConfig = config.requireObject<ArgocdConfig>('argocd');
 export const networkConfig = config.requireObject<NetworkConfig>('network');
 export const ufwConfig = config.requireObject<UFWConfig>('ufw');
+export const homeAssistantConfig =
+  config.requireObject<HomeAssistantConfig>('homeAssistant');
 export const username = config.require<string>('username');
 export const bucketId = config.require<string>('bucketId');
 

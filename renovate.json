@@ -3,7 +3,7 @@
     "extends": [
         "config:base",
         ":dependencyDashboard",
-	":semanticCommitTypeAll(chore)"
+        ":semanticCommitTypeAll(chore)"
     ],
     "prHourlyLimit": 0,
     "prConcurrentLimit": 0,
@@ -12,7 +12,8 @@
     ],
     "enabledManagers": [
         "github-actions",
-        "npm"
+        "npm",
+        "poetry"
     ],
     "github-actions": {
         "fileMatch": [
@@ -26,5 +27,10 @@
         ],
         "rollbackPrs": true,
         "versioning": "npm"
+    },
+    "poetry": {
+        "fileMatch": [
+            "(^|/)pyproject\\.toml$"
+        ]
     }
 }

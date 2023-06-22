@@ -10,7 +10,7 @@ import { createIAMMember } from './iam_member';
  * @param {string} project the project
  * @param {string[]} roles the roles to be assigned
  * @param {CustomResourceOptions} pulumiOptions pulumi options (optional)
- * @return {google.iam.v1.ServiceAccount} the generated IAM policy
+ * @return {google.iam.v1.ServiceAccount} the generated service account
  */
 export const createServiceAccount = (
   name: string,
