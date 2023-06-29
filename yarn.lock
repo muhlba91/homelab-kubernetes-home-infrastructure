@@ -332,9 +332,9 @@
     "@pulumi/pulumi" "^3.0.0"
 
 "@pulumi/kubernetes@^3.29.0":
-  version "3.30.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-3.30.0.tgz#6e0fb5c0dd45caa56eb3d2233882855a50de8160"
-  integrity sha512-SOCZaXPVRjm8D4utuIcYTCj2AofXjRmtIXZ5LSX2iUEc7OND84DH3tMr51og8Fr605kyYcVMW9wsTY3sFbJicQ==
+  version "3.30.1"
+  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-3.30.1.tgz#260e5134f5be99bde6f586a7c71d9ef44b46d605"
+  integrity sha512-LqZHO+FYKZzCMnLoR7WssgJTaOVrFUPuPqv3W2hc4x5kLkxe4DEFsKqnpnJrsmMqKsakGOSt6NeJDRvJO34Dtw==
   dependencies:
     "@pulumi/pulumi" "^3.25.0"
     "@types/glob" "^5.0.35"
@@ -2123,9 +2123,9 @@ nice-try@^1.0.4:
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
 node-fetch@^2.3.0:
-  version "2.6.11"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.11.tgz#cde7fc71deef3131ef80a738919f999e6edfff25"
-  integrity sha512-4I6pdBY1EthSqDmJkiNk3JIT8cswwR9nfeW/cPdUagJYEQG7R95WRH74wpz7ma8Gh/9dI9FP+OU+0E4FvtA55w==
+  version "2.6.12"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.12.tgz#02eb8e22074018e3d5a83016649d04df0e348fba"
+  integrity sha512-C/fGU2E8ToujUivIO0H+tpQ6HWo4eEmchoPIoXtxCrVghxdKq+QOHqEZW7tuP3KlV3bC8FRMO5nMCC7Zm1VP6g==
   dependencies:
     whatwg-url "^5.0.0"
 
