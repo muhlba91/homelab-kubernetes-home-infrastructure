@@ -134,7 +134,12 @@ export const createServer = (
     },
     {
       provider: provider,
-      ignoreChanges: ['disks[0].speed', 'disks[0].fileFormat', 'cdrom'],
+      ignoreChanges: [
+        'disks[0].speed',
+        'disks[0].fileFormat',
+        'cdrom',
+        'efiDisk',
+      ],
     }
   );
   return {
