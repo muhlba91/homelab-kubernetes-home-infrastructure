@@ -87,6 +87,12 @@ export const createServer = (
           discard: 'on',
         },
       ],
+      efiDisk: {
+        datastoreId: pveConfig.storagePool[server.host],
+        preEnrolledKeys: false,
+        fileFormat: 'qcow2',
+        type: '4m',
+      },
       scsiHardware: 'virtio-scsi-single',
       memory: {
         dedicated: server.memory.max,
