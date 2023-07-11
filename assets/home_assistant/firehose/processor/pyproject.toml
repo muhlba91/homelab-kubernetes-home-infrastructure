@@ -32,7 +32,7 @@ python = "^3.10"
 
 [tool.poetry.dev-dependencies]
 flakeheaven = "^3.2.1"
-black = "^23.1.0"
+black = "^23.7.0"
 
 [tool.flakeheaven]
 exclude = [
