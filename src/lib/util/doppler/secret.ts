@@ -13,7 +13,7 @@ import { environment } from '../../configuration';
 export const writeToDoppler = (
   key: string,
   value: Output<string>,
-  project: string
+  project: string,
 ) => {
   new doppler.Secret('doppler-' + project + '-' + environment + '-' + key, {
     name: key,

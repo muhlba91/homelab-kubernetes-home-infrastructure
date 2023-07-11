@@ -26,7 +26,7 @@ export const createGlueDatabase = async ({
       name: 'home-assistant-' + environment,
       tags: commonLabels,
     },
-    pulumiOptions
+    pulumiOptions,
   );
 
   createGlueCrawler(catalogDatabase.name, { pulumiOptions: pulumiOptions });
@@ -34,7 +34,7 @@ export const createGlueDatabase = async ({
   writeToDoppler(
     'GRAFANA_GLUE_DATABASE',
     catalogDatabase.name,
-    clusterConfig.name + '-cluster-home-assistant'
+    clusterConfig.name + '-cluster-home-assistant',
   );
 
   return catalogDatabase.arn;
@@ -53,7 +53,7 @@ const createGlueCrawler = (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ) => {
   const bucketName = homeAssistantConfig.bucketArn.split(':::')[1];
 
@@ -85,7 +85,7 @@ const createGlueCrawler = (
       ],
       tags: commonLabels,
     },
-    pulumiOptions
+    pulumiOptions,
   );
 };
 
@@ -121,7 +121,7 @@ const createGlueCrawlerRole = ({
         .then((doc) => doc.json),
       tags: commonLabels,
     },
-    pulumiOptions
+    pulumiOptions,
   );
 
   new aws.iam.RolePolicyAttachment(
@@ -129,7 +129,7 @@ const createGlueCrawlerRole = ({
     {
       role: crawlerRole.name,
       policyArn: aws.iam.ManagedPolicy.AWSGlueServiceRole,
-    }
+    },
   );
 
   const crawlerPolicy = new aws.iam.Policy(
@@ -151,7 +151,7 @@ const createGlueCrawlerRole = ({
         .then((doc) => doc.json),
       tags: commonLabels,
     },
-    pulumiOptions
+    pulumiOptions,
   );
 
   new aws.iam.RolePolicyAttachment(
@@ -165,7 +165,7 @@ const createGlueCrawlerRole = ({
       dependsOn: (
         (pulumiOptions?.dependsOn ?? []) as readonly Resource[]
       ).concat(crawlerPolicy, crawlerRole),
-    }
+    },
   );
 
   return crawlerRole.arn;

@@ -16,7 +16,7 @@ export const createRandomPassword = (
   {
     length = 16,
     special = true,
-  }: { readonly length?: number; readonly special?: boolean }
+  }: { readonly length?: number; readonly special?: boolean },
 ): RandomPasswordData => {
   const password = new RandomPassword(
     'password-' + name + '-' + environment,
@@ -27,7 +27,7 @@ export const createRandomPassword = (
       upper: true,
       number: true,
     },
-    {}
+    {},
   );
   return {
     resource: password,

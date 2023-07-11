@@ -14,11 +14,11 @@ export const getGitHubRepository = async (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): Promise<github.GetRepositoryResult> =>
   await github.getRepository(
     {
       fullName: repository,
     },
-    pulumiOptions
+    pulumiOptions,
   );

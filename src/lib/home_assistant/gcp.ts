@@ -17,7 +17,7 @@ export const createGCPKey = async (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): Promise<void> => {
   const iam = createGCPServiceAccountAndKey('home-assistant-gcp', gcpProject, {
     pulumiOptions: pulumiOptions,
@@ -28,13 +28,13 @@ export const createGCPKey = async (
       `${gcpConfig.encryptionKey.location}/${gcpConfig.encryptionKey.keyringId}/${gcpConfig.encryptionKey.cryptoKeyId}`,
       `serviceAccount:${email}`,
       'roles/cloudkms.cryptoKeyEncrypterDecrypter',
-      { pulumiOptions: pulumiOptions }
-    )
+      { pulumiOptions: pulumiOptions },
+    ),
   );
 
   writeToDoppler(
     'GCP_CREDENTIALS',
     iam.key.privateKey,
-    clusterConfig.name + '-cluster-home-assistant'
+    clusterConfig.name + '-cluster-home-assistant',
   );
 };

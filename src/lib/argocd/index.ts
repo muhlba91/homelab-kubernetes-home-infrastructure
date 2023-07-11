@@ -30,7 +30,7 @@ export const deployArgoCDResources = async (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ) => {
   const provider = new k8s.Provider(clusterConfig.name + '-cluster', {
     kubeconfig: kubeConfig,
@@ -54,7 +54,7 @@ const deployArgoCD = async (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ) => {
   writeFileContents(
     'outputs/values-argocd.yml',
@@ -62,7 +62,7 @@ const deployArgoCD = async (
       environment: environment,
       argocdAdminPassword: argocdAdminPassword,
     }),
-    {}
+    {},
   );
   const helmInstall = new local.Command(
     'helm-argocd',
@@ -76,7 +76,7 @@ const deployArgoCD = async (
         HELM_CHART_NAME: 'argo-cd',
       },
     },
-    pulumiOptions
+    pulumiOptions,
   );
 
   const applicationsRepository = (
@@ -143,6 +143,6 @@ const deployArgoCD = async (
       dependsOn: (
         (pulumiOptions?.dependsOn ?? []) as readonly Resource[]
       ).concat(helmInstall),
-    }
+    },
   );
 };

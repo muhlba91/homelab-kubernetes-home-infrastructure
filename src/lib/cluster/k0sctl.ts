@@ -24,7 +24,7 @@ export const createCluster = (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): Output<string> => {
   const serverResources = servers.map((server) => server.resource);
 
@@ -51,7 +51,7 @@ export const createCluster = (
       dependsOn: (
         (pulumiOptions?.dependsOn ?? []) as readonly Resource[]
       ).concat(serverResources),
-    }
+    },
   );
 
   // TODO: we always need to trigger this to generate our kubeconfig
@@ -74,10 +74,10 @@ export const createCluster = (
       dependsOn: (
         (pulumiOptions?.dependsOn ?? []) as readonly Resource[]
       ).concat(k0sctl),
-    }
+    },
   );
 
   return k0sctlKubeConfig.assets.apply(() =>
-    fs.readFileSync('outputs/admin.conf', 'utf-8')
+    fs.readFileSync('outputs/admin.conf', 'utf-8'),
   );
 };

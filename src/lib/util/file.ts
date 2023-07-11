@@ -12,7 +12,7 @@ import { Output } from '@pulumi/pulumi';
 export const writeFileContents = (
   path: string,
   content: string,
-  { permissions = '0644' }: { readonly permissions?: string }
+  { permissions = '0644' }: { readonly permissions?: string },
 ) => fs.writeFileSync(path, content, { mode: permissions });
 
 /**
@@ -26,10 +26,10 @@ export const writeFileContents = (
 export const writeFilePulumi = (
   path: string,
   content: Output<string>,
-  { permissions = '0644' }: { readonly permissions?: string }
+  { permissions = '0644' }: { readonly permissions?: string },
 ): Output<unknown> =>
   content.apply((value) =>
-    writeFileContents(path, value, { permissions: permissions })
+    writeFileContents(path, value, { permissions: permissions }),
   );
 
 /**

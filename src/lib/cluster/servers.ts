@@ -14,7 +14,7 @@ import { createServer } from '../server/create';
 export const _createServers = (
   clusterConfig: ClusterConfig,
   userPassword: string,
-  sshPublicKey: string
+  sshPublicKey: string,
 ): StringMap<ServerData> => {
   // eslint-disable-next-line functional/no-let
   let servers = <StringMap<ServerData>>{};
@@ -26,7 +26,7 @@ export const _createServers = (
       nodeName,
       userPassword,
       sshPublicKey,
-      node
+      node,
     );
     servers = {
       [nodeName]: server,

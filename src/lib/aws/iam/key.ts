@@ -10,12 +10,12 @@ import { CustomResourceOptions } from '@pulumi/pulumi';
  */
 export const createKey = (
   userName: string,
-  { pulumiOptions }: { readonly pulumiOptions?: CustomResourceOptions }
+  { pulumiOptions }: { readonly pulumiOptions?: CustomResourceOptions },
 ): aws.iam.AccessKey =>
   new aws.iam.AccessKey(
     'aws-access-key-' + userName,
     {
       user: userName,
     },
-    pulumiOptions
+    pulumiOptions,
   );

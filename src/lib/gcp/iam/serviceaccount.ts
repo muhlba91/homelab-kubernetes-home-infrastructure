@@ -21,7 +21,7 @@ export const createServiceAccount = (
   }: {
     readonly roles?: readonly string[];
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): google.iam.v1.ServiceAccount => {
   const user = new google.iam.v1.ServiceAccount(
     'gcp-sa-' + name,
@@ -30,7 +30,7 @@ export const createServiceAccount = (
       displayName: name,
       project: project,
     },
-    pulumiOptions
+    pulumiOptions,
   );
 
   if (roles) {

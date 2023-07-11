@@ -18,7 +18,7 @@ export const createGitHubSshKey = (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): Output<string> => {
   const keyName = `gh-ssh-key-${repository}-${name}`;
 
@@ -30,7 +30,7 @@ export const createGitHubSshKey = (
       title: name,
       key: key.publicKeyOpenssh,
     },
-    pulumiOptions
+    pulumiOptions,
   );
 
   return key.privateKeyOpenssh;

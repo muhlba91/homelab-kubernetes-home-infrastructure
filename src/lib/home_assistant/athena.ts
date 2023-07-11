@@ -28,7 +28,7 @@ export const createAthenaWorkgroup = async ({
   writeToDoppler(
     'GRAFANA_ATHENA_WORKGROUP',
     workgroup.workgroup.name,
-    clusterConfig.name + '-cluster-home-assistant'
+    clusterConfig.name + '-cluster-home-assistant',
   );
 
   return workgroup;
@@ -68,7 +68,7 @@ const createWorkgroup = ({
       forceDestroy: true,
       tags: commonLabels,
     },
-    pulumiOptions
+    pulumiOptions,
   );
 
   const workgroup = new aws.athena.Workgroup(
@@ -90,7 +90,7 @@ const createWorkgroup = ({
       },
       tags: commonLabels,
     },
-    pulumiOptions
+    pulumiOptions,
   );
 
   return {

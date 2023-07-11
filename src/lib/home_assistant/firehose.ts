@@ -34,7 +34,7 @@ export const createFirehose = async ({
   writeToDoppler(
     'TELEGRAF_FIREHOSE_DELIVERY_STREAM',
     deliveryStream.name,
-    clusterConfig.name + '-cluster-home-assistant'
+    clusterConfig.name + '-cluster-home-assistant',
   );
 
   return deliveryStream.arn;
@@ -72,7 +72,7 @@ const createLambdaRole = ({
         .then((doc) => doc.json),
       tags: commonLabels,
     },
-    pulumiOptions
+    pulumiOptions,
   );
 
   new aws.iam.RolePolicyAttachment(
@@ -80,7 +80,7 @@ const createLambdaRole = ({
     {
       role: lambdaRole.name,
       policyArn: aws.iam.ManagedPolicy.AWSLambdaBasicExecutionRole,
-    }
+    },
   );
 
   return lambdaRole.arn;
@@ -109,14 +109,14 @@ const createLambda = ({
       publish: true,
       code: new AssetArchive({
         'processor.py': new FileAsset(
-          './assets/home_assistant/firehose/processor/processor.py'
+          './assets/home_assistant/firehose/processor/processor.py',
         ),
       }),
       handler: 'processor.lambda_handler',
       runtime: 'python3.10',
       tags: commonLabels,
     },
-    pulumiOptions
+    pulumiOptions,
   );
 
   return lambdaProcessor.arn;
@@ -135,7 +135,7 @@ const createDeliveryStreamRole = (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): Output<string> => {
   const firehoseRole = new aws.iam.Role(
     'aws-role-homeassistant-firehose',
@@ -158,7 +158,7 @@ const createDeliveryStreamRole = (
         .then((doc) => doc.json),
       tags: commonLabels,
     },
-    pulumiOptions
+    pulumiOptions,
   );
 
   const firehosePolicy = lambdaArn.apply(
@@ -197,8 +197,8 @@ const createDeliveryStreamRole = (
             .then((doc) => doc.json),
           tags: commonLabels,
         },
-        pulumiOptions
-      )
+        pulumiOptions,
+      ),
   );
 
   firehosePolicy.apply(
@@ -214,8 +214,8 @@ const createDeliveryStreamRole = (
           dependsOn: (
             (pulumiOptions?.dependsOn ?? []) as readonly Resource[]
           ).concat(policy, firehoseRole),
-        }
-      )
+        },
+      ),
   );
 
   return firehoseRole.arn;
@@ -234,7 +234,7 @@ const createDeliveryStream = (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): aws.kinesis.FirehoseDeliveryStream => {
   const firehoseRoleArn = createDeliveryStreamRole(lambdaArn, {
     pulumiOptions: pulumiOptions,
@@ -248,13 +248,13 @@ const createDeliveryStream = (
     {
       parameterName: 'BufferIntervalInSeconds',
       parameterValue: Output.create(
-        homeAssistantConfig.firehose.lambda.buffer.interval.toString()
+        homeAssistantConfig.firehose.lambda.buffer.interval.toString(),
       ),
     },
     {
       parameterName: 'BufferSizeInMBs',
       parameterValue: Output.create(
-        homeAssistantConfig.firehose.lambda.buffer.size.toString()
+        homeAssistantConfig.firehose.lambda.buffer.size.toString(),
       ),
     },
   ];
@@ -301,7 +301,7 @@ const createDeliveryStream = (
         },
       },
       tags: commonLabels,
-    }
+    },
   );
 
   return deliveryStream;

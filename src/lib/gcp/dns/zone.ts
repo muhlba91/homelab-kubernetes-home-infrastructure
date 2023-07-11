@@ -16,12 +16,12 @@ export const getZone = async (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): Promise<google.dns.v1.GetManagedZoneResult> =>
   await google.dns.v1.getManagedZone(
     {
       managedZone: name,
       project: project,
     },
-    pulumiOptions
+    pulumiOptions,
   );

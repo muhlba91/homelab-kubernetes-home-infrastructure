@@ -22,7 +22,7 @@ export const createGCPServiceAccountAndKey = (
   }: {
     readonly roles?: readonly string[];
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): ServiceAccountData => {
   const accountName = name + '-home-' + environment;
   const serviceAccount = createServiceAccount(accountName, project, {

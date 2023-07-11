@@ -17,7 +17,7 @@ export const createExternalDNSResources = async (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): Promise<void> => {
   const roles = ['roles/dns.admin'];
   const iam = createGCPServiceAccountAndKey('external-dns', project, {
@@ -28,6 +28,6 @@ export const createExternalDNSResources = async (
   writeToDoppler(
     'GCP_CREDENTIALS',
     iam.key.privateKey,
-    clusterConfig.name + '-cluster-external-dns'
+    clusterConfig.name + '-cluster-external-dns',
   );
 };

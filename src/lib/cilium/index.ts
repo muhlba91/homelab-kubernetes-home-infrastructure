@@ -20,7 +20,7 @@ export const deployCilium = ({
     renderTemplate('assets/helm/cilium.yml.j2', {
       k0s: k0sConfig,
     }),
-    {}
+    {},
   );
   new local.Command(
     'helm-cilium',
@@ -34,6 +34,6 @@ export const deployCilium = ({
         HELM_CHART_NAME: 'cilium',
       },
     },
-    pulumiOptions
+    pulumiOptions,
   );
 };

@@ -12,12 +12,12 @@ import { CustomResourceOptions, Output } from '@pulumi/pulumi';
 export const createKey = (
   name: string,
   serviceAccountId: string | Output<string>,
-  { pulumiOptions }: { readonly pulumiOptions?: CustomResourceOptions }
+  { pulumiOptions }: { readonly pulumiOptions?: CustomResourceOptions },
 ): gcp.serviceaccount.Key =>
   new gcp.serviceaccount.Key(
     'gcp-sa-key-' + name,
     {
       serviceAccountId: serviceAccountId,
     },
-    pulumiOptions
+    pulumiOptions,
   );

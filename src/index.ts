@@ -45,8 +45,8 @@ export = async () => {
     createClusterResources(
       clusterConfig,
       userPasswordPlain,
-      sshPublicKey.trim()
-    )
+      sshPublicKey.trim(),
+    ),
   );
 
   // Write cluster output files
@@ -71,9 +71,9 @@ export = async () => {
         nodeLabels: nodeLabels,
         argocd: argocdConfig,
         argocdAdminPassword: hashSync(argocdAdminPassword.password, 10),
-      })
+      }),
     ),
-    {}
+    {},
   );
   writeFilePulumiAndUploadToS3(
     'inventory.yml',
@@ -82,9 +82,9 @@ export = async () => {
         username: username,
         clusterNodes: Object.values(servers),
         ufw: ufwConfig,
-      })
+      }),
     ),
-    {}
+    {},
   );
 
   // Kubernetes cloud resources
@@ -95,7 +95,7 @@ export = async () => {
 
   // k0sctl cluster creation
   const kubeConfig = all([clusterData.servers]).apply(([servers]) =>
-    createCluster(Object.values(servers), {})
+    createCluster(Object.values(servers), {}),
   );
   all([clusterData.servers, kubeConfig, ksopsKey, argocdPassword]).apply(
     async ([servers, k8sConfig, credentials, argocdAdminPassword]) => {
@@ -112,9 +112,9 @@ export = async () => {
           pulumiOptions: {
             dependsOn: Object.values(servers).map((server) => server.resource),
           },
-        }
+        },
       );
-    }
+    },
   );
   writeFilePulumiAndUploadToS3('admin.conf', kubeConfig, {});
 
@@ -132,7 +132,7 @@ export = async () => {
 const writeFilePulumiAndUploadToS3 = (
   name: string,
   content: Output<string>,
-  { permissions = '0644' }: { readonly permissions?: string }
+  { permissions = '0644' }: { readonly permissions?: string },
 ): Output<unknown> => {
   const path = 'outputs/' + name;
   return writeFilePulumi(path, content, {
@@ -142,7 +142,7 @@ const writeFilePulumiAndUploadToS3 = (
       bucketId,
       'cluster/' + clusterConfig.name + '/' + environment + '/' + name,
       path,
-      {}
+      {},
     );
   });
 };

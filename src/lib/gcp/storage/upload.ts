@@ -20,7 +20,7 @@ export const uploadToS3 = (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ) => {
   new gcp.storage.BucketObject(
     's3-object-' + bucket + '-' + key.replace(/[^a-z0-9]/gi, '-'),
@@ -30,6 +30,6 @@ export const uploadToS3 = (
       source: new FileAsset(file),
       metadata: commonLabels,
     },
-    pulumiOptions
+    pulumiOptions,
   );
 };

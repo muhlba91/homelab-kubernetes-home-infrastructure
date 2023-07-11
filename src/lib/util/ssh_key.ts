@@ -15,7 +15,7 @@ export const createSSHKey = (
     rsaBits = 4096,
   }: {
     readonly rsaBits?: number;
-  }
+  },
 ): PrivateKey =>
   new PrivateKey('ssh-key-' + name + '-' + environment, {
     algorithm: 'RSA',

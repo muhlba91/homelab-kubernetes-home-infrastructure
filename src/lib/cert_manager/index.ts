@@ -17,7 +17,7 @@ export const createCertManagerResources = async (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): Promise<void> => {
   const roles = ['roles/dns.admin'];
   const iam = createGCPServiceAccountAndKey('cert-manager', project, {
@@ -28,6 +28,6 @@ export const createCertManagerResources = async (
   writeToDoppler(
     'GCP_CREDENTIALS',
     iam.key.privateKey,
-    clusterConfig.name + '-cluster-cert-manager'
+    clusterConfig.name + '-cluster-cert-manager',
   );
 };

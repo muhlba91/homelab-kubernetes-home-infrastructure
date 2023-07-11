@@ -15,7 +15,7 @@ import { _createServers } from './servers';
 export const createClusterResources = (
   clusterConfig: ClusterConfig,
   userPassword: string,
-  sshPublicKey: string
+  sshPublicKey: string,
 ): ClusterData => {
   const servers = _createServers(clusterConfig, userPassword, sshPublicKey);
 
@@ -34,13 +34,13 @@ export const createClusterResources = (
  * @returns {StringMap<readonly string[]>} the mapping
  */
 const _createRolesToNodes = (
-  clusterConfig: ClusterConfig
+  clusterConfig: ClusterConfig,
 ): StringMap<readonly string[]> =>
   Object.fromEntries(
     Object.entries(clusterConfig.nodes).map(([name, node]) => [
       name,
       node.roles,
-    ])
+    ]),
   );
 
 /**
@@ -58,5 +58,5 @@ const _createNodeLabels = (clusterConfig: ClusterConfig): StringMap<string> =>
             .map(([key, value]) => `${key}=${value}`)
             .join(',') + ','
         : '') + `hostname=${name}`,
-    ])
+    ]),
   );

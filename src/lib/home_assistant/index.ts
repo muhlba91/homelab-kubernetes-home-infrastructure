@@ -19,7 +19,7 @@ export const createHomeAssistantResources = async (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): Promise<void> => {
   await createGCPKey(gcpProject, { pulumiOptions: pulumiOptions });
 

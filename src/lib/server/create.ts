@@ -34,7 +34,7 @@ export const createServer = (
   hostname: string,
   userPassword: string,
   sshPublicKey: string,
-  server: ServerConfig
+  server: ServerConfig,
 ): ServerData => {
   const vendorConfig = new proxmox.storage.File(
     'vendor-config-' + prefix + '-' + hostname + '-' + environment,
@@ -56,7 +56,7 @@ export const createServer = (
     },
     {
       provider: provider,
-    }
+    },
   );
 
   const machine = new proxmox.vm.VirtualMachine(
@@ -146,7 +146,7 @@ export const createServer = (
         'cdrom',
         'efiDisk',
       ],
-    }
+    },
   );
   return {
     resource: machine,

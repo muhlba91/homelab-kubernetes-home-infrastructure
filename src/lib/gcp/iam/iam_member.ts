@@ -19,7 +19,7 @@ export const createIAMMember = (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ) => {
   roles.forEach(
     (role) =>
@@ -30,7 +30,7 @@ export const createIAMMember = (
           role: role,
           project: gcpConfig.project,
         },
-        pulumiOptions
-      )
+        pulumiOptions,
+      ),
   );
 };

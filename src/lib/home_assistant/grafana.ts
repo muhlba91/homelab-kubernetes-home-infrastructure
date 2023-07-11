@@ -24,7 +24,7 @@ export const createGrafanaAWSAccessKey = async (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): Promise<void> => {
   const policies = createAWSPolicies(glueDatabaseArn, athenaWorkgroup, {
     pulumiOptions: pulumiOptions,
@@ -33,19 +33,19 @@ export const createGrafanaAWSAccessKey = async (
     createAWSIamUserAndKey('home-assistant-grafana', {
       policies: iamPolicies,
       pulumiOptions: pulumiOptions,
-    })
+    }),
   );
 
   writeToDoppler(
     'GRAFANA_AWS_ACCESS_KEY_ID',
     iam.accessKey.id,
-    clusterConfig.name + '-cluster-home-assistant'
+    clusterConfig.name + '-cluster-home-assistant',
   );
 
   writeToDoppler(
     'GRAFANA_AWS_SECRET_ACCESS_KEY',
     iam.accessKey.secret,
-    clusterConfig.name + '-cluster-home-assistant'
+    clusterConfig.name + '-cluster-home-assistant',
   );
 };
 
@@ -63,7 +63,7 @@ const createAWSPolicies = (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): Output<aws.iam.Policy[]> => {
   return all([
     glueDatabaseArn,
@@ -84,7 +84,7 @@ const createAWSPolicies = (
                   `${databaseArn}/*`,
                   `${databaseArn.substring(
                     0,
-                    databaseArn.lastIndexOf(':')
+                    databaseArn.lastIndexOf(':'),
                   )}:catalog`,
                 ],
               },
@@ -104,7 +104,7 @@ const createAWSPolicies = (
                   `${databaseArn.replace(':database/', ':table/')}/*`,
                   `${databaseArn.substring(
                     0,
-                    databaseArn.lastIndexOf(':')
+                    databaseArn.lastIndexOf(':'),
                   )}:catalog`,
                 ],
               },
@@ -124,7 +124,7 @@ const createAWSPolicies = (
           .then((doc) => doc.json),
         tags: commonLabels,
       },
-      pulumiOptions
+      pulumiOptions,
     ),
     new aws.iam.Policy(
       'aws-policy-homeassistant-grafana-athena-data',
@@ -145,7 +145,7 @@ const createAWSPolicies = (
           .then((doc) => doc.json),
         tags: commonLabels,
       },
-      pulumiOptions
+      pulumiOptions,
     ),
     new aws.iam.Policy(
       'aws-policy-homeassistant-grafana-athena-workgroup',
@@ -200,7 +200,7 @@ const createAWSPolicies = (
           .then((doc) => doc.json),
         tags: commonLabels,
       },
-      pulumiOptions
+      pulumiOptions,
     ),
   ]);
 };

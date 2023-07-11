@@ -17,7 +17,7 @@ export const createKSopsResources = async (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): Promise<Output<string>> => {
   const iam = createGCPServiceAccountAndKey('ksops-gcp', project, {
     pulumiOptions: pulumiOptions,
@@ -28,8 +28,8 @@ export const createKSopsResources = async (
       `${gcpConfig.encryptionKey.location}/${gcpConfig.encryptionKey.keyringId}/${gcpConfig.encryptionKey.cryptoKeyId}`,
       `serviceAccount:${email}`,
       'roles/cloudkms.cryptoKeyEncrypterDecrypter',
-      { pulumiOptions: pulumiOptions }
-    )
+      { pulumiOptions: pulumiOptions },
+    ),
   );
 
   return iam.key.privateKey;

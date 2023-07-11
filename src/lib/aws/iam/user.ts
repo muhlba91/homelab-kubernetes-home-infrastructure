@@ -19,14 +19,14 @@ export const createUser = (
   }: {
     readonly policies?: readonly aws.iam.Policy[];
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): aws.iam.User => {
   const user = new aws.iam.User(
     'aws-user-' + name,
     {
       tags: commonLabels,
     },
-    pulumiOptions
+    pulumiOptions,
   );
 
   policies?.forEach((policy) =>
@@ -43,9 +43,9 @@ export const createUser = (
             dependsOn: (
               (pulumiOptions?.dependsOn ?? []) as readonly Resource[]
             ).concat(user, policy),
-          }
-        )
-    )
+          },
+        ),
+    ),
   );
 
   return user;

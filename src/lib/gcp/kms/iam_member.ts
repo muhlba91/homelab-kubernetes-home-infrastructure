@@ -17,7 +17,7 @@ export const createIAMMember = (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ) => {
   new gcp.kms.CryptoKeyIAMMember(
     'gcp-kms-iam-member-' +
@@ -29,6 +29,6 @@ export const createIAMMember = (
       role: role,
       member: member,
     },
-    pulumiOptions
+    pulumiOptions,
   );
 };

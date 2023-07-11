@@ -21,7 +21,7 @@ export const createAWSIamUserAndKey = (
   }: {
     readonly policies?: readonly aws.iam.Policy[];
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): IamUserData => {
   const accountName = name + '-home-' + environment;
   const user = createUser(accountName, {
@@ -36,7 +36,7 @@ export const createAWSIamUserAndKey = (
           (pulumiOptions?.dependsOn ?? []) as readonly Resource[]
         ).concat(user),
       },
-    })
+    }),
   );
   return {
     user: user,

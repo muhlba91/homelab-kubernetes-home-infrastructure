@@ -17,7 +17,7 @@ export const createTelegrafAWSAccessKey = async (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): Promise<void> => {
   const policies = createAWSPolicies(firehoseDeliveryStreamArn, {
     pulumiOptions: pulumiOptions,
@@ -26,19 +26,19 @@ export const createTelegrafAWSAccessKey = async (
     createAWSIamUserAndKey('home-assistant-telegraf', {
       policies: iamPolicies,
       pulumiOptions: pulumiOptions,
-    })
+    }),
   );
 
   writeToDoppler(
     'TELEGRAF_AWS_ACCESS_KEY_ID',
     iam.accessKey.id,
-    clusterConfig.name + '-cluster-home-assistant'
+    clusterConfig.name + '-cluster-home-assistant',
   );
 
   writeToDoppler(
     'TELEGRAF_AWS_SECRET_ACCESS_KEY',
     iam.accessKey.secret,
-    clusterConfig.name + '-cluster-home-assistant'
+    clusterConfig.name + '-cluster-home-assistant',
   );
 };
 
@@ -54,7 +54,7 @@ const createAWSPolicies = (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ): Output<aws.iam.Policy[]> => {
   return firehoseStreamArn.apply((firehoseArn) => [
     new aws.iam.Policy(
@@ -78,7 +78,7 @@ const createAWSPolicies = (
           .then((doc) => doc.json),
         tags: commonLabels,
       },
-      pulumiOptions
+      pulumiOptions,
     ),
   ]);
 };

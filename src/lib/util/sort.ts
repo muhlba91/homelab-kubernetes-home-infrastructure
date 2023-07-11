@@ -24,7 +24,7 @@ export const sortString = (a: string, b: string) => {
  */
 export const sortServerData = (
   a: ServerData | UnwrappedObject<ServerData>,
-  b: ServerData | UnwrappedObject<ServerData>
+  b: ServerData | UnwrappedObject<ServerData>,
 ) => sortString(a.hostname, b.hostname);
 
 /**
@@ -34,5 +34,5 @@ export const sortServerData = (
  * @returns {number} the comparison result
  */
 export const sortedServerData = (
-  array: readonly ServerData[] | UnwrappedObject<readonly ServerData[]>
+  array: readonly ServerData[] | UnwrappedObject<readonly ServerData[]>,
 ) => array.map((server) => server).sort(sortServerData);

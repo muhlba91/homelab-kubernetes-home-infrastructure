@@ -22,7 +22,7 @@ export const deploySecrets = async (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ) => {
   deployAdminPasswordSecrets(argocdAdminPassword, provider, {
     pulumiOptions: pulumiOptions,
@@ -47,7 +47,7 @@ const deployAdminPasswordSecrets = (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ) => {
   new k8s.core.v1.Secret(
     'k8s-secret-argocd-admin-password',
@@ -63,7 +63,7 @@ const deployAdminPasswordSecrets = (
     {
       ...pulumiOptions,
       provider: provider,
-    }
+    },
   );
 };
 
@@ -81,7 +81,7 @@ const deployKsopsSecrets = (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ) => {
   new k8s.core.v1.Secret(
     'k8s-secret-ksops',
@@ -97,7 +97,7 @@ const deployKsopsSecrets = (
     {
       ...pulumiOptions,
       provider: provider,
-    }
+    },
   );
 };
 
@@ -113,12 +113,12 @@ export const deployRepositorySecrets = async (
     pulumiOptions,
   }: {
     readonly pulumiOptions?: CustomResourceOptions;
-  }
+  },
 ) => {
   const githubSshKey = createGitHubSshKey(
     'argocd-' + clusterConfig.name + '-cluster',
     argocdConfig.valuesRepository.repository,
-    { pulumiOptions: pulumiOptions }
+    { pulumiOptions: pulumiOptions },
   );
 
   const applicationsRepository = (
@@ -143,7 +143,7 @@ export const deployRepositorySecrets = async (
     {
       ...pulumiOptions,
       provider: provider,
-    }
+    },
   );
 
   const valuesRepository = (
@@ -169,6 +169,6 @@ export const deployRepositorySecrets = async (
     {
       ...pulumiOptions,
       provider: provider,
-    }
+    },
   );
 };
