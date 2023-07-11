@@ -55,14 +55,14 @@
     "@types/node" ">=12.12.47"
 
 "@grpc/proto-loader@^0.7.0":
-  version "0.7.7"
-  resolved "https://registry.yarnpkg.com/@grpc/proto-loader/-/proto-loader-0.7.7.tgz#d33677a77eea8407f7c66e2abd97589b60eb4b21"
-  integrity sha512-1TIeXOi8TuSCQprPItwoMymZXxWT0CPxUhkrkeCUH+D8U7QDwQ6b7SUz2MaLuWM2llT+J/TVFLmQI5KtML3BhQ==
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/@grpc/proto-loader/-/proto-loader-0.7.8.tgz#c050bbeae5f000a1919507f195a1b094e218036e"
+  integrity sha512-GU12e2c8dmdXb7XUlOgYWZ2o2i+z9/VeACkxTA/zzAe2IjclC5PnVL0lpgjhrqfpDYHzM8B1TF6pqWegMYAzlA==
   dependencies:
     "@types/long" "^4.0.1"
     lodash.camelcase "^4.3.0"
     long "^4.0.0"
-    protobufjs "^7.0.0"
+    protobufjs "^7.2.4"
     yargs "^17.7.2"
 
 "@humanwhocodes/config-array@^0.11.10":
@@ -334,9 +334,9 @@
     read-package-json "^2.0.13"
 
 "@pulumi/github@^5.9.1":
-  version "5.14.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/github/-/github-5.14.0.tgz#3f25a217e6bb36cf05bb97da0358bf17343435d6"
-  integrity sha512-bzJdr/5yzHj7B/cfRcpIQ+Bwc54TDkViA/yylYzcJ3RCfrXzVq9IMfbPM9UEq+L7ZUcxCL9C1i69fjI+gki16A==
+  version "5.14.1"
+  resolved "https://registry.yarnpkg.com/@pulumi/github/-/github-5.14.1.tgz#8fef2740409d19362673b9cbfa6abc1d94c4d823"
+  integrity sha512-Lm2q5fVYt6A2cFCrr5OIfbMEhsUpkeFv2DAUhtjLtPAXjHKbiGfD3CeCgqD5IkjkuSiUQr3WRi3gJleDW9RkNQ==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
@@ -2409,7 +2409,7 @@ prettier@^3.0.0:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.0.0.tgz#e7b19f691245a21d618c68bc54dc06122f6105ae"
   integrity sha512-zBf5eHpwHOGPC47h0zrPyNn+eAEIdEzfywMoYn2XPi0P44Zp0tSq64rq0xAREh4auw2cJZHo9QUob+NqCQky4g==
 
-protobufjs@^7.0.0:
+protobufjs@^7.2.4:
   version "7.2.4"
   resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-7.2.4.tgz#3fc1ec0cdc89dd91aef9ba6037ba07408485c3ae"
   integrity sha512-AT+RJgD2sH8phPmCf7OUZR8xGdcJRga4+1cOaXJ64hvcSkVhNcRHOwIxUatPH15+nj59WAGTDv3LSGZPEQbJaQ==
