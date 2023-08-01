@@ -47,9 +47,9 @@
   integrity sha512-a8TLtmPi8xzPkCbp/OGFUo5yhRkHM2Ko9kOWP4znJr0WAhWyThaw3PnwX4vOTWOAMsV2uRt32PPDcEz63esSaA==
 
 "@grpc/grpc-js@^1.8.16":
-  version "1.8.20"
-  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.8.20.tgz#03dc316045664299bbf30f0458f5877ebeec5815"
-  integrity sha512-SPse1wE4PcIFojOISsAnrWXCBsCBwDdcDqz2SS0T8nBSxg9jwmCK70Jy7ypRn2nIspwLy3Ls5TNaKNHo+6dF8A==
+  version "1.8.21"
+  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.8.21.tgz#d282b122c71227859bf6c5866f4c40f4a2696513"
+  integrity sha512-KeyQeZpxeEBSqFVTi3q2K7PiPXmgBfECc4updA1ejCLjYmoAlvvM3ZMp5ztTDUCUQmoY3CpDxvchjO1+rFkoHg==
   dependencies:
     "@grpc/proto-loader" "^0.7.0"
     "@types/node" ">=12.12.47"
@@ -307,9 +307,9 @@
     resolve "^1.7.1"
 
 "@pulumi/command@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/command/-/command-0.8.0.tgz#0011c54d02671bad79382e2bf3aacadc6164600e"
-  integrity sha512-aL7W6O0Rjdv1GFDgO4lJ9w+waStYa6/CABBEWkt1bta2KynWnA082yo00EbzOgv072kaQtQmOpQ5LxBSfqHjGA==
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@pulumi/command/-/command-0.8.1.tgz#99f0cb63b81d9bf7d46d10413e0a767d0a6bdc6c"
+  integrity sha512-OgYwT/yIXWxdT3UREFxwWXRRYwcIMybBRB0xxirjc1x2mtbdkt64RUZIZ3pJzC9Cc2s0VclsoXnbxpbKoUiVTA==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
