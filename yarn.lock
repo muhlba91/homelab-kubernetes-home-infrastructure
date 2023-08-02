@@ -47,9 +47,9 @@
   integrity sha512-a8TLtmPi8xzPkCbp/OGFUo5yhRkHM2Ko9kOWP4znJr0WAhWyThaw3PnwX4vOTWOAMsV2uRt32PPDcEz63esSaA==
 
 "@grpc/grpc-js@^1.8.16":
-  version "1.8.21"
-  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.8.21.tgz#d282b122c71227859bf6c5866f4c40f4a2696513"
-  integrity sha512-KeyQeZpxeEBSqFVTi3q2K7PiPXmgBfECc4updA1ejCLjYmoAlvvM3ZMp5ztTDUCUQmoY3CpDxvchjO1+rFkoHg==
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.9.0.tgz#bdb599e339adabb16aa7243e70c311f75a572867"
+  integrity sha512-H8+iZh+kCE6VR/Krj6W28Y/ZlxoZ1fOzsNt77nrdE3knkbSelW1Uus192xOFCxHyeszLj8i4APQkSIXjAoOxXg==
   dependencies:
     "@grpc/proto-loader" "^0.7.0"
     "@types/node" ">=12.12.47"
@@ -314,9 +314,9 @@
     "@pulumi/pulumi" "^3.0.0"
 
 "@pulumi/gcp@^6.55.0":
-  version "6.61.1"
-  resolved "https://registry.yarnpkg.com/@pulumi/gcp/-/gcp-6.61.1.tgz#4300eea5680592a99e2b3386600d9ee3bccd1b8e"
-  integrity sha512-f+rF9p4EYHQx04lkWU/GmrPUJSIzht1r/1xdefJsAkISi+Qx2U3gM6sPAukTuwXFvN6spLibqYSxhX3pNt1Mlw==
+  version "6.62.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/gcp/-/gcp-6.62.0.tgz#6e4e7aa81ec4ab3c877f9f503faaa23a8f86d6a2"
+  integrity sha512-f3EG1pYFQZOyji9+wV+nNFmBCSIUbLTszDJX4AWzdRTcLoD1imUziF3CvClSve/WxubDkNgNN5fhuABWAWP99Q==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
     "@types/express" "^4.16.0"
@@ -519,9 +519,9 @@
     form-data "^3.0.0"
 
 "@types/node@*", "@types/node@>=12.12.47", "@types/node@>=13.7.0":
-  version "20.4.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.4.5.tgz#9dc0a5cb1ccce4f7a731660935ab70b9c00a5d69"
-  integrity sha512-rt40Nk13II9JwQBdeYqmbn2Q6IVTA5uPhvSO+JVqdXw/6/4glI6oR9ezty/A9Hg5u7JH4OmYmuQ+XvjKm0Datg==
+  version "20.4.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.4.6.tgz#b66b66c9bb5d49b199f03399e341c9d6036e9e88"
+  integrity sha512-q0RkvNgMweWWIvSMDiXhflGUKMdIxBo2M2tYM/0kEGDueQByFzK4KZAgu5YHGFNxziTlppNpTIBcqHQAxlfHdA==
 
 "@types/nunjucks@^3.2.2":
   version "3.2.3"
