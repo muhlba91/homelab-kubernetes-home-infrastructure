@@ -311,9 +311,9 @@
     resolve "^1.7.1"
 
 "@pulumi/command@^0.8.0":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@pulumi/command/-/command-0.8.1.tgz#99f0cb63b81d9bf7d46d10413e0a767d0a6bdc6c"
-  integrity sha512-OgYwT/yIXWxdT3UREFxwWXRRYwcIMybBRB0xxirjc1x2mtbdkt64RUZIZ3pJzC9Cc2s0VclsoXnbxpbKoUiVTA==
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@pulumi/command/-/command-0.8.2.tgz#32c579969f8cb8c1814cdec85be0d57ca593cf69"
+  integrity sha512-aXLNfS0ea4/H3Db8Rle3RYNIwCEvdL4Ua3hsR1fdbJuhbP4LAY/ky1gK/oIq89UAZ4NQei4HRQUbdhmZ3CsesQ==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
