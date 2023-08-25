@@ -306,9 +306,9 @@
     resolve "^1.7.1"
 
 "@pulumi/command@^0.8.0":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@pulumi/command/-/command-0.8.1.tgz#99f0cb63b81d9bf7d46d10413e0a767d0a6bdc6c"
-  integrity sha512-OgYwT/yIXWxdT3UREFxwWXRRYwcIMybBRB0xxirjc1x2mtbdkt64RUZIZ3pJzC9Cc2s0VclsoXnbxpbKoUiVTA==
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@pulumi/command/-/command-0.8.2.tgz#32c579969f8cb8c1814cdec85be0d57ca593cf69"
+  integrity sha512-aXLNfS0ea4/H3Db8Rle3RYNIwCEvdL4Ua3hsR1fdbJuhbP4LAY/ky1gK/oIq89UAZ4NQei4HRQUbdhmZ3CsesQ==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
@@ -512,10 +512,15 @@
     "@types/node" "*"
     form-data "^3.0.0"
 
-"@types/node@*", "@types/node@>=12.12.47", "@types/node@>=13.7.0":
+"@types/node@*":
   version "20.5.4"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.5.4.tgz#4666fb40f9974d60c53c4ff554315860ba4feab8"
   integrity sha512-Y9vbIAoM31djQZrPYjpTLo0XlaSwOIsrlfE3LpulZeRblttsLQRFRlBAppW0LOxyT3ALj2M5vU1ucQQayQH3jA==
+
+"@types/node@>=12.12.47", "@types/node@>=13.7.0":
+  version "20.5.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.5.6.tgz#5e9aaa86be03a09decafd61b128d6cec64a5fe40"
+  integrity sha512-Gi5wRGPbbyOTX+4Y2iULQ27oUPrefaB0PxGQJnfyWN3kvEDGM3mIB5M/gQLmitZf7A9FmLeaqxD3L1CXpm3VKQ==
 
 "@types/nunjucks@^3.2.2":
   version "3.2.3"
