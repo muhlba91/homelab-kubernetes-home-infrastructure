@@ -39,7 +39,7 @@ config:
       home-cluster-003:
         cpu: 8
         diskSize: 256
-        host: pve3
+        host: pve2
         ipv4Address: 10.0.80.11
         ipv6Address: 2a01:aea0:dd3:25a:1000:4:1:11
         memory:
