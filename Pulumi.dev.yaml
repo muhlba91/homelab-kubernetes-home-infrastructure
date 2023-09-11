@@ -23,30 +23,6 @@ config:
           min: 4096
         roles:
           - controller+worker
-      home-cluster-002:
-        cpu: 4
-        diskSize: 64
-        host: pve2
-        ipv4Address: 10.0.210.2
-        ipv6Address: 2a01:aea0:dd3:25a:1000:4fff:11:2
-        memory:
-          max: 4096
-          min: 4096
-        roles:
-          - controller+worker
-      home-cluster-003:
-        cpu: 4
-        diskSize: 64
-        host: pve3
-        ipv4Address: 10.0.210.3
-        ipv6Address: 2a01:aea0:dd3:25a:1000:4fff:11:3
-        labels:
-          usb: zwave-controller
-        memory:
-          max: 4096
-          min: 4096
-        roles:
-          - controller+worker
   home_cluster-infrastructure-proxmox:gcp:
     encryptionKey:
       cryptoKeyId: infrastructure-encryption
