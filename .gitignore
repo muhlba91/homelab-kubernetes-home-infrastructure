@@ -189,3 +189,4 @@ build/
 local.env
 outputs/
 gcp-*-key.json
+export.json
