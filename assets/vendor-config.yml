@@ -11,6 +11,7 @@ packages:
 runcmd:
   - DEBIAN_FRONTEND=noninteractive apt-get remove -y linux-image-cloud-amd64 linux-image-*-cloud-amd64
   - systemctl enable qemu-guest-agent
+  - systemctl enable iscsid
 power_state:
     delay: now
     mode: reboot

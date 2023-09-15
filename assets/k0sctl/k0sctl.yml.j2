@@ -20,7 +20,7 @@ spec:
 {%- endfor %}
   k0s:
     version: {{ k0s.version }}
-    dynamicConfig: false
+    dynamicConfig: true
     config:
       apiVersion: k0s.k0sproject.io/v1beta1
       kind: Cluster

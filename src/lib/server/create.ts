@@ -78,19 +78,19 @@ export const createServer = (
       disks: [
         {
           interface: 'scsi0',
-          datastoreId: pveConfig.storagePool[server.host],
+          datastoreId: pveConfig.storagePool,
           fileId: pveConfig.imageName,
           size: server.diskSize,
-          fileFormat: 'qcow2',
+          fileFormat: 'raw',
           ssd: true,
           iothread: true,
           discard: 'on',
         },
       ],
       efiDisk: {
-        datastoreId: pveConfig.storagePool[server.host],
+        datastoreId: pveConfig.storagePool,
         preEnrolledKeys: false,
-        fileFormat: 'qcow2',
+        fileFormat: 'raw',
         type: '4m',
       },
       scsiHardware: 'virtio-scsi-single',
@@ -106,12 +106,15 @@ export const createServer = (
         },
       ],
       onBoot: true,
+      startup: {
+        order: server.startupOrder,
+      },
       operatingSystem: {
         type: 'l26',
       },
       initialization: {
         type: 'nocloud',
-        datastoreId: pveConfig.storagePool[server.host],
+        datastoreId: pveConfig.storagePool,
         vendorDataFileId: vendorConfig.id,
         interface: 'ide2',
         dns: {
@@ -146,6 +149,8 @@ export const createServer = (
         'disks[0].fileFormat',
         'cdrom',
         'efiDisk',
+        'startup.downDelay',
+        'startup.upDelay',
       ],
     },
   );

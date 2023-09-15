@@ -9,8 +9,9 @@ export type K0sConfig = {
 };
 
 /**
- * Defines configuration data for cilium on k0s.
+ * Defines configuration data for a chart on k0s.
  */
 export type K0sChartConfig = {
+  readonly enabled: boolean;
   readonly version: string;
 };

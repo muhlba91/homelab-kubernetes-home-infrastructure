@@ -13,40 +13,19 @@ config:
     name: home
     nodes:
       home-cluster-001:
-        cpu: 8
-        diskSize: 256
-        host: pve1
-        ipv4Address: 10.0.80.1
-        ipv6Address: 2a01:aea0:dd3:25a:1000:4:1:1
+        cpu: 16
+        diskSize: 1024
+        host: pve
+        ipv4Address: 10.0.60.1
+        ipv6Address: 2a01:aea0:dd3:25a:1000:2:1:1
         labels:
           usb: zwave-controller
         memory:
-          max: 16384
-          min: 10240
+          max: 24576
+          min: 24576
         roles:
           - controller+worker
-      home-cluster-002:
-        cpu: 8
-        diskSize: 256
-        host: pve2
-        ipv4Address: 10.0.80.2
-        ipv6Address: 2a01:aea0:dd3:25a:1000:4:1:2
-        memory:
-          max: 16384
-          min: 10240
-        roles:
-          - controller+worker
-      home-cluster-003:
-        cpu: 8
-        diskSize: 256
-        host: pve2
-        ipv4Address: 10.0.80.11
-        ipv6Address: 2a01:aea0:dd3:25a:1000:4:1:11
-        memory:
-          max: 16384
-          min: 10240
-        roles:
-          - controller+worker
+        startupOrder: 20
   home_cluster-infrastructure-proxmox:gcp:
     encryptionKey:
       cryptoKeyId: infrastructure-encryption
@@ -72,11 +51,13 @@ config:
     glue:
       schedule: cron(0 1 1 * ? *)
   home_cluster-infrastructure-proxmox:k0s:
-    apiLoadBalancer: 10.0.80.0
+    apiLoadBalancer: 10.0.79.1
     argocdApps:
-      version: 1.2.0
+      enabled: true
+      version: 1.4.1
     cilium:
-      version: 1.13.1
+      enabled: true
+      version: 1.14.2
     version: v1.27.5+k0s.0
   home_cluster-infrastructure-proxmox:network:
     domain: internal.muehlbachler.io
@@ -95,13 +76,10 @@ config:
       - 2606:4700:4700::1111
   home_cluster-infrastructure-proxmox:pve:
     cpuType: host
-    imageName: local:iso/debian-bullseye-genericcloud.img
+    imageName: local:iso/debian-bookworm-genericcloud.img
     localStoragePool: local
     networkBridge: vmbr0
-    storagePool:
-      pve1: minpool
-      pve2: minpool
-      pve3: minpool
+    storagePool: storage-pool
   home_cluster-infrastructure-proxmox:ufw:
     enabled: false
   home_cluster-infrastructure-proxmox:username: proxmox

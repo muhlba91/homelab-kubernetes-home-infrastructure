@@ -10,6 +10,7 @@ export type ServerConfig = {
   readonly cpuType?: string;
   readonly memory: ServerMemoryConfig;
   readonly diskSize: number;
+  readonly startupOrder: number;
 };
 
 /**

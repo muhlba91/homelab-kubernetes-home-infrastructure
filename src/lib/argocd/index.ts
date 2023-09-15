@@ -39,17 +39,21 @@ export const deployArgoCDResources = async (
   await deploySecrets(ksopsCredentials, argocdAdminPassword, provider, {
     pulumiOptions: pulumiOptions,
   });
-  await deployArgoCD(argocdAdminPassword, { pulumiOptions: pulumiOptions });
+  await deployArgoCD(argocdAdminPassword, provider, {
+    pulumiOptions: pulumiOptions,
+  });
 };
 
 /**
  * Deploys ArgoCD.
  *
  * @param {string} argocdAdminPassword the argocd admin password
+ * @param {k8s.Provider} provider the kubernetes provider
  * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  */
 const deployArgoCD = async (
   argocdAdminPassword: string,
+  provider: k8s.Provider,
   {
     pulumiOptions,
   }: {
@@ -124,11 +128,13 @@ const deployArgoCD = async (
               },
             ],
             syncPolicy: {
-              automated: {
-                prune: false,
-                selfHeal: true,
-                allowEmpty: false,
-              },
+              automated: k0sConfig.argocdApps.enabled
+                ? {
+                    prune: false,
+                    selfHeal: true,
+                    allowEmpty: false,
+                  }
+                : {},
               syncOptions: [
                 'CreateNamespace=false',
                 'FailOnSharedResource=true',
@@ -140,6 +146,7 @@ const deployArgoCD = async (
     },
     {
       ...pulumiOptions,
+      provider: provider,
       dependsOn: (
         (pulumiOptions?.dependsOn ?? []) as readonly Resource[]
       ).concat(helmInstall),

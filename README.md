@@ -94,12 +94,6 @@ cluster:
       ipv6Address: the internal IPv6 address (optional)
       roles: a list of all k0s roles (the first one is chosen!)
       labels: a map of Kubernetes node labels to apply
-  selfManagedNodes: a map of servers to self-managed Hetzner-external nodes
-    <NODE_NAME>:
-      ipv4Address: the public IPv4 address
-      ipv6Address: the public IPv6 address (optional)
-      roles: a list of all k0s roles (the first one is chosen!)
-      labels: a map of Kubernetes node labels to apply
 ```
 
 ### Google Cloud (GCP)
@@ -146,7 +140,7 @@ pve:
   imageName: the reference to the locally installed image
   localStoragePool: the storage pool used for snippets
   networkBridge: the network bridge to use for server connectivity
-  storagePool: a map of Proxmox host names to the storage pool used for machine disks
+  storagePool: the storage pool used for machine disks
 ```
 
 ### k0s
@@ -158,8 +152,10 @@ Additionally, the initial [ArgoCD App-of-Apps Application](https://argo-cd.readt
 k0s:
   version: the k0s Kubernetes version
   argocdApps:
+    enabled: enables automated sync for the applications
     version: the version of the argocd-apps Helm chart to deploy
   cilium:
+    enabled: enables deployment of cilium
     version: the version of the argocd-apps Helm chart to deploy initially
 ```
 
