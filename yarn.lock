@@ -55,9 +55,9 @@
     "@types/node" ">=12.12.47"
 
 "@grpc/proto-loader@^0.7.8":
-  version "0.7.9"
-  resolved "https://registry.yarnpkg.com/@grpc/proto-loader/-/proto-loader-0.7.9.tgz#3ca68236f1a0d77566dafa53c715eb31d096279a"
-  integrity sha512-YJsOehVXzgurc+lLAxYnlSMc1p/Gu6VAvnfx0ATi2nzvr0YZcjhmZDeY8SeAKv1M7zE3aEJH0Xo9mK1iZ8GYoQ==
+  version "0.7.10"
+  resolved "https://registry.yarnpkg.com/@grpc/proto-loader/-/proto-loader-0.7.10.tgz#6bf26742b1b54d0a473067743da5d3189d06d720"
+  integrity sha512-CAqDfoaQ8ykFd9zqBDn4k6iWT9loLAlc2ETmDFS9JCD70gDcnA4L3AFEo2iV7KyAtAAHFW9ftq1Fz+Vsgq80RQ==
   dependencies:
     lodash.camelcase "^4.3.0"
     long "^5.0.0"
@@ -393,9 +393,9 @@
     "@pulumi/pulumi" "^3.0.0"
 
 "@pulumi/tls@^4.10.0":
-  version "4.10.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/tls/-/tls-4.10.0.tgz#f7b256f34c071d40c023cb37126484f467b64a28"
-  integrity sha512-aK1LXJzDbeVYBIlxycUUboZJSjMr2wIkrpngNRrOFPMIyO4QYNzJHWIwRbNkS463hhpbp1it3IC3htEqtP4lzg==
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/tls/-/tls-4.11.0.tgz#80f680a090df8e816cc1e614f7374835c2109938"
+  integrity sha512-avyH8nHoxNAyO8oRyYZ/uhj5KXrCh7OfACV2VtEA5DTq9BmeRMgu3Oi3Rh1iMLvSbfGsUMAIEop3Wbp+R1HS+g==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
