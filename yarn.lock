@@ -305,10 +305,10 @@
     read-package-tree "^5.2.1"
     resolve "^1.7.1"
 
-"@pulumi/command@^0.8.0":
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/@pulumi/command/-/command-0.8.2.tgz#32c579969f8cb8c1814cdec85be0d57ca593cf69"
-  integrity sha512-aXLNfS0ea4/H3Db8Rle3RYNIwCEvdL4Ua3hsR1fdbJuhbP4LAY/ky1gK/oIq89UAZ4NQei4HRQUbdhmZ3CsesQ==
+"@pulumi/command@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/command/-/command-0.9.0.tgz#2acaf52fd7d8bf3b548a71e8cb8d2ea5b29f2983"
+  integrity sha512-Taxy0VL3Pw1hbJpNtWCkgJufG9h/y0/CtR8nLDw9BLA0KlILyDKsW7SBFeTRZMBT1JarYFuSoyNaFCeWRVBvfg==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
