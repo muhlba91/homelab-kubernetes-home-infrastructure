@@ -523,9 +523,9 @@
   integrity sha512-HksnYH4Ljr4VQgEy2lTStbCKv/P590tmPe5HqOnv9Gprffgv5WXAY+Y5Gqniu0GGqeTCUdBnzC3QSrzPkBkAMA==
 
 "@types/nunjucks@^3.2.2":
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/@types/nunjucks/-/nunjucks-3.2.3.tgz#994e68cb575c3ac1be27e6f99543183b3c3605aa"
-  integrity sha512-+lFIql0nbWSftazQ27cOYvSLC92SsfjxrU0I/Iys7hoxrBkN8OF+wmxxzx3bLFyFrLgDZ9lUckGcwldE4SfDQA==
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/@types/nunjucks/-/nunjucks-3.2.4.tgz#3ee12a8fcd2633898f6a40e6f891b845d45f0019"
+  integrity sha512-Ro2d3CROK+QNreS9MgFloCuRyHaLHyxkoiDax97uUWHQQwtKckH11ZvJfRVEuYGcTgJPY7JFwrjK3jRCTRLXwQ==
 
 "@types/qs@*":
   version "6.9.8"
