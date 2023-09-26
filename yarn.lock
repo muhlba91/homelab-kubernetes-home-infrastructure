@@ -107,9 +107,9 @@
   integrity sha512-XGSsWDweP80Fks16lwkAUIr54ICyBs6PsI4mpfTLQaWgEJRtY9xEV+PeyDpJ+sJEGZxqINlpmAwe/6tS1pP8Ng==
 
 "@muhlba91/pulumi-proxmoxve@^5.11.0":
-  version "5.12.1"
-  resolved "https://registry.yarnpkg.com/@muhlba91/pulumi-proxmoxve/-/pulumi-proxmoxve-5.12.1.tgz#923489d4b29d0afa9bf4cbb64dcafd5cdc6329ac"
-  integrity sha512-tF4s+jAvRrf3qIHEzkoRucTH2vLrVt5TOfYxj3Q2jEmjhoHo4ymfIwxUZx9VkySAT13YEiJJ6OhQ8lqrA6+Gdg==
+  version "5.12.2"
+  resolved "https://registry.yarnpkg.com/@muhlba91/pulumi-proxmoxve/-/pulumi-proxmoxve-5.12.2.tgz#80a69eb4fe3072c4e9b6ec14d27d01518eebe7a5"
+  integrity sha512-Ie0ycOxFNjZtahk+S97Xc8ASq6OdV0TfezBazUYfNEAhjf0gCVmUrnfi5ANiCo4GZI3WWW1KmXgPl8oJ5j3N4g==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
@@ -512,10 +512,15 @@
     "@types/node" "*"
     form-data "^4.0.0"
 
-"@types/node@*", "@types/node@>=12.12.47", "@types/node@>=13.7.0":
+"@types/node@*":
   version "20.6.5"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.6.5.tgz#4c6a79adf59a8e8193ac87a0e522605b16587258"
   integrity sha512-2qGq5LAOTh9izcc0+F+dToFigBWiK1phKPt7rNhOqJSr35y8rlIBjDwGtFSgAI6MGIhjwOVNSQZVdJsZJ2uR1w==
+
+"@types/node@>=12.12.47", "@types/node@>=13.7.0":
+  version "20.7.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.7.0.tgz#c03de4572f114a940bc2ca909a33ddb2b925e470"
+  integrity sha512-zI22/pJW2wUZOVyguFaUL1HABdmSVxpXrzIqkjsHmyUjNhPoWM1CKfvVuXfetHhIok4RY573cqS0mZ1SJEnoTg==
 
 "@types/nunjucks@^3.2.2":
   version "3.2.4"
