@@ -107,9 +107,9 @@
   integrity sha512-XGSsWDweP80Fks16lwkAUIr54ICyBs6PsI4mpfTLQaWgEJRtY9xEV+PeyDpJ+sJEGZxqINlpmAwe/6tS1pP8Ng==
 
 "@muhlba91/pulumi-proxmoxve@^5.11.0":
-  version "5.12.2"
-  resolved "https://registry.yarnpkg.com/@muhlba91/pulumi-proxmoxve/-/pulumi-proxmoxve-5.12.2.tgz#80a69eb4fe3072c4e9b6ec14d27d01518eebe7a5"
-  integrity sha512-Ie0ycOxFNjZtahk+S97Xc8ASq6OdV0TfezBazUYfNEAhjf0gCVmUrnfi5ANiCo4GZI3WWW1KmXgPl8oJ5j3N4g==
+  version "5.12.3"
+  resolved "https://registry.yarnpkg.com/@muhlba91/pulumi-proxmoxve/-/pulumi-proxmoxve-5.12.3.tgz#b64152cd3b3a75d2ae8bdc9f8ead21c680aeca7c"
+  integrity sha512-DLJ2L62NWvWTqTXBD7iDHLUyW8OTf89Zc2jRFd/vXrRVg+7Bg+obU/mf6JV2laPUjC37dU+wuQjL67OUJFdTEg==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
