@@ -69,6 +69,7 @@ export = async () => {
         clusterNodes: sortedServerData(Object.values(servers)),
         clusterRoles: rolesToNodes,
         nodeLabels: nodeLabels,
+        featureGates: clusterConfig.featureGates,
         argocd: argocdConfig,
         argocdAdminPassword: hashSync(argocdAdminPassword.password, 10),
       }),

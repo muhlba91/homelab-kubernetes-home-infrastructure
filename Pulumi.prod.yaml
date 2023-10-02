@@ -10,6 +10,8 @@ config:
       repository: muhlba91/homelab-kubernetes-home-values
   home_cluster-infrastructure-proxmox:bucketId: infrastructure-assets-5274ba70-fde0-47de-8e9a-f1bc64c11157
   home_cluster-infrastructure-proxmox:cluster:
+    featureGates:
+      - SidecarContainers
     name: home
     nodes:
       home-cluster-001:
@@ -58,7 +60,7 @@ config:
     cilium:
       enabled: true
       version: 1.14.2
-    version: v1.27.6+k0s.0
+    version: v1.28.2+k0s.0
   home_cluster-infrastructure-proxmox:network:
     domain: internal.muehlbachler.io
     ipv4:

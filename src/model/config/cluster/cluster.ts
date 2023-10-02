@@ -8,4 +8,5 @@ import { ClusterNodeConfig } from './node_data';
 export type ClusterConfig = {
   readonly name: string;
   readonly nodes: StringMap<ClusterNodeConfig>;
+  readonly featureGates?: readonly string[];
 };

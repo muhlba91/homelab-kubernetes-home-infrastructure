@@ -66,6 +66,13 @@ spec:
             peerRouterIPs: ""
         podSecurityPolicy:
           defaultPolicy: 00-k0s-privileged
+{%- if featureGates is defined %}
+        featureGates:
+{%- for gate in featureGates %}
+          - name: {{ gate }}
+            enabled: true
+{%- endfor %}
+{%- endif %}
         storage:
           type: etcd
         telemetry:
