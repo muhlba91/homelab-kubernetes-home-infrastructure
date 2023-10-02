@@ -322,9 +322,9 @@
     read-package-json "^2.0.13"
 
 "@pulumi/github@^5.9.1":
-  version "5.19.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/github/-/github-5.19.0.tgz#27c09eea1bd78b34228c932864fe6c8cffe2df11"
-  integrity sha512-PPVV8DNydKxbfAT1kGDpIf4cwzK5dLFm7pG9ip4bBy37RsvIdhAykQ2CptltyhlkMQOJ3XDGOImFUMxe0MTAOw==
+  version "5.20.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/github/-/github-5.20.0.tgz#6e7a5af50ee7476579f92859d0d10b4c06e8be2d"
+  integrity sha512-WT5CEvWUg3HFR/LqEwr6bAak6C6GdRtyQjV4Ekae0/J7G0ehxb5E5QcL91EltC0JUdEm8TLFFtiT/zsGf9EaHQ==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
@@ -512,10 +512,15 @@
     "@types/node" "*"
     form-data "^4.0.0"
 
-"@types/node@*", "@types/node@>=12.12.47", "@types/node@>=13.7.0":
+"@types/node@*":
   version "20.7.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.7.0.tgz#c03de4572f114a940bc2ca909a33ddb2b925e470"
   integrity sha512-zI22/pJW2wUZOVyguFaUL1HABdmSVxpXrzIqkjsHmyUjNhPoWM1CKfvVuXfetHhIok4RY573cqS0mZ1SJEnoTg==
+
+"@types/node@>=12.12.47", "@types/node@>=13.7.0":
+  version "20.8.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.8.0.tgz#10ddf0119cf20028781c06d7115562934e53f745"
+  integrity sha512-LzcWltT83s1bthcvjBmiBvGJiiUe84NWRHkw+ZV6Fr41z2FbIzvc815dk2nQ3RAKMuN2fkenM/z3Xv2QzEpYxQ==
 
 "@types/nunjucks@^3.2.2":
   version "3.2.4"
