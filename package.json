@@ -39,7 +39,8 @@
     "@pulumi/tls": "^4.10.0",
     "@pulumiverse/doppler": "^0.0.10",
     "bcryptjs": "^2.4.3",
-    "nunjucks": "^3.2.4"
+    "nunjucks": "^3.2.4",
+    "yaml": "^2.3.2"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

@@ -60,7 +60,6 @@ config:
     cilium:
       enabled: true
       version: 1.14.2
-    version: v1.28.2+k0s.0
   home_cluster-infrastructure-proxmox:network:
     domain: internal.muehlbachler.io
     ipv4:

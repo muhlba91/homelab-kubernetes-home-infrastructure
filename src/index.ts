@@ -1,5 +1,9 @@
+import * as fs from 'fs';
+import { setTimeout } from 'timers/promises';
+
 import { all, Output } from '@pulumi/pulumi';
 import { hashSync } from 'bcryptjs';
+import { parse } from 'yaml';
 
 import { deployArgoCDResources } from './lib/argocd';
 import { createCertManagerResources } from './lib/cert_manager';
@@ -21,7 +25,7 @@ import { uploadToS3 } from './lib/gcp/storage/upload';
 import { createHomeAssistantResources } from './lib/home_assistant';
 import { createKSopsResources } from './lib/ksops';
 import { createDir } from './lib/util/create_dir';
-import { writeFilePulumi } from './lib/util/file';
+import { readFileContents, writeFilePulumi } from './lib/util/file';
 import { createRandomPassword } from './lib/util/random';
 import { sortedServerData } from './lib/util/sort';
 import { createSSHKey } from './lib/util/ssh_key';
@@ -95,8 +99,15 @@ export = async () => {
   await createCertManagerResources(gcpConfig.project, {});
 
   // k0sctl cluster creation
+  // eslint-disable-next-line functional/no-loop-statements
+  while (!fs.existsSync('./outputs/k0sctl.yml')) {
+    await setTimeout(1000);
+  }
+  const k0sVersion = parse(readFileContents('./outputs/k0sctl.yml'))['spec'][
+    'k0s'
+  ]['version'];
   const kubeConfig = all([clusterData.servers]).apply(([servers]) =>
-    createCluster(Object.values(servers), {}),
+    createCluster(k0sVersion, Object.values(servers), {}),
   );
   all([clusterData.servers, kubeConfig, ksopsKey, argocdPassword]).apply(
     async ([servers, k8sConfig, credentials, argocdAdminPassword]) => {

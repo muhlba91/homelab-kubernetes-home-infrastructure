@@ -14,11 +14,13 @@ import { k0sConfig } from '../configuration';
 /**
  * Creates the cluster nodes.
  *
+ * @param {string} k0sVersion the k0s version to deploy as found in the YAML
  * @param {UnwrappedObject<ServerData[]>} servers the servers
  * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  * @returns {Output<string>} the kubeconfig
  */
 export const createCluster = (
+  k0sVersion: string,
   servers: UnwrappedObject<readonly ServerData[]>,
   {
     pulumiOptions,
@@ -33,11 +35,7 @@ export const createCluster = (
     {
       create: './assets/k0sctl/apply.sh',
       update: './assets/k0sctl/apply.sh',
-      triggers: [
-        k0sConfig.version,
-        k0sConfig.apiLoadBalancer,
-        ...serverResources,
-      ],
+      triggers: [k0sVersion, k0sConfig.apiLoadBalancer, ...serverResources],
       environment: {
         SSH_KNOWN_HOSTS: '/dev/null',
       },
