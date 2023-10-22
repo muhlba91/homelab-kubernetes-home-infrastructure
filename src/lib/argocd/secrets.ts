@@ -1,9 +1,8 @@
 import * as k8s from '@pulumi/kubernetes';
 import { CustomResourceOptions } from '@pulumi/pulumi';
 
-import { argocdConfig, clusterConfig } from '../configuration';
+import { argocdConfig } from '../configuration';
 import { getGitHubRepository } from '../github/repository';
-import { createGitHubSshKey } from '../github/ssh_key';
 import { b64encode } from '../util/base64';
 
 /**
@@ -115,12 +114,6 @@ export const deployRepositorySecrets = async (
     readonly pulumiOptions?: CustomResourceOptions;
   },
 ) => {
-  const githubSshKey = createGitHubSshKey(
-    'argocd-' + clusterConfig.name + '-cluster',
-    argocdConfig.valuesRepository.repository,
-    { pulumiOptions: pulumiOptions },
-  );
-
   const applicationsRepository = (
     await getGitHubRepository(argocdConfig.applicationsRepository.repository, {
       pulumiOptions: pulumiOptions,
@@ -138,32 +131,6 @@ export const deployRepositorySecrets = async (
       },
       data: {
         url: b64encode(applicationsRepository),
-      },
-    },
-    {
-      ...pulumiOptions,
-      provider: provider,
-    },
-  );
-
-  const valuesRepository = (
-    await getGitHubRepository(argocdConfig.valuesRepository.repository, {
-      pulumiOptions: pulumiOptions,
-    })
-  ).sshCloneUrl;
-  new k8s.core.v1.Secret(
-    'k8s-secret-argocd-repository-values',
-    {
-      metadata: {
-        name: 'argocd-repository-values',
-        namespace: 'argocd',
-        labels: {
-          'argocd.argoproj.io/secret-type': 'repository',
-        },
-      },
-      data: {
-        url: b64encode(valuesRepository),
-        sshPrivateKey: githubSshKey.apply((key) => b64encode(key.trim())),
       },
     },
     {

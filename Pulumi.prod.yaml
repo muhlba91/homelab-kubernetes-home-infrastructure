@@ -5,9 +5,6 @@ config:
     applicationsRepository:
       branch: HEAD
       repository: muhlba91/homelab-kubernetes-home-applications
-    valuesRepository:
-      branch: HEAD
-      repository: muhlba91/homelab-kubernetes-home-values
   home_cluster-infrastructure-proxmox:bucketId: infrastructure-assets-5274ba70-fde0-47de-8e9a-f1bc64c11157
   home_cluster-infrastructure-proxmox:cluster:
     featureGates:

@@ -3,7 +3,6 @@
  */
 export type ArgocdConfig = {
   readonly applicationsRepository: ArgocdRepositoryConfig;
-  readonly valuesRepository: ArgocdRepositoryConfig;
 };
 
 /**
