@@ -11,6 +11,9 @@ permissions:
   id-token: write
   contents: read
 
+env:
+  NODE_OPTIONS: "--max-old-space-size=4096"
+
 jobs:
   preview:
     runs-on: ubuntu-latest
