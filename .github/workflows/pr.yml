@@ -153,6 +153,12 @@ jobs:
           workload_identity_provider: ${{ secrets.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT }}
 
+      - name: AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ secrets.AWS_IDENTITY_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
       - run: |
           npm install -g yarn
 
