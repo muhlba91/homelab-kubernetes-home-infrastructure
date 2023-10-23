@@ -122,9 +122,7 @@ jobs:
           poetry run black --check .
 
   preview:
-    runs-on:
-      - tuxnet
-      - vpn
+    runs-on: ubuntu-latest
     name: Pulumi Preview
     needs:
       - conform
@@ -150,6 +148,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - uses: 'google-github-actions/auth@v1'
+        with:
+          workload_identity_provider: ${{ secrets.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT }}
+
       - run: |
           npm install -g yarn
 
@@ -157,22 +160,25 @@ jobs:
           yarn install
           yarn build
 
+      - uses: tailscale/github-action@v2
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:github-actions
+      
       - uses: pulumi/actions@v4
         with:
           command: preview
           stack-name: prod
           comment-on-pr: true
+          refresh: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
         env:
-          GITHUB_TOKEN: "${{ secrets.GH_PAT_TOKEN }}"
           CLOUDSDK_COMPUTE_REGION: "${{ secrets.CLOUDSDK_COMPUTE_REGION }}"
-          CLOUDSDK_CORE_PROJECT: "${{ secrets.CLOUDSDK_CORE_PROJECT }}"
-          AWS_REGION: "${{ secrets.AWS_REGION }}"
-          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
-          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-          DOPPLER_TOKEN: "${{ secrets.DOPPLER_TOKEN }}"
+          GITHUB_TOKEN: "${{ secrets.GH_PAT_TOKEN }}"
           PULUMI_ACCESS_TOKEN: "${{ secrets.PULUMI_ACCESS_TOKEN }}"
-          GOOGLE_CREDENTIALS: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}"
           PROXMOX_VE_USERNAME: "${{ secrets.PROXMOX_VE_USERNAME }}"
           PROXMOX_VE_PASSWORD: "${{ secrets.PROXMOX_VE_PASSWORD }}"
           PROXMOX_VE_ENDPOINT: "${{ secrets.PROXMOX_VE_ENDPOINT }}"
           PROXMOX_VE_INSECURE: "${{ secrets.PROXMOX_VE_INSECURE }}"
+          AWS_REGION: "${{ secrets.AWS_REGION }}"
+          DOPPLER_TOKEN: "${{ secrets.DOPPLER_TOKEN }}"
