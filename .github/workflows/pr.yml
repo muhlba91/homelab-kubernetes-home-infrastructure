@@ -177,7 +177,7 @@ jobs:
           command: preview
           stack-name: prod
           comment-on-pr: true
-          refresh: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+          # refresh: ${{ github.event.pull_request.head.repo.full_name == github.repository }} # FIXME:
         env:
           CLOUDSDK_COMPUTE_REGION: "${{ secrets.CLOUDSDK_COMPUTE_REGION }}"
           GITHUB_TOKEN: "${{ secrets.GH_PAT_TOKEN }}"
