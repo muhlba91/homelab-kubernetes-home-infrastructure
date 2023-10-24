@@ -335,9 +335,9 @@
     "@pulumi/pulumi" "^3.0.0"
 
 "@pulumi/kubernetes@^4.0.0":
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.5.0.tgz#7d2e5e4268fbc8eed90e392e2c36b704eda3d555"
-  integrity sha512-ymR8sNjloWfsSxYNCq1FH8f+iE/572PPvj7Bh/kwufYm3i1cmhr10cutqZYGdtk6pljeo4W1E/IJtvufZFqJTg==
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.5.1.tgz#eda0b22e548ace2ccb7454af9e5149cb122d5e34"
+  integrity sha512-AczPy3O6LTUn0+gvswhLI7HS0ArPWXCMtxkyl/a5sruiD3BnxTx8Ci+MiH80fxe12iFNPC7o6IYlptlwVdDcsg==
   dependencies:
     "@pulumi/pulumi" "^3.25.0"
     "@types/glob" "^5.0.35"
@@ -348,10 +348,41 @@
     shell-quote "^1.6.1"
     tmp "^0.0.33"
 
-"@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.25.0", "@pulumi/pulumi@^3.65.1":
+"@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.65.1":
   version "3.90.0"
   resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.90.0.tgz#3ca4e6cf9322f97cb382322d25a9b694f62856b8"
   integrity sha512-uO+0DPw52LML7DIOXdjIYtDuD6yoWGqrD+TLUnz7/RqqbGaTNf9rh2b1ZrflI+75qDFpll4QB5qF/3rq/VKsPA==
+  dependencies:
+    "@grpc/grpc-js" "^1.8.16"
+    "@logdna/tail-file" "^2.0.6"
+    "@opentelemetry/api" "^1.2.0"
+    "@opentelemetry/exporter-zipkin" "^1.6.0"
+    "@opentelemetry/instrumentation" "^0.32.0"
+    "@opentelemetry/instrumentation-grpc" "^0.32.0"
+    "@opentelemetry/resources" "^1.6.0"
+    "@opentelemetry/sdk-trace-base" "^1.6.0"
+    "@opentelemetry/sdk-trace-node" "^1.6.0"
+    "@opentelemetry/semantic-conventions" "^1.6.0"
+    "@pulumi/query" "^0.3.0"
+    execa "^5.1.0"
+    google-protobuf "^3.5.0"
+    ini "^2.0.0"
+    js-yaml "^3.14.0"
+    minimist "^1.2.6"
+    normalize-package-data "^3.0.0"
+    pkg-dir "^7.0.0"
+    read-package-tree "^5.3.1"
+    require-from-string "^2.0.1"
+    semver "^7.5.2"
+    source-map-support "^0.5.6"
+    ts-node "^7.0.1"
+    typescript "~3.8.3"
+    upath "^1.1.0"
+
+"@pulumi/pulumi@^3.25.0":
+  version "3.90.1"
+  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.90.1.tgz#dc1c8c2703f25b3a7a2408603b183d2569af39b7"
+  integrity sha512-+uRb3urpCj4wcyRL7AJ6tll6ix4giXreObrwf1Qdlgq8ErKfNvK+UZMt9GhX9yI+8dgAt2hpf066x1F92Ik3xg==
   dependencies:
     "@grpc/grpc-js" "^1.8.16"
     "@logdna/tail-file" "^2.0.6"
