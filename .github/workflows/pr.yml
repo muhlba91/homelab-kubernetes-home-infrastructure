@@ -90,8 +90,8 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: ["3.10"]
-        poetry-version: [1.5.1]
+        python-version: ["3.11"]
+        poetry-version: [1.6.1]
 
     steps:
       - name: Checkout repository
