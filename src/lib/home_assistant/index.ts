@@ -10,18 +10,14 @@ import { createTelegrafAWSAccessKey } from './telegraf';
 /**
  * Creates the Home Assistant resources.
  *
- * @param {string} gcpProject the GCP project
  * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  */
-export const createHomeAssistantResources = async (
-  gcpProject: string,
-  {
-    pulumiOptions,
-  }: {
-    readonly pulumiOptions?: CustomResourceOptions;
-  },
-): Promise<void> => {
-  await createGCPKey(gcpProject, { pulumiOptions: pulumiOptions });
+export const createHomeAssistantResources = async ({
+  pulumiOptions,
+}: {
+  readonly pulumiOptions?: CustomResourceOptions;
+}): Promise<void> => {
+  await createGCPKey({ pulumiOptions: pulumiOptions });
 
   const firehoseDeliveryStreamArn = await createFirehose({
     pulumiOptions: pulumiOptions,

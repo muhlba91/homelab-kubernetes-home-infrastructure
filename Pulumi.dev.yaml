@@ -22,6 +22,7 @@ config:
           - controller+worker
         startupOrder: 200
   home_cluster-infrastructure-proxmox:gcp:
+    dnsProject: muehlbachler-dns
     encryptionKey:
       cryptoKeyId: infrastructure-encryption
       keyringId: infrastructure-encryption

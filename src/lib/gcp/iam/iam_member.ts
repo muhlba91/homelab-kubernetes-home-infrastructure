@@ -9,6 +9,7 @@ import { gcpConfig } from '../../configuration';
  * @param {string} name the name of the account
  * @param {Output<string>} member the name of the member
  * @param {string[]} roles the roles
+ * @param {string} project the GCP project (optional)
  * @param {CustomResourceOptions} pulumiOptions pulumi options (optional)
  */
 export const createIAMMember = (
@@ -16,8 +17,10 @@ export const createIAMMember = (
   member: Output<string>,
   roles: readonly string[],
   {
+    project = gcpConfig.project,
     pulumiOptions,
   }: {
+    readonly project?: string;
     readonly pulumiOptions?: CustomResourceOptions;
   },
 ) => {
@@ -28,7 +31,7 @@ export const createIAMMember = (
         {
           member: member,
           role: role,
-          project: gcpConfig.project,
+          project: project,
         },
         pulumiOptions,
       ),

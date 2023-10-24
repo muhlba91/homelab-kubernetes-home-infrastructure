@@ -15,7 +15,6 @@ import {
   bucketId,
   clusterConfig,
   environment,
-  gcpConfig,
   k0sConfig,
   ufwConfig,
   username,
@@ -93,10 +92,10 @@ export = async () => {
   );
 
   // Kubernetes cloud resources
-  const ksopsKey = await createKSopsResources(gcpConfig.project, {});
-  await createHomeAssistantResources(gcpConfig.project, {});
-  await createExternalDNSResources(gcpConfig.project, {});
-  await createCertManagerResources(gcpConfig.project, {});
+  const ksopsKey = await createKSopsResources({});
+  await createHomeAssistantResources({});
+  await createExternalDNSResources({});
+  await createCertManagerResources({});
 
   // k0sctl cluster creation
   // eslint-disable-next-line functional/no-loop-statements

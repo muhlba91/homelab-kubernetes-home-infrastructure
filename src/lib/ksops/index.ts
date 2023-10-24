@@ -7,19 +7,15 @@ import { createGCPServiceAccountAndKey } from '../util/gcp/service_account_user'
 /**
  * Creates the ksops resources.
  *
- * @param {string} project the project
  * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  * @returns {Promise<Output<string>>} the generated key
  */
-export const createKSopsResources = async (
-  project: string,
-  {
-    pulumiOptions,
-  }: {
-    readonly pulumiOptions?: CustomResourceOptions;
-  },
-): Promise<Output<string>> => {
-  const iam = createGCPServiceAccountAndKey('ksops-gcp', project, {
+export const createKSopsResources = async ({
+  pulumiOptions,
+}: {
+  readonly pulumiOptions?: CustomResourceOptions;
+}): Promise<Output<string>> => {
+  const iam = createGCPServiceAccountAndKey('ksops', gcpConfig.project, {
     pulumiOptions: pulumiOptions,
   });
 

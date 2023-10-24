@@ -62,6 +62,7 @@ const deployAdminPasswordSecrets = (
     {
       ...pulumiOptions,
       provider: provider,
+      deleteBeforeReplace: true,
     },
   );
 };
@@ -96,6 +97,7 @@ const deployKsopsSecrets = (
     {
       ...pulumiOptions,
       provider: provider,
+      deleteBeforeReplace: true,
     },
   );
 };
@@ -136,6 +138,7 @@ export const deployRepositorySecrets = async (
     {
       ...pulumiOptions,
       provider: provider,
+      deleteBeforeReplace: true,
     },
   );
 };

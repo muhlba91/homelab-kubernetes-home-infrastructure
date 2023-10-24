@@ -8,20 +8,20 @@ import { createGCPServiceAccountAndKey } from '../util/gcp/service_account_user'
 /**
  * Creates the Home Assistant GCP key.
  *
- * @param {string} gcpProject the GCP project
  * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  */
-export const createGCPKey = async (
-  gcpProject: string,
-  {
-    pulumiOptions,
-  }: {
-    readonly pulumiOptions?: CustomResourceOptions;
-  },
-): Promise<void> => {
-  const iam = createGCPServiceAccountAndKey('home-assistant-gcp', gcpProject, {
-    pulumiOptions: pulumiOptions,
-  });
+export const createGCPKey = async ({
+  pulumiOptions,
+}: {
+  readonly pulumiOptions?: CustomResourceOptions;
+}): Promise<void> => {
+  const iam = createGCPServiceAccountAndKey(
+    'home-assistant',
+    gcpConfig.project,
+    {
+      pulumiOptions: pulumiOptions,
+    },
+  );
 
   iam.serviceAccount.email.apply((email) =>
     createIAMMember(

@@ -3,6 +3,7 @@
  */
 export type GCPConfig = {
   readonly project: string;
+  readonly dnsProject: string;
   readonly encryptionKey: GCPEncryptionKeyConfig;
 };
 
