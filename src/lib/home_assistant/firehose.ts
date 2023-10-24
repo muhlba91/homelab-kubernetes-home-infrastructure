@@ -113,7 +113,7 @@ const createLambda = ({
         ),
       }),
       handler: 'processor.lambda_handler',
-      runtime: 'python3.10',
+      runtime: 'python3.11',
       tags: commonLabels,
     },
     pulumiOptions,
