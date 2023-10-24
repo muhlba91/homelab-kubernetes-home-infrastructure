@@ -33,7 +33,7 @@ export const createUser = (
     policy.arn.apply(
       (arn) =>
         new aws.iam.UserPolicyAttachment(
-          'aws-user-policy-' + name + '-' + arn,
+          'aws-user-policy-' + name + '-' + arn.replace(/\W+/g, '-'),
           {
             user: user.name,
             policyArn: arn,

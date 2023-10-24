@@ -270,8 +270,8 @@ const createDeliveryStream = (
       extendedS3Configuration: {
         roleArn: firehoseRoleArn,
         bucketArn: homeAssistantConfig.bucketArn,
-        bufferSize: homeAssistantConfig.firehose.buffer.size,
-        bufferInterval: homeAssistantConfig.firehose.buffer.interval,
+        bufferingSize: homeAssistantConfig.firehose.buffer.size,
+        bufferingInterval: homeAssistantConfig.firehose.buffer.interval,
         compressionFormat: homeAssistantConfig.firehose.compression,
         dynamicPartitioningConfiguration: {
           enabled: true,
