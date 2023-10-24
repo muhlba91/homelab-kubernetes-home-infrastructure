@@ -59,7 +59,7 @@ jobs:
         with:
           command: preview
           stack-name: prod
-          # refresh: true # FIXME:
+          refresh: true
         env:
           CLOUDSDK_COMPUTE_REGION: "${{ secrets.CLOUDSDK_COMPUTE_REGION }}"
           GITHUB_TOKEN: "${{ secrets.GH_PAT_TOKEN }}"

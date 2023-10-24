@@ -147,6 +147,7 @@ export const createServer = (
       ignoreChanges: [
         'disks[0].speed',
         'disks[0].fileFormat',
+        'disks[0].pathInDatastore',
         'cdrom',
         'efiDisk',
         'startup.downDelay',
