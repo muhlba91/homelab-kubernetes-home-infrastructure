@@ -336,9 +336,9 @@
     "@pulumi/pulumi" "^3.0.0"
 
 "@pulumi/kubernetes@^4.0.0":
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.4.0.tgz#1bdec77ba2c2116e353c741958f8fcd6613794f7"
-  integrity sha512-JBcIny+aAGCsaWT8ih+Je2EYCU5E+927RvgNEiZqHoB1wQTAAoOb3PGfWEkIiZstZorRFkY3tjpA/lctmk+6SA==
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.5.0.tgz#7d2e5e4268fbc8eed90e392e2c36b704eda3d555"
+  integrity sha512-ymR8sNjloWfsSxYNCq1FH8f+iE/572PPvj7Bh/kwufYm3i1cmhr10cutqZYGdtk6pljeo4W1E/IJtvufZFqJTg==
   dependencies:
     "@pulumi/pulumi" "^3.25.0"
     "@types/glob" "^5.0.35"
@@ -513,9 +513,9 @@
     form-data "^4.0.0"
 
 "@types/node@*", "@types/node@>=12.12.47", "@types/node@>=13.7.0":
-  version "20.8.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.8.7.tgz#ad23827850843de973096edfc5abc9e922492a25"
-  integrity sha512-21TKHHh3eUHIi2MloeptJWALuCu5H7HQTdTrWIFReA8ad+aggoX+lRes3ex7/FtpC+sVUpFMQ+QTfYr74mruiQ==
+  version "20.8.8"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.8.8.tgz#adee050b422061ad5255fc38ff71b2bb96ea2a0e"
+  integrity sha512-YRsdVxq6OaLfmR9Hy816IMp33xOBjfyOgUd77ehqg96CFywxAPbDbXvAsuN2KVg2HOT8Eh6uAfU+l4WffwPVrQ==
   dependencies:
     undici-types "~5.25.1"
 
