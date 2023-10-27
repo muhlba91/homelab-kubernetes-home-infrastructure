@@ -1,0 +1,118 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - gotk-components.yaml
+  - gotk-sync.yaml
+patches:
+  - patch: |
+      # Mount Google Cloud key for KMS key access
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: kustomize-controller
+        namespace: flux-system
+      spec:
+        template:
+          spec:
+            containers:
+              - name: manager
+                env:
+                  - name: GOOGLE_APPLICATION_CREDENTIALS
+                    value: /var/gcp/credentials.json
+                volumeMounts:
+                  - name: gcp-credentials
+                    mountPath: /var/gcp/
+                    readOnly: true
+            volumes:
+              - name: gcp-credentials
+                secret:
+                  secretName: gcp-credentials
+                  items:
+                    - key: credentials.json
+                      path: credentials.json
+    target:
+      kind: Deployment
+      name: kustomize-controller
+  - patch: |
+      # Set custom concurrency
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --concurrent=3
+      # Enable drift detection and correction
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --feature-gates=DetectDrift=true,CorrectDrift=true
+      # Enable OOM watch feature
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --feature-gates=OOMWatch=true
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --oom-watch-memory-threshold=90
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --oom-watch-interval=3s
+      # Set resources
+      - op: replace
+        path: /spec/template/spec/containers/0/resources
+        value:
+          requests:
+            cpu: 20m
+            memory: 192Mi
+          limits:
+            cpu: 1
+            memory: 768Mi
+    target:
+      kind: Deployment
+      name: helm-controller
+  - patch: |
+      # Set custom concurrency
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --concurrent=3
+      # Set resources
+      - op: replace
+        path: /spec/template/spec/containers/0/resources
+        value:
+          requests:
+            cpu: 5m
+            memory: 96Mi
+          limits:
+            cpu: 250m
+            memory: 192Mi
+    target:
+      kind: Deployment
+      name: kustomize-controller
+  - patch: |
+      # Set custom concurrency
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --concurrent=3
+      # Set resources
+      - op: replace
+        path: /spec/template/spec/containers/0/resources
+        value:
+          requests:
+            cpu: 5m
+            memory: 96Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+    target:
+      kind: Deployment
+      name: source-controller
+  - patch: |
+      # Set resources
+      - op: replace
+        path: /spec/template/spec/containers/0/resources
+        value:
+          requests:
+            cpu: 5m
+            memory: 24Mi
+          limits:
+            cpu: 100m
+            memory: 48Mi
+    target:
+      kind: Deployment
+      name: notification-controller

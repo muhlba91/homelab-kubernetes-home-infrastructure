@@ -9,7 +9,7 @@ on:
 
 permissions:
   id-token: write
-  contents: read
+  contents: write
 
 env:
   NODE_OPTIONS: "--max-old-space-size=4096"
@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - uses: 'google-github-actions/auth@v1'
+      - uses: google-github-actions/auth@v1
         with:
           workload_identity_provider: ${{ secrets.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT }}
@@ -101,7 +101,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - uses: 'google-github-actions/auth@v1'
+      - uses: google-github-actions/auth@v1
         with:
           workload_identity_provider: ${{ secrets.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT }}
@@ -110,6 +110,8 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_IDENTITY_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
+
+      - uses: fluxcd/flux2/action@main
 
       - run: |
           npm install -g yarn
@@ -138,6 +140,22 @@ jobs:
           PROXMOX_VE_INSECURE: "${{ secrets.PROXMOX_VE_INSECURE }}"
           AWS_REGION: "${{ secrets.AWS_REGION }}"
           DOPPLER_TOKEN: "${{ secrets.DOPPLER_TOKEN }}"
+
+      - run: |
+          flux bootstrap github \
+            --components source-controller,kustomize-controller,helm-controller,notification-controller \
+            --cluster-domain cluster.local \
+            --owner ${{ github.repository_owner }} \
+            --repository ${{ github.event.repository.name }} \
+            --branch main \
+            --path ./cluster-bootstrap/ \
+            --personal \
+            --interval 5m \
+            --author-name "github-actions[bot]" \
+            --author-email "${{ github.action }}+github-actions[bot]@users.noreply.github.com"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GH_PAT_TOKEN }}"
+          KUBECONFIG: "outputs/admin.conf"
 
   triggers:
     runs-on: ubuntu-latest

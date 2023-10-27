@@ -125,11 +125,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Pulumi Preview
     needs:
-      - conform
       - lint
-      - audit
       - build
-      - firehose-processor
     permissions:
       id-token: write
       contents: read
@@ -148,7 +145,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - uses: 'google-github-actions/auth@v1'
+      - uses: google-github-actions/auth@v1
         with:
           workload_identity_provider: ${{ secrets.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT }}

@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import { setTimeout } from 'timers/promises';
 
+import * as kubernetes from '@pulumi/kubernetes';
 import { all, Output } from '@pulumi/pulumi';
 import { hashSync } from 'bcryptjs';
 import { parse } from 'yaml';
@@ -20,6 +21,7 @@ import {
   username,
 } from './lib/configuration';
 import { createExternalDNSResources } from './lib/external_dns';
+import { createFluxResources } from './lib/flux';
 import { uploadToS3 } from './lib/gcp/storage/upload';
 import { createHomeAssistantResources } from './lib/home_assistant';
 import { createKSopsResources } from './lib/ksops';
@@ -108,15 +110,24 @@ export = async () => {
   const kubeConfig = all([clusterData.servers]).apply(([servers]) =>
     createCluster(k0sVersion, Object.values(servers), {}),
   );
-  all([clusterData.servers, kubeConfig, ksopsKey, argocdPassword]).apply(
-    async ([servers, k8sConfig, credentials, argocdAdminPassword]) => {
+  all([clusterData.servers, ksopsKey, argocdPassword]).apply(
+    async ([servers, credentials, argocdAdminPassword]) => {
+      const kubernetesProvider = new kubernetes.Provider(
+        clusterConfig.name + '-cluster',
+        {
+          kubeconfig: kubeConfig,
+        },
+      );
+
       deployCilium({
         pulumiOptions: {
           dependsOn: Object.values(servers).map((server) => server.resource),
         },
       });
+
+      createFluxResources(kubernetesProvider);
       await deployArgoCDResources(
-        k8sConfig,
+        kubernetesProvider,
         credentials,
         argocdAdminPassword.password,
         {

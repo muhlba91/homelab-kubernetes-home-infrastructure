@@ -1,13 +1,8 @@
 import { local } from '@pulumi/command';
-import * as k8s from '@pulumi/kubernetes';
+import * as kubernetes from '@pulumi/kubernetes';
 import { CustomResourceOptions, Resource } from '@pulumi/pulumi';
 
-import {
-  argocdConfig,
-  clusterConfig,
-  environment,
-  k0sConfig,
-} from '../configuration';
+import { argocdConfig, environment, k0sConfig } from '../configuration';
 import { getGitHubRepository } from '../github/repository';
 import { writeFileContents } from '../util/file';
 import { renderTemplate } from '../util/template';
@@ -23,7 +18,7 @@ import { deploySecrets } from './secrets';
  * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  */
 export const deployArgoCDResources = async (
-  kubeConfig: string,
+  provider: kubernetes.Provider,
   ksopsCredentials: string,
   argocdAdminPassword: string,
   {
@@ -32,10 +27,6 @@ export const deployArgoCDResources = async (
     readonly pulumiOptions?: CustomResourceOptions;
   },
 ) => {
-  const provider = new k8s.Provider(clusterConfig.name + '-cluster', {
-    kubeconfig: kubeConfig,
-  });
-
   await deploySecrets(ksopsCredentials, argocdAdminPassword, provider, {
     pulumiOptions: pulumiOptions,
   });
@@ -53,7 +44,7 @@ export const deployArgoCDResources = async (
  */
 const deployArgoCD = async (
   argocdAdminPassword: string,
-  provider: k8s.Provider,
+  provider: kubernetes.Provider,
   {
     pulumiOptions,
   }: {
@@ -88,68 +79,71 @@ const deployArgoCD = async (
       pulumiOptions: pulumiOptions,
     })
   ).httpCloneUrl;
-  new k8s.helm.v3.Release(
-    'argocd-cluster-applications-' + environment,
-    {
-      chart: 'argocd-apps',
-      namespace: 'argocd',
-      name: 'argocd-cluster-applications-' + environment,
-      repositoryOpts: {
-        repo: 'https://argoproj.github.io/argo-helm',
-      },
-      version: k0sConfig.argocdApps.version,
-      cleanupOnFail: false,
-      dependencyUpdate: false,
-      values: {
-        applications: [
-          {
-            name: 'cluster-applications',
-            namespace: 'argocd',
-            project: 'default',
-            additionalLabels: {},
-            additionalAnnotations: {},
-            revisionHistoryLimit: 1,
-            finalizers: ['resources-finalizer.argocd.argoproj.io'],
-            destination: {
-              namespace: 'argocd',
-              server: 'https://kubernetes.default.svc',
-            },
-            sources: [
-              {
-                repoURL: applicationsRepository,
-                targetRevision: argocdConfig.applicationsRepository.branch,
-                path: 'library/charts/applications',
-                helm: {
-                  valueFiles: [
-                    '/app-of-apps/values.yaml',
-                    '/app-of-apps/values-' + environment + '.yaml',
-                  ],
-                },
-              },
-            ],
-            syncPolicy: {
-              automated: k0sConfig.argocdApps.enabled
-                ? {
-                    prune: false,
-                    selfHeal: true,
-                    allowEmpty: false,
-                  }
-                : {},
-              syncOptions: [
-                'CreateNamespace=false',
-                'FailOnSharedResource=true',
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      ...pulumiOptions,
-      provider: provider,
-      dependsOn: (
-        (pulumiOptions?.dependsOn ?? []) as readonly Resource[]
-      ).concat(helmInstall),
-    },
-  );
+  // new kubernetes.helm.v3.Release(
+  //   'argocd-cluster-applications-' + environment,
+  //   {
+  //     chart: 'argocd-apps',
+  //     namespace: 'argocd',
+  //     name: 'argocd-cluster-applications-' + environment,
+  //     repositoryOpts: {
+  //       repo: 'https://argoproj.github.io/argo-helm',
+  //     },
+  //     version: k0sConfig.argocdApps.version,
+  //     cleanupOnFail: false,
+  //     dependencyUpdate: false,
+  //     values: {
+  //       applications: [
+  //         {
+  //           name: 'cluster-applications',
+  //           namespace: 'argocd',
+  //           project: 'default',
+  //           additionalLabels: {},
+  //           additionalAnnotations: {},
+  //           revisionHistoryLimit: 1,
+  //           finalizers: ['resources-finalizer.argocd.argoproj.io'],
+  //           destination: {
+  //             namespace: 'argocd',
+  //             server: 'https://kubernetes.default.svc',
+  //           },
+  //           sources: [
+  //             {
+  //               repoURL: applicationsRepository,
+  //               targetRevision: argocdConfig.applicationsRepository.branch,
+  //               path: 'library/charts/applications',
+  //               helm: {
+  //                 valueFiles: [
+  //                   '/app-of-apps/values.yaml',
+  //                   '/app-of-apps/values-' + environment + '.yaml',
+  //                 ],
+  //               },
+  //             },
+  //           ],
+  //           syncPolicy: {
+  //             automated: k0sConfig.argocdApps.enabled
+  //               ? {
+  //                   prune: false,
+  //                   selfHeal: true,
+  //                   allowEmpty: false,
+  //                 }
+  //               : {},
+  //             syncOptions: [
+  //               'CreateNamespace=false',
+  //               'FailOnSharedResource=true',
+  //             ],
+  //           },
+  //         },
+  //       ],
+  //     },
+  //   },
+  //   {
+  //     ...pulumiOptions,
+  //     provider: provider,
+  //     dependsOn: (
+  //       (pulumiOptions?.dependsOn ?? []) as readonly Resource[]
+  //     ).concat(helmInstall),
+  //     ignoreChanges:[
+  //       "compat","allowNullValues","atomic","checksum",
+  //     ]
+  //   },
+  // );
 };
