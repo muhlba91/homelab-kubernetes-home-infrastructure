@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import { setTimeout } from 'timers/promises';
 
 import * as kubernetes from '@pulumi/kubernetes';
-import { all, Output } from '@pulumi/pulumi';
+import { all } from '@pulumi/pulumi';
 import { parse } from 'yaml';
 
 import { createCertManagerResources } from './lib/cert_manager';
@@ -10,32 +10,30 @@ import { deployCilium } from './lib/cilium';
 import { createClusterResources } from './lib/cluster';
 import { createCluster } from './lib/cluster/k0sctl';
 import {
-  bucketId,
   clusterConfig,
   environment,
+  globalName,
   k0sConfig,
   ufwConfig,
   username,
 } from './lib/configuration';
 import { createExternalDNSResources } from './lib/external_dns';
 import { createFluxResources } from './lib/flux';
-import { uploadToS3 } from './lib/gcp/storage/upload';
 import { createHomeAssistantResources } from './lib/home_assistant';
 import { createDir } from './lib/util/create_dir';
-import { readFileContents, writeFilePulumi } from './lib/util/file';
+import { readFileContents } from './lib/util/file';
 import { createRandomPassword } from './lib/util/random';
 import { sortedServerData } from './lib/util/sort';
 import { createSSHKey } from './lib/util/ssh_key';
+import { writeFilePulumiAndUploadToS3 } from './lib/util/storage';
 import { renderTemplate } from './lib/util/template';
 
 export = async () => {
   createDir('outputs');
 
-  // Server access
+  // Servers
   const userPassword = createRandomPassword('server', {});
   const sshKey = createSSHKey('home', {});
-
-  // Cluster servers
   const clusterData = all([
     userPassword.password,
     sshKey.publicKeyOpenssh,
@@ -47,7 +45,7 @@ export = async () => {
     ),
   );
 
-  // Write cluster output files
+  // Write output files for the cluster
   writeFilePulumiAndUploadToS3('ssh.key', sshKey.privateKeyPem, {
     permissions: '0600',
   });
@@ -60,7 +58,7 @@ export = async () => {
     ]).apply(([servers, rolesToNodes, nodeLabels]) =>
       renderTemplate('assets/k0sctl/k0sctl.yml.j2', {
         environment: environment,
-        clusterName: clusterConfig.name,
+        clusterName: globalName,
         k0s: k0sConfig,
         username: username,
         clusterNodes: sortedServerData(Object.values(servers)),
@@ -84,9 +82,9 @@ export = async () => {
   );
 
   // Kubernetes cloud resources
-  await createHomeAssistantResources({});
-  await createExternalDNSResources({});
-  await createCertManagerResources({});
+  createHomeAssistantResources();
+  createExternalDNSResources();
+  createCertManagerResources();
 
   // k0sctl cluster creation
   // eslint-disable-next-line functional/no-loop-statements
@@ -101,7 +99,7 @@ export = async () => {
   );
   clusterData.servers.apply((servers) => {
     const kubernetesProvider = new kubernetes.Provider(
-      clusterConfig.name + '-cluster',
+      `${globalName}-cluster`,
       {
         kubeconfig: kubeConfig,
       },
@@ -117,31 +115,11 @@ export = async () => {
   });
   writeFilePulumiAndUploadToS3('admin.conf', kubeConfig, {});
 
-  return {};
-};
-
-/**
- * Writes the pulumi Output to a file and uploads it to S3.
- *
- * @param {string} name the name of the file
- * @param {Output<string>} content the content
- * @param {string} permissions the permissions (default: 0644)
- * @returns {Output<unknown>} to track state
- */
-const writeFilePulumiAndUploadToS3 = (
-  name: string,
-  content: Output<string>,
-  { permissions = '0644' }: { readonly permissions?: string },
-): Output<unknown> => {
-  const path = 'outputs/' + name;
-  return writeFilePulumi(path, content, {
-    permissions: permissions,
-  }).apply(() => {
-    uploadToS3(
-      bucketId,
-      'cluster/' + clusterConfig.name + '/' + environment + '/' + name,
-      path,
-      {},
-    );
-  });
+  return {
+    cluster: {
+      configuration: {
+        kubeconfig: kubeConfig,
+      },
+    },
+  };
 };

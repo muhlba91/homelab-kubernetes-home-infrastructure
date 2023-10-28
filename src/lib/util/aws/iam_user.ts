@@ -1,10 +1,9 @@
 import * as aws from '@pulumi/aws';
-import { CustomResourceOptions, Resource } from '@pulumi/pulumi';
 
 import { IamUserData } from '../../../model/aws/iam_user_data';
 import { createKey } from '../../aws/iam/key';
 import { createUser } from '../../aws/iam/user';
-import { environment } from '../../configuration';
+import { environment, globalName } from '../../configuration';
 
 /**
  * Creates a new user and key.
@@ -17,27 +16,15 @@ export const createAWSIamUserAndKey = (
   name: string,
   {
     policies,
-    pulumiOptions,
   }: {
     readonly policies?: readonly aws.iam.Policy[];
-    readonly pulumiOptions?: CustomResourceOptions;
   },
 ): IamUserData => {
-  const accountName = name + '-home-' + environment;
+  const accountName = `${name}-${globalName}-${environment}`;
   const user = createUser(accountName, {
     policies: policies,
-    pulumiOptions: pulumiOptions,
   });
-  const key = user.name.apply((userName) =>
-    createKey(userName, {
-      pulumiOptions: {
-        ...pulumiOptions,
-        dependsOn: (
-          (pulumiOptions?.dependsOn ?? []) as readonly Resource[]
-        ).concat(user),
-      },
-    }),
-  );
+  const key = user.name.apply((userName) => createKey(userName, user));
   return {
     user: user,
     accessKey: key,

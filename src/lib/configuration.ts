@@ -1,7 +1,7 @@
 import { Config, getStack } from '@pulumi/pulumi';
 
 import { ClusterConfig } from '../model/config/cluster/cluster';
-import { GCPConfig } from '../model/config/gcp';
+import { GCPConfig } from '../model/config/google';
 import { HomeAssistantConfig } from '../model/config/home_assistant';
 import { K0sConfig } from '../model/config/k0s';
 import { NetworkConfig } from '../model/config/network';
@@ -22,7 +22,9 @@ export const homeAssistantConfig =
 export const username = config.require<string>('username');
 export const bucketId = config.require<string>('bucketId');
 
+export const globalName = 'home';
+
 export const commonLabels = {
   environment: environment,
-  cluster: clusterConfig.name,
+  cluster: globalName,
 };

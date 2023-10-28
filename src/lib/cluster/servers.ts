@@ -1,7 +1,8 @@
 import { ClusterConfig } from '../../model/config/cluster/cluster';
 import { StringMap } from '../../model/map';
 import { ServerData } from '../../model/server';
-import { createServer } from '../server/create';
+import { globalName } from '../configuration';
+import { createServer } from '../proxmox/create';
 
 /**
  * Creates the servers.
@@ -11,27 +12,14 @@ import { createServer } from '../server/create';
  * @param {string} sshPublicKey the SSH public key (OpenSSH)
  * @returns {StringMap<ServerData>} the servers
  */
-export const _createServers = (
+export const createServers = (
   clusterConfig: ClusterConfig,
   userPassword: string,
   sshPublicKey: string,
-): StringMap<ServerData> => {
-  // eslint-disable-next-line functional/no-let
-  let servers = <StringMap<ServerData>>{};
-  // eslint-disable-next-line functional/no-loop-statements
-  for (const nodeName in clusterConfig.nodes) {
-    const node = clusterConfig.nodes[nodeName];
-    const server = createServer(
-      clusterConfig.name,
-      nodeName,
-      userPassword,
-      sshPublicKey,
-      node,
-    );
-    servers = {
-      [nodeName]: server,
-      ...servers,
-    };
-  }
-  return servers;
-};
+): StringMap<ServerData> =>
+  Object.fromEntries(
+    Object.entries(clusterConfig.nodes).map(([name, config]) => [
+      name,
+      createServer(globalName, name, userPassword, sshPublicKey, config),
+    ]),
+  );

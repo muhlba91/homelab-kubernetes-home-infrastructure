@@ -1,10 +1,10 @@
 import * as aws from '@pulumi/aws';
-import { CustomResourceOptions, Output, Resource } from '@pulumi/pulumi';
+import { Output } from '@pulumi/pulumi';
 
 import {
-  clusterConfig,
   commonLabels,
   environment,
+  globalName,
   homeAssistantConfig,
 } from '../configuration';
 import { writeToDoppler } from '../util/doppler/secret';
@@ -12,29 +12,24 @@ import { writeToDoppler } from '../util/doppler/secret';
 /**
  * Creates the Home Assistant AWS Glue database.
  *
- * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
- * @returns {Promise<Output<string>>} the database
+ * @returns {Output<string>} the database
  */
-export const createGlueDatabase = async ({
-  pulumiOptions,
-}: {
-  readonly pulumiOptions?: CustomResourceOptions;
-}): Promise<Output<string>> => {
+export const createGlueDatabase = (): Output<string> => {
   const catalogDatabase = new aws.glue.CatalogDatabase(
     'aws-glue-database-home-assistant',
     {
-      name: 'home-assistant-' + environment,
+      name: `home-assistant-${environment}`,
       tags: commonLabels,
     },
-    pulumiOptions,
+    {},
   );
 
-  createGlueCrawler(catalogDatabase.name, { pulumiOptions: pulumiOptions });
+  createGlueCrawler(catalogDatabase.name);
 
   writeToDoppler(
     'GRAFANA_GLUE_DATABASE',
     catalogDatabase.name,
-    clusterConfig.name + '-cluster-home-assistant',
+    `${globalName}-cluster-home-assistant`,
   );
 
   return catalogDatabase.arn;
@@ -44,22 +39,12 @@ export const createGlueDatabase = async ({
  * Creates the Home Assistant AWS Glue crawler.
  *
  * @param {Output<string>} catalogDatabaseName the database name
- * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  * @returns {Promise<Output<string>>} the database
  */
-const createGlueCrawler = (
-  catalogDatabaseName: Output<string>,
-  {
-    pulumiOptions,
-  }: {
-    readonly pulumiOptions?: CustomResourceOptions;
-  },
-) => {
+const createGlueCrawler = (catalogDatabaseName: Output<string>) => {
   const bucketName = homeAssistantConfig.bucketArn.split(':::')[1];
 
-  const crawlerRoleArn = createGlueCrawlerRole({
-    pulumiOptions: pulumiOptions,
-  });
+  const crawlerRoleArn = createGlueCrawlerRole();
   new aws.glue.Crawler(
     'aws-glue-crawler-home-assistant',
     {
@@ -85,21 +70,16 @@ const createGlueCrawler = (
       ],
       tags: commonLabels,
     },
-    pulumiOptions,
+    {},
   );
 };
 
 /**
  * Creates the Home Assistant AWS Glue Crawler IAM Role.
  *
- * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  * @returns {Output<string>} the Role ARN
  */
-const createGlueCrawlerRole = ({
-  pulumiOptions,
-}: {
-  readonly pulumiOptions?: CustomResourceOptions;
-}): Output<string> => {
+const createGlueCrawlerRole = (): Output<string> => {
   const crawlerRole = new aws.iam.Role(
     'aws-role-homeassistant-glue-crawler',
     {
@@ -121,7 +101,7 @@ const createGlueCrawlerRole = ({
         .then((doc) => doc.json),
       tags: commonLabels,
     },
-    pulumiOptions,
+    {},
   );
 
   new aws.iam.RolePolicyAttachment(
@@ -151,7 +131,7 @@ const createGlueCrawlerRole = ({
         .then((doc) => doc.json),
       tags: commonLabels,
     },
-    pulumiOptions,
+    {},
   );
 
   new aws.iam.RolePolicyAttachment(
@@ -161,10 +141,7 @@ const createGlueCrawlerRole = ({
       policyArn: crawlerPolicy.arn,
     },
     {
-      ...pulumiOptions,
-      dependsOn: (
-        (pulumiOptions?.dependsOn ?? []) as readonly Resource[]
-      ).concat(crawlerPolicy, crawlerRole),
+      dependsOn: [crawlerPolicy, crawlerRole],
     },
   );
 

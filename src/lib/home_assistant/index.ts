@@ -1,38 +1,20 @@
-import { CustomResourceOptions } from '@pulumi/pulumi';
-
 import { createAthenaWorkgroup } from './athena';
 import { createFirehose } from './firehose';
-import { createGCPKey } from './gcp';
 import { createGlueDatabase } from './glue';
+import { createGCPKey } from './google';
 import { createGrafanaAWSAccessKey } from './grafana';
 import { createTelegrafAWSAccessKey } from './telegraf';
 
 /**
  * Creates the Home Assistant resources.
- *
- * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  */
-export const createHomeAssistantResources = async ({
-  pulumiOptions,
-}: {
-  readonly pulumiOptions?: CustomResourceOptions;
-}): Promise<void> => {
-  await createGCPKey({ pulumiOptions: pulumiOptions });
+export const createHomeAssistantResources = () => {
+  createGCPKey();
 
-  const firehoseDeliveryStreamArn = await createFirehose({
-    pulumiOptions: pulumiOptions,
-  });
-  await createTelegrafAWSAccessKey(firehoseDeliveryStreamArn, {
-    pulumiOptions: pulumiOptions,
-  });
+  const firehoseDeliveryStreamArn = createFirehose();
+  createTelegrafAWSAccessKey(firehoseDeliveryStreamArn);
 
-  const glueDatabaseArn = await createGlueDatabase({
-    pulumiOptions: pulumiOptions,
-  });
-  const athenaWorkgroup = await createAthenaWorkgroup({
-    pulumiOptions: pulumiOptions,
-  });
-  await createGrafanaAWSAccessKey(athenaWorkgroup, glueDatabaseArn, {
-    pulumiOptions: pulumiOptions,
-  });
+  const glueDatabaseArn = createGlueDatabase();
+  const athenaWorkgroup = createAthenaWorkgroup();
+  createGrafanaAWSAccessKey(athenaWorkgroup, glueDatabaseArn);
 };

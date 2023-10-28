@@ -3,8 +3,8 @@ import * as proxmox from '@muhlba91/pulumi-proxmoxve';
 import { ServerConfig } from '../../model/config/server';
 import { ServerData } from '../../model/server';
 import {
-  clusterConfig,
   environment,
+  globalName,
   networkConfig,
   pveConfig,
   username,
@@ -37,21 +37,14 @@ export const createServer = (
   server: ServerConfig,
 ): ServerData => {
   const vendorConfig = new proxmox.storage.File(
-    'vendor-config-' + prefix + '-' + hostname + '-' + environment,
+    `vendor-config-${prefix}-${hostname}-${environment}`,
     {
       contentType: 'snippets',
       datastoreId: pveConfig.localStoragePool,
       nodeName: server.host,
       sourceRaw: {
         data: readFileContents('assets/vendor-config.yml'),
-        fileName:
-          'vendor-config-' +
-          prefix +
-          '-' +
-          hostname +
-          '-' +
-          environment +
-          '.yml',
+        fileName: `vendor-config-${prefix}-${hostname}-${environment}.yml`,
       },
     },
     {
@@ -60,7 +53,7 @@ export const createServer = (
   );
 
   const machine = new proxmox.vm.VirtualMachine(
-    'vm-' + prefix + '-' + hostname + '-' + environment,
+    `vm-${prefix}-${hostname}-${environment}`,
     {
       nodeName: server.host,
       agent: {
@@ -140,7 +133,7 @@ export const createServer = (
         },
       },
       started: true,
-      tags: [clusterConfig.name + '-cluster', environment].sort(),
+      tags: [`${globalName}-cluster`, environment].sort(),
     },
     {
       provider: provider,

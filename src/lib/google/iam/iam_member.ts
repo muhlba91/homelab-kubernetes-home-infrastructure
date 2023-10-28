@@ -1,7 +1,8 @@
 import * as gcp from '@pulumi/gcp';
-import { CustomResourceOptions, Output } from '@pulumi/pulumi';
+import { Output } from '@pulumi/pulumi';
 
 import { gcpConfig } from '../../configuration';
+import { sanitizeText } from '../../util/string';
 
 /**
  * Defines a new IAM member.
@@ -10,7 +11,6 @@ import { gcpConfig } from '../../configuration';
  * @param {Output<string>} member the name of the member
  * @param {string[]} roles the roles
  * @param {string} project the GCP project (optional)
- * @param {CustomResourceOptions} pulumiOptions pulumi options (optional)
  */
 export const createIAMMember = (
   name: string,
@@ -18,22 +18,20 @@ export const createIAMMember = (
   roles: readonly string[],
   {
     project = gcpConfig.project,
-    pulumiOptions,
   }: {
     readonly project?: string;
-    readonly pulumiOptions?: CustomResourceOptions;
   },
 ) => {
   roles.forEach(
     (role) =>
       new gcp.projects.IAMMember(
-        'gcp-iam-member-' + name + '-' + role.replace(/[^a-z0-9]/gi, '-'),
+        `gcp-iam-member-${name}-${sanitizeText(role)}`,
         {
           member: member,
           role: role,
           project: project,
         },
-        pulumiOptions,
+        {},
       ),
   );
 };

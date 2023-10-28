@@ -5,7 +5,6 @@ config:
   home_cluster-infrastructure-proxmox:cluster:
     featureGates:
       - SidecarContainers
-    name: home
     nodes:
       home-cluster-001:
         cpu: 16

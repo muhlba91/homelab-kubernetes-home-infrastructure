@@ -1,16 +1,11 @@
 import * as aws from '@pulumi/aws';
-import {
-  CustomResourceOptions,
-  interpolate,
-  Output,
-  Resource,
-} from '@pulumi/pulumi';
+import { interpolate, Output } from '@pulumi/pulumi';
 import { AssetArchive, FileAsset } from '@pulumi/pulumi/asset';
 
 import {
-  clusterConfig,
   commonLabels,
   environment,
+  globalName,
   homeAssistantConfig,
 } from '../configuration';
 import { writeToDoppler } from '../util/doppler/secret';
@@ -18,39 +13,58 @@ import { writeToDoppler } from '../util/doppler/secret';
 /**
  * Creates the Home Assistant Kinesis Data Firehose Delivery Stream.
  *
- * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
- * @returns {Promise<Output<string>>} the stream ARN
+ * @returns {Output<string>} the stream ARN
  */
-export const createFirehose = async ({
-  pulumiOptions,
-}: {
-  readonly pulumiOptions?: CustomResourceOptions;
-}): Promise<Output<string>> => {
-  const lambdaProcessorArn = createLambda({ pulumiOptions: pulumiOptions });
-  const deliveryStream = createDeliveryStream(lambdaProcessorArn, {
-    pulumiOptions: pulumiOptions,
-  });
+export const createFirehose = (): Output<string> => {
+  const lambdaProcessorArn = createLambda();
+  const deliveryStream = createDeliveryStream(lambdaProcessorArn);
 
   writeToDoppler(
     'TELEGRAF_FIREHOSE_DELIVERY_STREAM',
     deliveryStream.name,
-    clusterConfig.name + '-cluster-home-assistant',
+    `${globalName}-cluster-home-assistant`,
   );
 
   return deliveryStream.arn;
 };
 
 /**
+ * Creates the Home Assistant Kinesis Data Firehose Processor Lambda.
+ *
+ * @returns {Output<string>} the Lambda ARN
+ */
+const createLambda = (): Output<string> => {
+  const lambdaRoleArn = createLambdaRole();
+
+  const lambdaProcessor = new aws.lambda.Function(
+    'aws-lambda-homeassistant-firehose-processor',
+    {
+      architectures: ['arm64'],
+      role: lambdaRoleArn,
+      memorySize: homeAssistantConfig.firehose.lambda.memory,
+      timeout: homeAssistantConfig.firehose.lambda.timeout,
+      publish: true,
+      code: new AssetArchive({
+        'processor.py': new FileAsset(
+          './assets/home_assistant/firehose/processor/processor.py',
+        ),
+      }),
+      handler: 'processor.lambda_handler',
+      runtime: 'python3.11',
+      tags: commonLabels,
+    },
+    {},
+  );
+
+  return lambdaProcessor.arn;
+};
+
+/**
  * Creates the Home Assistant Kinesis Data Firehose Processor Lambda IAM Role.
  *
- * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  * @returns {Output<string>} the Role ARN
  */
-const createLambdaRole = ({
-  pulumiOptions,
-}: {
-  readonly pulumiOptions?: CustomResourceOptions;
-}): Output<string> => {
+const createLambdaRole = (): Output<string> => {
   const lambdaRole = new aws.iam.Role(
     'aws-role-homeassistant-firehose-lambda',
     {
@@ -72,7 +86,7 @@ const createLambdaRole = ({
         .then((doc) => doc.json),
       tags: commonLabels,
     },
-    pulumiOptions,
+    {},
   );
 
   new aws.iam.RolePolicyAttachment(
@@ -87,55 +101,13 @@ const createLambdaRole = ({
 };
 
 /**
- * Creates the Home Assistant Kinesis Data Firehose Processor Lambda.
- *
- * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
- * @returns {Output<string>} the Lambda ARN
- */
-const createLambda = ({
-  pulumiOptions,
-}: {
-  readonly pulumiOptions?: CustomResourceOptions;
-}): Output<string> => {
-  const lambdaRoleArn = createLambdaRole({ pulumiOptions: pulumiOptions });
-
-  const lambdaProcessor = new aws.lambda.Function(
-    'aws-lambda-homeassistant-firehose-processor',
-    {
-      architectures: ['arm64'],
-      role: lambdaRoleArn,
-      memorySize: homeAssistantConfig.firehose.lambda.memory,
-      timeout: homeAssistantConfig.firehose.lambda.timeout,
-      publish: true,
-      code: new AssetArchive({
-        'processor.py': new FileAsset(
-          './assets/home_assistant/firehose/processor/processor.py',
-        ),
-      }),
-      handler: 'processor.lambda_handler',
-      runtime: 'python3.11',
-      tags: commonLabels,
-    },
-    pulumiOptions,
-  );
-
-  return lambdaProcessor.arn;
-};
-
-/**
  * Creates the Home Assistant Kinesis Data Firehose Delivery Stream IAM Role.
  *
  * @param {Output<string>} lambdaArn the Processor Lambda ARN
- * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  * @returns {Output<string>} the Role ARN
  */
 const createDeliveryStreamRole = (
   lambdaArn: Output<string>,
-  {
-    pulumiOptions,
-  }: {
-    readonly pulumiOptions?: CustomResourceOptions;
-  },
 ): Output<string> => {
   const firehoseRole = new aws.iam.Role(
     'aws-role-homeassistant-firehose',
@@ -158,7 +130,7 @@ const createDeliveryStreamRole = (
         .then((doc) => doc.json),
       tags: commonLabels,
     },
-    pulumiOptions,
+    {},
   );
 
   const firehosePolicy = lambdaArn.apply(
@@ -197,7 +169,7 @@ const createDeliveryStreamRole = (
             .then((doc) => doc.json),
           tags: commonLabels,
         },
-        pulumiOptions,
+        {},
       ),
   );
 
@@ -210,10 +182,7 @@ const createDeliveryStreamRole = (
           policyArn: policy.arn,
         },
         {
-          ...pulumiOptions,
-          dependsOn: (
-            (pulumiOptions?.dependsOn ?? []) as readonly Resource[]
-          ).concat(policy, firehoseRole),
+          dependsOn: [policy, firehoseRole],
         },
       ),
   );
@@ -225,20 +194,12 @@ const createDeliveryStreamRole = (
  * Creates the Home Assistant Kinesis Data Firehose Delivery Stream.
  *
  * @param {Output<string>} lambdaArn the Processor Lambda ARN
- * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  * @returns {aws.kinesis.FirehoseDeliveryStream} the stream
  */
 const createDeliveryStream = (
   lambdaArn: Output<string>,
-  {
-    pulumiOptions,
-  }: {
-    readonly pulumiOptions?: CustomResourceOptions;
-  },
 ): aws.kinesis.FirehoseDeliveryStream => {
-  const firehoseRoleArn = createDeliveryStreamRole(lambdaArn, {
-    pulumiOptions: pulumiOptions,
-  });
+  const firehoseRoleArn = createDeliveryStreamRole(lambdaArn);
 
   const lambdaParameters = [
     {

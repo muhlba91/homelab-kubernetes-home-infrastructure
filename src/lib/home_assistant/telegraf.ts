@@ -1,7 +1,7 @@
 import * as aws from '@pulumi/aws';
-import { CustomResourceOptions, Output } from '@pulumi/pulumi';
+import { Output } from '@pulumi/pulumi';
 
-import { clusterConfig, commonLabels } from '../configuration';
+import { commonLabels, globalName } from '../configuration';
 import { createAWSIamUserAndKey } from '../util/aws/iam_user';
 import { writeToDoppler } from '../util/doppler/secret';
 
@@ -9,36 +9,27 @@ import { writeToDoppler } from '../util/doppler/secret';
  * Creates the Home Assistant Telegraf AWS key.
  *
  * @param {Output<string>} firehoseDeliveryStreamArn the delivery stream ARN
- * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  */
-export const createTelegrafAWSAccessKey = async (
+export const createTelegrafAWSAccessKey = (
   firehoseDeliveryStreamArn: Output<string>,
-  {
-    pulumiOptions,
-  }: {
-    readonly pulumiOptions?: CustomResourceOptions;
-  },
-): Promise<void> => {
-  const policies = createAWSPolicies(firehoseDeliveryStreamArn, {
-    pulumiOptions: pulumiOptions,
-  });
+) => {
+  const policies = createAWSPolicies(firehoseDeliveryStreamArn);
   const iam = policies.apply((iamPolicies) =>
     createAWSIamUserAndKey('home-assistant-telegraf', {
       policies: iamPolicies,
-      pulumiOptions: pulumiOptions,
     }),
   );
 
   writeToDoppler(
     'TELEGRAF_AWS_ACCESS_KEY_ID',
     iam.accessKey.id,
-    clusterConfig.name + '-cluster-home-assistant',
+    `${globalName}-cluster-home-assistant`,
   );
 
   writeToDoppler(
     'TELEGRAF_AWS_SECRET_ACCESS_KEY',
     iam.accessKey.secret,
-    clusterConfig.name + '-cluster-home-assistant',
+    `${globalName}-cluster-home-assistant`,
   );
 };
 
@@ -46,15 +37,9 @@ export const createTelegrafAWSAccessKey = async (
  * Creates the Home Assistant Telegraf AWS policies.
  *
  * @param {Output<string>} firehoseStreamArn the Firehose stream ARN
- * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  */
 const createAWSPolicies = (
   firehoseStreamArn: Output<string>,
-  {
-    pulumiOptions,
-  }: {
-    readonly pulumiOptions?: CustomResourceOptions;
-  },
 ): Output<aws.iam.Policy[]> => {
   return firehoseStreamArn.apply((firehoseArn) => [
     new aws.iam.Policy(
@@ -78,7 +63,7 @@ const createAWSPolicies = (
           .then((doc) => doc.json),
         tags: commonLabels,
       },
-      pulumiOptions,
+      {},
     ),
   ]);
 };

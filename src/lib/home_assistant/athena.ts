@@ -1,11 +1,11 @@
 import * as aws from '@pulumi/aws';
-import { CustomResourceOptions, interpolate } from '@pulumi/pulumi';
+import { interpolate } from '@pulumi/pulumi';
 
 import { AthenaWorkgroupData } from '../../model/aws/athena_workgroup_data';
 import {
-  clusterConfig,
   commonLabels,
   environment,
+  globalName,
   homeAssistantConfig,
 } from '../configuration';
 import { writeToDoppler } from '../util/doppler/secret';
@@ -13,22 +13,15 @@ import { writeToDoppler } from '../util/doppler/secret';
 /**
  * Creates the Home Assistant AWS Athena.
  *
- * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
- * @returns {Promise<AthenaWorkgroupData>} the Athena workgroup
+ * @returns {AthenaWorkgroupData} the Athena workgroup
  */
-export const createAthenaWorkgroup = async ({
-  pulumiOptions,
-}: {
-  readonly pulumiOptions?: CustomResourceOptions;
-}): Promise<AthenaWorkgroupData> => {
-  const workgroup = createWorkgroup({
-    pulumiOptions: pulumiOptions,
-  });
+export const createAthenaWorkgroup = (): AthenaWorkgroupData => {
+  const workgroup = createWorkgroup();
 
   writeToDoppler(
     'GRAFANA_ATHENA_WORKGROUP',
     workgroup.workgroup.name,
-    clusterConfig.name + '-cluster-home-assistant',
+    `${globalName}-cluster-home-assistant`,
   );
 
   return workgroup;
@@ -37,18 +30,13 @@ export const createAthenaWorkgroup = async ({
 /**
  * Creates the Athena workgroup.
  *
- * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  * @returns {AthenaWorkgroupData} the Athena workgroup
  */
-const createWorkgroup = ({
-  pulumiOptions,
-}: {
-  readonly pulumiOptions?: CustomResourceOptions;
-}): AthenaWorkgroupData => {
+const createWorkgroup = (): AthenaWorkgroupData => {
   const resultsBucket = new aws.s3.Bucket(
     'aws-s3-athena-workgroup-home-assistant-results',
     {
-      bucketPrefix: 'home-assistant-athena-results-' + environment,
+      bucketPrefix: `home-assistant-athena-results-${environment}-`,
       serverSideEncryptionConfiguration: {
         rule: {
           applyServerSideEncryptionByDefault: {
@@ -68,13 +56,13 @@ const createWorkgroup = ({
       forceDestroy: true,
       tags: commonLabels,
     },
-    pulumiOptions,
+    {},
   );
 
   const workgroup = new aws.athena.Workgroup(
     'aws-athena-workgroup-home-assistant',
     {
-      name: 'home-assistant-' + environment,
+      name: `home-assistant-${environment}`,
       forceDestroy: true,
       configuration: {
         enforceWorkgroupConfiguration: true,
@@ -90,7 +78,7 @@ const createWorkgroup = ({
       },
       tags: commonLabels,
     },
-    pulumiOptions,
+    {},
   );
 
   return {

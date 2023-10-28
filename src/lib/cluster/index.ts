@@ -2,7 +2,7 @@ import { ClusterData } from '../../model/cluster';
 import { ClusterConfig } from '../../model/config/cluster/cluster';
 import { StringMap } from '../../model/map';
 
-import { _createServers } from './servers';
+import { createServers } from './servers';
 
 /**
  * Creates the cluster nodes.
@@ -17,13 +17,12 @@ export const createClusterResources = (
   userPassword: string,
   sshPublicKey: string,
 ): ClusterData => {
-  const servers = _createServers(clusterConfig, userPassword, sshPublicKey);
+  const servers = createServers(clusterConfig, userPassword, sshPublicKey);
 
   return {
-    name: clusterConfig.name,
     servers: servers,
-    rolesToNodes: _createRolesToNodes(clusterConfig),
-    nodeLabels: _createNodeLabels(clusterConfig),
+    rolesToNodes: createRolesToNodes(clusterConfig),
+    nodeLabels: createNodeLabels(clusterConfig),
   };
 };
 
@@ -33,7 +32,7 @@ export const createClusterResources = (
  * @param {ClusterConfig} clusterConfig the cluster configuration
  * @returns {StringMap<readonly string[]>} the mapping
  */
-const _createRolesToNodes = (
+const createRolesToNodes = (
   clusterConfig: ClusterConfig,
 ): StringMap<readonly string[]> =>
   Object.fromEntries(
@@ -49,7 +48,7 @@ const _createRolesToNodes = (
  * @param {ClusterConfig} clusterConfig the cluster configuration
  * @returns {StringMap<string>} the mapping
  */
-const _createNodeLabels = (clusterConfig: ClusterConfig): StringMap<string> =>
+const createNodeLabels = (clusterConfig: ClusterConfig): StringMap<string> =>
   Object.fromEntries(
     Object.entries(clusterConfig.nodes).map(([name, node]) => [
       name,

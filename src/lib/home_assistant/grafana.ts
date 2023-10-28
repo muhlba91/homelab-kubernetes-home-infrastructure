@@ -1,10 +1,10 @@
 import * as aws from '@pulumi/aws';
-import { all, CustomResourceOptions, Output } from '@pulumi/pulumi';
+import { all, Output } from '@pulumi/pulumi';
 
 import { AthenaWorkgroupData } from '../../model/aws/athena_workgroup_data';
 import {
-  clusterConfig,
   commonLabels,
+  globalName,
   homeAssistantConfig,
 } from '../configuration';
 import { createAWSIamUserAndKey } from '../util/aws/iam_user';
@@ -15,37 +15,28 @@ import { writeToDoppler } from '../util/doppler/secret';
  *
  * @param {AthenaWorkgroupData} athenaWorkgroup the Athena workgroup
  * @param {Output<string>} glueDatabaseArn the Glue database ARN
- * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  */
-export const createGrafanaAWSAccessKey = async (
+export const createGrafanaAWSAccessKey = (
   athenaWorkgroup: AthenaWorkgroupData,
   glueDatabaseArn: Output<string>,
-  {
-    pulumiOptions,
-  }: {
-    readonly pulumiOptions?: CustomResourceOptions;
-  },
-): Promise<void> => {
-  const policies = createAWSPolicies(glueDatabaseArn, athenaWorkgroup, {
-    pulumiOptions: pulumiOptions,
-  });
+) => {
+  const policies = createAWSPolicies(glueDatabaseArn, athenaWorkgroup);
   const iam = policies.apply((iamPolicies) =>
     createAWSIamUserAndKey('home-assistant-grafana', {
       policies: iamPolicies,
-      pulumiOptions: pulumiOptions,
     }),
   );
 
   writeToDoppler(
     'GRAFANA_AWS_ACCESS_KEY_ID',
     iam.accessKey.id,
-    clusterConfig.name + '-cluster-home-assistant',
+    `${globalName}-cluster-home-assistant`,
   );
 
   writeToDoppler(
     'GRAFANA_AWS_SECRET_ACCESS_KEY',
     iam.accessKey.secret,
-    clusterConfig.name + '-cluster-home-assistant',
+    `${globalName}-cluster-home-assistant`,
   );
 };
 
@@ -54,16 +45,10 @@ export const createGrafanaAWSAccessKey = async (
  *
  * @param {Output<string>} glueDatabaseArn the Glue database ARN
  * @param {AthenaWorkgroupData} athenaWorkgroup the Athena workgroup
- * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  */
 const createAWSPolicies = (
   glueDatabaseArn: Output<string>,
   athenaWorkgroup: AthenaWorkgroupData,
-  {
-    pulumiOptions,
-  }: {
-    readonly pulumiOptions?: CustomResourceOptions;
-  },
 ): Output<aws.iam.Policy[]> => {
   return all([
     glueDatabaseArn,
@@ -124,7 +109,7 @@ const createAWSPolicies = (
           .then((doc) => doc.json),
         tags: commonLabels,
       },
-      pulumiOptions,
+      {},
     ),
     new aws.iam.Policy(
       'aws-policy-homeassistant-grafana-athena-data',
@@ -145,7 +130,7 @@ const createAWSPolicies = (
           .then((doc) => doc.json),
         tags: commonLabels,
       },
-      pulumiOptions,
+      {},
     ),
     new aws.iam.Policy(
       'aws-policy-homeassistant-grafana-athena-workgroup',
@@ -200,7 +185,7 @@ const createAWSPolicies = (
           .then((doc) => doc.json),
         tags: commonLabels,
       },
-      pulumiOptions,
+      {},
     ),
   ]);
 };

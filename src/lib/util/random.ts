@@ -19,7 +19,7 @@ export const createRandomPassword = (
   }: { readonly length?: number; readonly special?: boolean },
 ): RandomPasswordData => {
   const password = new RandomPassword(
-    'password-' + name + '-' + environment,
+    `password-${name}-${environment}`,
     {
       length: length,
       special: special,
