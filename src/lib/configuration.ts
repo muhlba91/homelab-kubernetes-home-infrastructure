@@ -1,6 +1,5 @@
 import { Config, getStack } from '@pulumi/pulumi';
 
-import { ArgocdConfig } from '../model/config/argocd';
 import { ClusterConfig } from '../model/config/cluster/cluster';
 import { GCPConfig } from '../model/config/gcp';
 import { HomeAssistantConfig } from '../model/config/home_assistant';
@@ -16,7 +15,6 @@ export const pveConfig = config.requireObject<ProxmoxConfig>('pve');
 export const gcpConfig = config.requireObject<GCPConfig>('gcp');
 export const clusterConfig = config.requireObject<ClusterConfig>('cluster');
 export const k0sConfig = config.requireObject<K0sConfig>('k0s');
-export const argocdConfig = config.requireObject<ArgocdConfig>('argocd');
 export const networkConfig = config.requireObject<NetworkConfig>('network');
 export const ufwConfig = config.requireObject<UFWConfig>('ufw');
 export const homeAssistantConfig =

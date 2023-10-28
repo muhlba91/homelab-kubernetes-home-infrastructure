@@ -3,16 +3,13 @@ import { setTimeout } from 'timers/promises';
 
 import * as kubernetes from '@pulumi/kubernetes';
 import { all, Output } from '@pulumi/pulumi';
-import { hashSync } from 'bcryptjs';
 import { parse } from 'yaml';
 
-import { deployArgoCDResources } from './lib/argocd';
 import { createCertManagerResources } from './lib/cert_manager';
 import { deployCilium } from './lib/cilium';
 import { createClusterResources } from './lib/cluster';
 import { createCluster } from './lib/cluster/k0sctl';
 import {
-  argocdConfig,
   bucketId,
   clusterConfig,
   environment,
@@ -24,7 +21,6 @@ import { createExternalDNSResources } from './lib/external_dns';
 import { createFluxResources } from './lib/flux';
 import { uploadToS3 } from './lib/gcp/storage/upload';
 import { createHomeAssistantResources } from './lib/home_assistant';
-import { createKSopsResources } from './lib/ksops';
 import { createDir } from './lib/util/create_dir';
 import { readFileContents, writeFilePulumi } from './lib/util/file';
 import { createRandomPassword } from './lib/util/random';
@@ -38,9 +34,6 @@ export = async () => {
   // Server access
   const userPassword = createRandomPassword('server', {});
   const sshKey = createSSHKey('home', {});
-
-  // Cluster base service resources
-  const argocdPassword = createRandomPassword('argocd-admin', {});
 
   // Cluster servers
   const clusterData = all([
@@ -64,8 +57,7 @@ export = async () => {
       clusterData.servers,
       clusterData.rolesToNodes,
       clusterData.nodeLabels,
-      argocdPassword,
-    ]).apply(([servers, rolesToNodes, nodeLabels, argocdAdminPassword]) =>
+    ]).apply(([servers, rolesToNodes, nodeLabels]) =>
       renderTemplate('assets/k0sctl/k0sctl.yml.j2', {
         environment: environment,
         clusterName: clusterConfig.name,
@@ -75,8 +67,6 @@ export = async () => {
         clusterRoles: rolesToNodes,
         nodeLabels: nodeLabels,
         featureGates: clusterConfig.featureGates,
-        argocd: argocdConfig,
-        argocdAdminPassword: hashSync(argocdAdminPassword.password, 10),
       }),
     ),
     {},
@@ -94,7 +84,6 @@ export = async () => {
   );
 
   // Kubernetes cloud resources
-  const ksopsKey = await createKSopsResources({});
   await createHomeAssistantResources({});
   await createExternalDNSResources({});
   await createCertManagerResources({});
@@ -107,37 +96,25 @@ export = async () => {
   const k0sVersion = parse(readFileContents('./outputs/k0sctl.yml'))['spec'][
     'k0s'
   ]['version'];
-  const kubeConfig = all([clusterData.servers]).apply(([servers]) =>
+  const kubeConfig = clusterData.servers.apply((servers) =>
     createCluster(k0sVersion, Object.values(servers), {}),
   );
-  all([clusterData.servers, ksopsKey, argocdPassword]).apply(
-    async ([servers, credentials, argocdAdminPassword]) => {
-      const kubernetesProvider = new kubernetes.Provider(
-        clusterConfig.name + '-cluster',
-        {
-          kubeconfig: kubeConfig,
-        },
-      );
+  clusterData.servers.apply((servers) => {
+    const kubernetesProvider = new kubernetes.Provider(
+      clusterConfig.name + '-cluster',
+      {
+        kubeconfig: kubeConfig,
+      },
+    );
 
-      deployCilium({
-        pulumiOptions: {
-          dependsOn: Object.values(servers).map((server) => server.resource),
-        },
-      });
+    deployCilium({
+      pulumiOptions: {
+        dependsOn: Object.values(servers).map((server) => server.resource),
+      },
+    });
 
-      createFluxResources(kubernetesProvider);
-      await deployArgoCDResources(
-        kubernetesProvider,
-        credentials,
-        argocdAdminPassword.password,
-        {
-          pulumiOptions: {
-            dependsOn: Object.values(servers).map((server) => server.resource),
-          },
-        },
-      );
-    },
-  );
+    createFluxResources(kubernetesProvider);
+  });
   writeFilePulumiAndUploadToS3('admin.conf', kubeConfig, {});
 
   return {};

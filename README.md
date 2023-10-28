@@ -55,20 +55,6 @@ The following section describes the configuration which must be set in the Pulum
 
 ***Attention:*** do use [Secrets Encryption](https://www.pulumi.com/docs/concepts/secrets/#:~:text=Pulumi%20never%20sends%20authentication%20secrets,“secrets”%20for%20extra%20protection.) provided by Pulumi for secret values!
 
-### ArgoCD
-
-[ArgoCD](https://argo-cd.readthedocs.io/en/stable/) is deployed to support [GitOps](http://opengitops.dev) style deployments of applications.
-
-```yaml
-argocd:
-  applicationsRepository:
-    branch: the branch to use
-    repository: the GitHub repository containing the applications
-  valuesRepository:
-    branch: the branch to use
-    repository: the GitHub repository containing the application value files
-```
-
 ### Bucket Identifier
 
 ```yaml
@@ -98,7 +84,7 @@ cluster:
 
 ### Google Cloud (GCP)
 
-ArgoCD deployed applications can reference secrets being encrypted with [sops](https://github.com/mozilla/sops).
+Flux deployed applications can reference secrets being encrypted with [sops](https://github.com/mozilla/sops).
 We need to specify, and allow access to this encryption stored in [Google KMS](https://cloud.google.com/security-key-management).
 
 ```yaml
@@ -146,17 +132,14 @@ pve:
 ### k0s
 
 [k0s](http://k0sproject.io) is used as the Kubernetes distribution.
-Additionally, the initial [ArgoCD App-of-Apps Application](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/) is created, and [Cilium](http://cilium.io) as the CNI installed.
+Additionally, [Cilium](http://cilium.io) as the CNI is installed.
 
 ```yaml
 k0s:
   version: the k0s Kubernetes version
-  argocdApps:
-    enabled: enables automated sync for the applications
-    version: the version of the argocd-apps Helm chart to deploy
   cilium:
     enabled: enables deployment of cilium
-    version: the version of the argocd-apps Helm chart to deploy initially
+    version: the version of the cilium Helm chart to deploy initially
 ```
 
 ### Username

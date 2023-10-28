@@ -4,7 +4,6 @@
 export type K0sConfig = {
   readonly apiLoadBalancer: string;
   readonly cilium: K0sChartConfig;
-  readonly argocdApps: K0sChartConfig;
 };
 
 /**

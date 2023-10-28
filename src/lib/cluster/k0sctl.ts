@@ -1,12 +1,7 @@
 import * as fs from 'fs';
 
 import { local } from '@pulumi/command';
-import {
-  CustomResourceOptions,
-  Output,
-  Resource,
-  UnwrappedObject,
-} from '@pulumi/pulumi';
+import { CustomResourceOptions, Output, Resource } from '@pulumi/pulumi';
 
 import { ServerData } from '../../model/server';
 import { k0sConfig } from '../configuration';
@@ -15,13 +10,13 @@ import { k0sConfig } from '../configuration';
  * Creates the cluster nodes.
  *
  * @param {string} k0sVersion the k0s version to deploy as found in the YAML
- * @param {UnwrappedObject<ServerData[]>} servers the servers
+ * @param {ServerData[]} servers the servers
  * @param {CustomResourceOptions} pulumiOptions the pulumi options (optional)
  * @returns {Output<string>} the kubeconfig
  */
 export const createCluster = (
   k0sVersion: string,
-  servers: UnwrappedObject<readonly ServerData[]>,
+  servers: readonly ServerData[],
   {
     pulumiOptions,
   }: {

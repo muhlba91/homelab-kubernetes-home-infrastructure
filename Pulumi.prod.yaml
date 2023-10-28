@@ -1,10 +1,6 @@
 secretsprovider: gcpkms://projects/tuxnet-385112/locations/europe/keyRings/infrastructure-encryption/cryptoKeys/infrastructure-encryption
 encryptedkey: CiQA9PdEcDR9kUapJh5zJ7obNp3tBRFIxaEMnWzboNVMgag5ZfQSSQA2N6cCQ2m7UJhDZ9DmT+rj+nHm1z7/8z/R5/4PH3X0dq8wSQSAK2KUuynQGp+goV0tgsQ12smkPhBUI1NGjVzLuYOi39XW/W8=
 config:
-  home_cluster-infrastructure-proxmox:argocd:
-    applicationsRepository:
-      branch: HEAD
-      repository: muhlba91/homelab-kubernetes-home-applications
   home_cluster-infrastructure-proxmox:bucketId: infrastructure-assets-5274ba70-fde0-47de-8e9a-f1bc64c11157
   home_cluster-infrastructure-proxmox:cluster:
     featureGates:
@@ -52,9 +48,6 @@ config:
       schedule: cron(0 1 1 * ? *)
   home_cluster-infrastructure-proxmox:k0s:
     apiLoadBalancer: 10.0.79.1
-    argocdApps:
-      enabled: true
-      version: 1.4.1
     cilium:
       enabled: true
       version: 1.14.2
