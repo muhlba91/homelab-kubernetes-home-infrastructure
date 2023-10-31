@@ -385,9 +385,9 @@
     "@pulumi/pulumi" "^3.0.0"
 
 "@pulumi/tls@^4.10.0":
-  version "4.11.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/tls/-/tls-4.11.0.tgz#80f680a090df8e816cc1e614f7374835c2109938"
-  integrity sha512-avyH8nHoxNAyO8oRyYZ/uhj5KXrCh7OfACV2VtEA5DTq9BmeRMgu3Oi3Rh1iMLvSbfGsUMAIEop3Wbp+R1HS+g==
+  version "4.11.1"
+  resolved "https://registry.yarnpkg.com/@pulumi/tls/-/tls-4.11.1.tgz#37ebaf32e90314d58cc0f2c172778cc587136432"
+  integrity sha512-etm2mPrkYUWCPPZTfA1Oplx4tNTZL2fRh9RbKuOOrYBnDLnLkvkcJGvPFIG37VJvMdX5BDL51He5zQqSmq1HBQ==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
@@ -504,10 +504,17 @@
     "@types/node" "*"
     form-data "^4.0.0"
 
-"@types/node@*", "@types/node@>=12.12.47", "@types/node@>=13.7.0":
+"@types/node@*":
   version "20.8.9"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.8.9.tgz#646390b4fab269abce59c308fc286dcd818a2b08"
   integrity sha512-UzykFsT3FhHb1h7yD4CA4YhBHq545JC0YnEz41xkipN88eKQtL6rSgocL5tbAP6Ola9Izm/Aw4Ora8He4x0BHg==
+  dependencies:
+    undici-types "~5.26.4"
+
+"@types/node@>=12.12.47", "@types/node@>=13.7.0":
+  version "20.8.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.8.10.tgz#a5448b895c753ae929c26ce85cab557c6d4a365e"
+  integrity sha512-TlgT8JntpcbmKUFzjhsyhGfP2fsiz1Mv56im6enJ905xG1DAYesxJaeSbGqQmAw8OWPdhyJGhGSQGKRNJ45u9w==
   dependencies:
     undici-types "~5.26.4"
 
