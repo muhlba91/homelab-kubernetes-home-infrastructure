@@ -312,9 +312,9 @@
     "@pulumi/pulumi" "^3.0.0"
 
 "@pulumi/gcp@^6.55.0":
-  version "6.67.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/gcp/-/gcp-6.67.0.tgz#6ad5f344816db89c73e1dfefa6a21e54a3194bd2"
-  integrity sha512-HEnUfTJVyafWPHS3y8NIZf09WgXSutfHYL3smP45x6vqdbvx3k8iLfcd0i462v0rxsWUh0PRf6kgFWQcmMpXjA==
+  version "6.67.1"
+  resolved "https://registry.yarnpkg.com/@pulumi/gcp/-/gcp-6.67.1.tgz#6a80a445add3d9255c1b0ff2e01ac07dd05d1963"
+  integrity sha512-/4BQ4j0Yz5VobPRe96o34SZoV1JlJSRlChI0uNx36uq17GHpzSFnQkKTb+nNvK7ujqSoQFIVuy5Ez9pY5uyFiA==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
     "@types/express" "^4.16.0"
