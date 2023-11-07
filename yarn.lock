@@ -512,9 +512,9 @@
     undici-types "~5.26.4"
 
 "@types/nunjucks@^3.2.2":
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/@types/nunjucks/-/nunjucks-3.2.5.tgz#88c820c9052bc19fefc11dfe5be76b5eaeada53d"
-  integrity sha512-P9EakWGTqHpziLO9FMRm98LrVnPoipXGR/iAVF55xYa9SKQq7Brob/JTxGESwkhoNkL7fFvROdUOWNwTceELfw==
+  version "3.2.6"
+  resolved "https://registry.yarnpkg.com/@types/nunjucks/-/nunjucks-3.2.6.tgz#6d6e0363719545df8b9a024279902edf68b2caa9"
+  integrity sha512-pHiGtf83na1nCzliuAdq8GowYiXvH5l931xZ0YEHaLMNFgynpEqx+IPStlu7UaDkehfvl01e4x/9Tpwhy7Ue3w==
 
 "@types/qs@*":
   version "6.9.9"
