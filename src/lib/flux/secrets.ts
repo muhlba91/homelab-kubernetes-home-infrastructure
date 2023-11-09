@@ -20,6 +20,7 @@ export const deploySecrets = (
     },
     {
       provider: provider,
+      protect: false,
     },
   );
 
