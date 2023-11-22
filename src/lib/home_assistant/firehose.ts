@@ -261,7 +261,7 @@ const createDeliveryStream = (
           ],
         },
       },
-      tags: commonLabels,
+      // tags: commonLabels,
     },
   );
 
