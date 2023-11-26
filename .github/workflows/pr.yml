@@ -91,7 +91,7 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: ["3.11"]
-        poetry-version: [1.6.1]
+        poetry-version: [1.7.1]
 
     steps:
       - name: Checkout repository
@@ -118,8 +118,7 @@ jobs:
         working-directory: assets/home_assistant/firehose/processor
         run: |
           poetry check
-          poetry run flakeheaven lint
-          poetry run black --check .
+          poetry run ruff check .
 
   preview:
     runs-on: ubuntu-latest
