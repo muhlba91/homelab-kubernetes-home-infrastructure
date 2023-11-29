@@ -31,7 +31,7 @@
     "@pulumi/aws": "^6.6.0",
     "@pulumi/command": "^0.9.0",
     "@pulumi/gcp": "^7.0.0",
-    "@pulumi/google-native": "^0.31.0",
+    "@pulumi/google-native": "^0.32.0",
     "@pulumi/kubernetes": "^4.0.0",
     "@pulumi/pulumi": "^3.65.1",
     "@pulumi/random": "^4.13.0",
