@@ -320,10 +320,10 @@
     "@types/express" "^4.16.0"
     read-package-json "^2.0.13"
 
-"@pulumi/google-native@^0.31.0":
-  version "0.31.1"
-  resolved "https://registry.yarnpkg.com/@pulumi/google-native/-/google-native-0.31.1.tgz#903a655285b4b6a77acddd4590516023256af174"
-  integrity sha512-cOL3N2nZQbCg3g1sxau/eb/yliUbGAgjewK+VHfrcFyu4Y0NRGtm2KuVs8S+rWKIUHGOEN8Ll2CNWFFrA+nlWg==
+"@pulumi/google-native@^0.32.0":
+  version "0.32.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/google-native/-/google-native-0.32.0.tgz#df5510b54c5bf02ba2012ff5b3756b4785a9f13c"
+  integrity sha512-7PJrCGHhmN/WnscNoImQtJPd1y817F/678KcgT8JhtTo4Af5enFpKXbQP4owoA9ngoJ4s+0lopBJHDbQi528Zw==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
