@@ -384,10 +384,10 @@
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
-"@pulumi/tls@^4.10.0":
-  version "4.11.1"
-  resolved "https://registry.yarnpkg.com/@pulumi/tls/-/tls-4.11.1.tgz#37ebaf32e90314d58cc0f2c172778cc587136432"
-  integrity sha512-etm2mPrkYUWCPPZTfA1Oplx4tNTZL2fRh9RbKuOOrYBnDLnLkvkcJGvPFIG37VJvMdX5BDL51He5zQqSmq1HBQ==
+"@pulumi/tls@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/tls/-/tls-5.0.0.tgz#22ff368d8919d265e993357b7e1ebcbf940d574d"
+  integrity sha512-7n3bV9aTKdyC5yft2oREp3Yww9daPnj8GVuypkoL8LIGlVRefm4gBSjso8t3JjpiJZN1hq99NivQp1e0fJkezw==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
