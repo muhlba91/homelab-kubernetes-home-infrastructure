@@ -328,9 +328,9 @@
     "@pulumi/pulumi" "^3.0.0"
 
 "@pulumi/kubernetes@^4.0.0":
-  version "4.5.5"
-  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.5.5.tgz#1f074c5275fb1e9311c3d7c43e87a719a0ae58b8"
-  integrity sha512-Jjh1QgLL1eH4PUKN+BmvcvqY5PTW36e+XEBOFy4lPFD3YqcV3cHTsmlEiYvMXZyzsYmur/K+V+POFXK0W8ai2g==
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.6.0.tgz#6b5079cae216280ae7be665723a48302e4189d3c"
+  integrity sha512-m6rbB5QQA7rHuD/TrpL5QG71tk2a/wpTU1qdDM5DPcfkXvKmgtgX1K1aNYNdafsMkRCFETEDcJcOIFkxsQ1wyw==
   dependencies:
     "@pulumi/pulumi" "^3.25.0"
     "@types/glob" "^5.0.35"
