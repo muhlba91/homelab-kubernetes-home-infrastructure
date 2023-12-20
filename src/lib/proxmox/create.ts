@@ -98,6 +98,10 @@ export const createServer = (
           model: 'virtio',
         },
       ],
+      usbs: server.usbPassthrough?.map((usb) => ({
+        host: usb.host,
+        usb3: usb.usb3,
+      })),
       onBoot: true,
       startup: {
         order: server.startupOrder,

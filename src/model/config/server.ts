@@ -11,6 +11,7 @@ export type ServerConfig = {
   readonly memory: ServerMemoryConfig;
   readonly diskSize: number;
   readonly startupOrder: number;
+  readonly usbPassthrough?: readonly ServerUsbPassthroughConfig[];
 };
 
 /**
@@ -19,4 +20,12 @@ export type ServerConfig = {
 export type ServerMemoryConfig = {
   readonly min: number;
   readonly max: number;
+};
+
+/**
+ * Defines USB passthrough configuration data for the server.
+ */
+export type ServerUsbPassthroughConfig = {
+  readonly host: string;
+  readonly usb3?: boolean;
 };

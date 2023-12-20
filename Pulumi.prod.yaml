@@ -20,6 +20,8 @@ config:
         roles:
           - controller+worker
         startupOrder: 20
+        usbPassthrough:
+          - host: 0658:0200
   home_cluster-infrastructure-proxmox:gcp:
     dnsProject: muehlbachler-dns
     encryptionKey:
