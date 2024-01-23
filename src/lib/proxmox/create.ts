@@ -117,6 +117,7 @@ export const createServer = (
         dns: {
           domain: networkConfig.domain,
           server: networkConfig.nameservers.join(' '),
+          // servers: networkConfig.nameservers.map((server) => server),
         },
         ipConfigs: [
           {
