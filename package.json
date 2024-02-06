@@ -24,7 +24,7 @@
     "doc:json": "typedoc src/ --exclude **/*.spec.ts --json build/docs/typedoc.json"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "dependencies": {
     "@muhlba91/pulumi-proxmoxve": "^5.11.0",

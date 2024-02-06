@@ -21,7 +21,7 @@ jobs:
     strategy:
       max-parallel: 12
       matrix:
-        node-version: ["16"]
+        node-version: ["18"]
 
     steps:
       - uses: actions/checkout@v4
@@ -79,7 +79,7 @@ jobs:
     strategy:
       max-parallel: 12
       matrix:
-        node-version: ["16"]
+        node-version: ["18"]
 
     steps:
       - uses: actions/checkout@v4
