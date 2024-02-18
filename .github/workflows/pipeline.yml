@@ -93,7 +93,7 @@ jobs:
           rename-to: k0sctl
           chmod: 0755
 
-      - uses: yokawasa/action-setup-kube-tools@v0.9.3
+      - uses: yokawasa/action-setup-kube-tools@v0.10.0
         with:
           setup-tools: helm
 
