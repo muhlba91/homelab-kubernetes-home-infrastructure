@@ -327,9 +327,9 @@
     "@pulumi/pulumi" "^3.0.0"
 
 "@pulumi/kubernetes@^4.0.0":
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.8.0.tgz#b56d1e5d757f1e3500179bc73247cbcc4161294d"
-  integrity sha512-3HCllk/IcGbKZk2eE4KDirrIQ7OcQ5VWXzifAuHw3HNYyOreaouYl+21TX6Mu6Lv9m5NesOOevI2naU9voYY/Q==
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.8.1.tgz#b618a114379c2666ae8e7106fe226bd0a96536a0"
+  integrity sha512-epO776SvEtfzISYnqTdrSNmr+fbNoFszLNsIcvbw4ZhstbTeyJSUkUmcOlwfft5BHg1KF95duGq0+cauhuKTag==
   dependencies:
     "@pulumi/pulumi" "^3.25.0"
     "@types/glob" "^5.0.35"
@@ -576,15 +576,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/semver@^7.5.0":
+"@types/semver@^7.5.0", "@types/semver@^7.5.6":
   version "7.5.8"
   resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.5.8.tgz#8268a8c57a3e4abd25c165ecd36237db7948a55e"
   integrity sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==
-
-"@types/semver@^7.5.6":
-  version "7.5.7"
-  resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.5.7.tgz#326f5fdda70d13580777bcaa1bc6fa772a5aef0e"
-  integrity sha512-/wdoPq1QqkSj9/QOeKkFquEuPzQbHTWAMPH/PaUMB+JuR31lXhlWXRZ52IpfDYVlDOUBvX09uBrPwxGT1hjNBg==
 
 "@types/send@*":
   version "0.17.4"
