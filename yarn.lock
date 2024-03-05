@@ -496,15 +496,14 @@
     "@pulumi/pulumi" "^3.0.0"
 
 "@pulumi/kubernetes@^4.0.0":
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.8.1.tgz#b618a114379c2666ae8e7106fe226bd0a96536a0"
-  integrity sha512-epO776SvEtfzISYnqTdrSNmr+fbNoFszLNsIcvbw4ZhstbTeyJSUkUmcOlwfft5BHg1KF95duGq0+cauhuKTag==
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.9.0.tgz#bca13cc1f5585ef9cfc0dcd046964181527045ea"
+  integrity sha512-aTnHWXnBkBhsVqRg/QktfaOxFICYnkHAQiH+JcwhNWcqJu+JK0paSH88RsDeduQZHv9drCyAg2QnHPQ2q6vjzg==
   dependencies:
     "@pulumi/pulumi" "^3.25.0"
-    "@types/glob" "^5.0.35"
     "@types/node-fetch" "^2.1.4"
     "@types/tmp" "^0.0.33"
-    glob "^7.1.2"
+    glob "^10.3.10"
     node-fetch "^2.3.0"
     shell-quote "^1.6.1"
     tmp "^0.0.33"
@@ -711,14 +710,6 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/glob@^5.0.35":
-  version "5.0.38"
-  resolved "https://registry.yarnpkg.com/@types/glob/-/glob-5.0.38.tgz#20e29f3c6332f6b3329f34711ebb31a03dd74a51"
-  integrity sha512-rTtf75rwyP9G2qO5yRpYtdJ6aU1QqEhWbtW55qEgquEDa6bXW0s2TWZfDm02GuppjEozOWG/F2UnPq5hAQb+gw==
-  dependencies:
-    "@types/minimatch" "*"
-    "@types/node" "*"
-
 "@types/google-protobuf@^3.15.5":
   version "3.15.12"
   resolved "https://registry.yarnpkg.com/@types/google-protobuf/-/google-protobuf-3.15.12.tgz#eb2ba0eddd65712211a2b455dc6071d665ccf49b"
@@ -760,11 +751,6 @@
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.5.tgz#1ef302e01cf7d2b5a0fa526790c9123bf1d06690"
   integrity sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==
-
-"@types/minimatch@*":
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-5.1.2.tgz#07508b45797cb81ec3f273011b054cd0755eddca"
-  integrity sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==
 
 "@types/node-fetch@^2.1.4":
   version "2.6.11"
@@ -2015,7 +2001,7 @@ glob@^10.2.2, glob@^10.3.10:
     minipass "^5.0.0 || ^6.0.2 || ^7.0.0"
     path-scurry "^1.10.1"
 
-glob@^7.1.1, glob@^7.1.2, glob@^7.1.3:
+glob@^7.1.1, glob@^7.1.3:
   version "7.2.3"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.2.3.tgz#b8df0fb802bbfa8e89bd1d938b4e16578ed44f2b"
   integrity sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==
