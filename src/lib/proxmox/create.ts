@@ -143,10 +143,13 @@ export const createServer = (
     {
       provider: provider,
       ignoreChanges: [
+        'disks',
         'disks[0].speed',
         'disks[0].fileFormat',
         'disks[0].pathInDatastore',
         'cdrom',
+        'serialDevices',
+        'vga',
         'efiDisk',
         'startup.downDelay',
         'startup.upDelay',
