@@ -27,7 +27,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@muhlba91/pulumi-proxmoxve": "^5.11.0",
+    "@muhlba91/pulumi-proxmoxve": "^6.0.0",
     "@pulumi/aws": "^6.6.0",
     "@pulumi/command": "^0.9.0",
     "@pulumi/gcp": "^7.0.0",
