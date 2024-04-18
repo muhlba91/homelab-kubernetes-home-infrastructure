@@ -198,6 +198,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: hashicorp/vault-action@v3
+        id: import-secrets
+        with:
+          method: jwt
+          url: ${{ secrets.VAULT_ADDR }}
+          path: ${{ secrets.VAULT_PATH }}
+          role: ${{ secrets.VAULT_ROLE }}
+          secrets: |
+            github-homelab-kubernetes-home-infrastructure/data/github token | GH_PAT_TOKEN
+
       - name: Deploy Services
         uses: benc-uk/workflow-dispatch@v1
         with:
