@@ -8,6 +8,7 @@ import {
   homeAssistantConfig,
 } from '../configuration';
 import { writeToDoppler } from '../util/doppler/secret';
+import { writeToVault } from '../util/vault/secret';
 
 /**
  * Creates the Home Assistant AWS Glue database.
@@ -30,6 +31,12 @@ export const createGlueDatabase = (): Output<string> => {
     'GRAFANA_GLUE_DATABASE',
     catalogDatabase.name,
     `${globalName}-cluster-home-assistant`,
+  );
+
+  writeToVault(
+    'home-assistant-grafana-glue',
+    catalogDatabase.name.apply((name) => JSON.stringify({ database: name })),
+    `kubernetes-${globalName}-cluster`,
   );
 
   return catalogDatabase.arn;

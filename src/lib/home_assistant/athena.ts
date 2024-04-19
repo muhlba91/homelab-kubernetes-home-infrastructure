@@ -9,6 +9,7 @@ import {
   homeAssistantConfig,
 } from '../configuration';
 import { writeToDoppler } from '../util/doppler/secret';
+import { writeToVault } from '../util/vault/secret';
 
 /**
  * Creates the Home Assistant AWS Athena.
@@ -22,6 +23,14 @@ export const createAthenaWorkgroup = (): AthenaWorkgroupData => {
     'GRAFANA_ATHENA_WORKGROUP',
     workgroup.workgroup.name,
     `${globalName}-cluster-home-assistant`,
+  );
+
+  writeToVault(
+    'home-assistant-grafana-athena',
+    workgroup.workgroup.name.apply((name) =>
+      JSON.stringify({ workgroup: name }),
+    ),
+    `kubernetes-${globalName}-cluster`,
   );
 
   return workgroup;

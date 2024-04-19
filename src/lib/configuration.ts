@@ -6,6 +6,7 @@ import { HomeAssistantConfig } from '../model/config/home_assistant';
 import { K0sConfig } from '../model/config/k0s';
 import { NetworkConfig } from '../model/config/network';
 import { ProxmoxConfig } from '../model/config/proxmox';
+import { SecretStoresConfig } from '../model/config/secret_stores';
 import { UFWConfig } from '../model/config/ufw';
 
 export const environment = getStack();
@@ -19,6 +20,8 @@ export const networkConfig = config.requireObject<NetworkConfig>('network');
 export const ufwConfig = config.requireObject<UFWConfig>('ufw');
 export const homeAssistantConfig =
   config.requireObject<HomeAssistantConfig>('homeAssistant');
+export const secretStoresConfig =
+  config.requireObject<SecretStoresConfig>('secretStores');
 export const username = config.require<string>('username');
 export const bucketId = config.require<string>('bucketId');
 

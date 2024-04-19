@@ -33,6 +33,7 @@ config:
     athena:
       bytesScannedCutoffPerQuery: 10000000000
       resultsExpiryInDays: 7
+    backupBucketId: infrastructure-backups-5274ba70-fde0-47de-8e9a-f1bc64c11157
     bucketArn: arn:aws:s3:::home-assistant-5274ba70-fde0-47de-8e9a-f1bc64c11157
     firehose:
       buffer:
@@ -73,6 +74,9 @@ config:
     localStoragePool: local
     networkBridge: vmbr0
     storagePool: storage-pool
+  home_cluster-infrastructure-proxmox:secretStores:
+    doppler: false
+    vault: true
   home_cluster-infrastructure-proxmox:ufw:
     enabled: false
   home_cluster-infrastructure-proxmox:username: proxmox
