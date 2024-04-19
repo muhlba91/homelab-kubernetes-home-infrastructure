@@ -39,6 +39,8 @@ jobs:
           url: ${{ secrets.VAULT_ADDR }}
           path: ${{ secrets.VAULT_PATH }}
           role: ${{ secrets.VAULT_ROLE }}
+          exportToken: true
+          outputToken: true
           secrets: |
             github-homelab-kubernetes-home-infrastructure/data/pulumi access_token | PULUMI_ACCESS_TOKEN ;
             github-homelab-kubernetes-home-infrastructure/data/google-cloud region | CLOUDSDK_COMPUTE_REGION ;
@@ -85,6 +87,7 @@ jobs:
           refresh: true
         env:
           GITHUB_TOKEN: "${{ env.GH_PAT_TOKEN }}"
+          VAULT_ADDR: "${{ secrets.VAULT_ADDR }}"
 
   deploy:
     runs-on: ubuntu-latest
@@ -123,6 +126,8 @@ jobs:
           url: ${{ secrets.VAULT_ADDR }}
           path: ${{ secrets.VAULT_PATH }}
           role: ${{ secrets.VAULT_ROLE }}
+          exportToken: true
+          outputToken: true
           secrets: |
             github-homelab-kubernetes-home-infrastructure/data/pulumi access_token | PULUMI_ACCESS_TOKEN ;
             github-homelab-kubernetes-home-infrastructure/data/google-cloud region | CLOUDSDK_COMPUTE_REGION ;
@@ -170,6 +175,7 @@ jobs:
           stack-name: prod
         env:
           GITHUB_TOKEN: "${{ env.GH_PAT_TOKEN }}"
+          VAULT_ADDR: "${{ secrets.VAULT_ADDR }}"
 
       - run: |
           flux bootstrap github \

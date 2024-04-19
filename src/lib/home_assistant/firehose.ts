@@ -9,6 +9,7 @@ import {
   homeAssistantConfig,
 } from '../configuration';
 import { writeToDoppler } from '../util/doppler/secret';
+import { writeToVault } from '../util/vault/secret';
 
 /**
  * Creates the Home Assistant Kinesis Data Firehose Delivery Stream.
@@ -23,6 +24,14 @@ export const createFirehose = (): Output<string> => {
     'TELEGRAF_FIREHOSE_DELIVERY_STREAM',
     deliveryStream.name,
     `${globalName}-cluster-home-assistant`,
+  );
+
+  writeToVault(
+    'home-assistant-telegraf-firehose',
+    deliveryStream.name.apply((name) =>
+      JSON.stringify({ delivery_stream: name }),
+    ),
+    `kubernetes-${globalName}-cluster`,
   );
 
   return deliveryStream.arn;

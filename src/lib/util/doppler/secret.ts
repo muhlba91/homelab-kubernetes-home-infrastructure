@@ -1,7 +1,7 @@
 import { Output } from '@pulumi/pulumi';
 import * as doppler from '@pulumiverse/doppler';
 
-import { environment } from '../../configuration';
+import { environment, secretStoresConfig } from '../../configuration';
 
 /**
  * Stores a value in Doppler.
@@ -15,10 +15,12 @@ export const writeToDoppler = (
   value: Output<string>,
   project: string,
 ) => {
-  new doppler.Secret(`doppler-${project}-${environment}-${key}`, {
-    name: key,
-    value: value,
-    project: project,
-    config: environment,
-  });
+  if (secretStoresConfig.doppler) {
+    new doppler.Secret(`doppler-${project}-${environment}-${key}`, {
+      name: key,
+      value: value,
+      project: project,
+      config: environment,
+    });
+  }
 };

@@ -9,6 +9,7 @@ import {
 } from '../configuration';
 import { createAWSIamUserAndKey } from '../util/aws/iam_user';
 import { writeToDoppler } from '../util/doppler/secret';
+import { writeToVault } from '../util/vault/secret';
 
 /**
  * Creates the Home Assistant Grafana AWS key.
@@ -37,6 +38,14 @@ export const createGrafanaAWSAccessKey = (
     'GRAFANA_AWS_SECRET_ACCESS_KEY',
     iam.accessKey.secret,
     `${globalName}-cluster-home-assistant`,
+  );
+
+  writeToVault(
+    'home-assistant-grafana-aws',
+    all([iam.accessKey.id, iam.accessKey.secret]).apply(([keyId, secret]) =>
+      JSON.stringify({ access_key_id: keyId, secret_access_key: secret }),
+    ),
+    `kubernetes-${globalName}-cluster`,
   );
 };
 

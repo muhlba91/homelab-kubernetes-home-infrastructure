@@ -2,6 +2,7 @@
  * Defines Home Assistant configuration.
  */
 export type HomeAssistantConfig = {
+  readonly backupBucketId: string;
   readonly bucketArn: string;
   readonly firehose: HomeAssistantFirehoseConfig;
   readonly glue: HomeAssistantGlueConfig;

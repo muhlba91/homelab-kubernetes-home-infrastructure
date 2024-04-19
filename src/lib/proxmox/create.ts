@@ -116,8 +116,7 @@ export const createServer = (
         interface: 'ide2',
         dns: {
           domain: networkConfig.domain,
-          server: networkConfig.nameservers.join(' '),
-          // servers: networkConfig.nameservers.map((server) => server),
+          servers: networkConfig.nameservers.map((server) => server),
         },
         ipConfigs: [
           {

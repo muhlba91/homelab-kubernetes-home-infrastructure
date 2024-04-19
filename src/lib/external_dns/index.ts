@@ -4,6 +4,7 @@ import { environment, gcpConfig, globalName } from '../configuration';
 import { createIAMMember } from '../google/iam/iam_member';
 import { writeToDoppler } from '../util/doppler/secret';
 import { createGCPServiceAccountAndKey } from '../util/google/service_account_user';
+import { writeToVault } from '../util/vault/secret';
 
 /**
  * Creates the external-dns resources.
@@ -28,5 +29,11 @@ export const createExternalDNSResources = () => {
     'GCP_CREDENTIALS',
     iam.key.privateKey,
     `${globalName}-cluster-external-dns`,
+  );
+
+  writeToVault(
+    'external-dns-google-cloud',
+    iam.key.privateKey.apply((key) => JSON.stringify({ credentials: key })),
+    `kubernetes-${globalName}-cluster`,
   );
 };
