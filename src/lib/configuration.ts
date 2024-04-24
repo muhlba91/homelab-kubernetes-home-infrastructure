@@ -27,6 +27,8 @@ export const bucketId = config.require<string>('bucketId');
 
 export const globalName = 'home';
 
+export const gcpDefaultRegion = 'europe-west4';
+
 export const commonLabels = {
   environment: environment,
   cluster: globalName,

@@ -27,6 +27,7 @@ import { sortedServerData } from './lib/util/sort';
 import { createSSHKey } from './lib/util/ssh_key';
 import { writeFilePulumiAndUploadToS3 } from './lib/util/storage';
 import { renderTemplate } from './lib/util/template';
+import { createVeleroResources } from './lib/velero';
 
 export = async () => {
   createDir('outputs');
@@ -85,6 +86,7 @@ export = async () => {
   createHomeAssistantResources();
   createExternalDNSResources();
   createCertManagerResources();
+  createVeleroResources();
 
   // k0sctl cluster creation
   // eslint-disable-next-line functional/no-loop-statements
