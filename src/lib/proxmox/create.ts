@@ -152,6 +152,7 @@ export const createServer = (
         'efiDisk',
         'startup.downDelay',
         'startup.upDelay',
+        'initialization.vendorDataFileId',
       ],
     },
   );
