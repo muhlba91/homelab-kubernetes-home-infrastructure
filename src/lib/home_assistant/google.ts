@@ -1,7 +1,7 @@
 import { all } from '@pulumi/pulumi';
 
 import { ServiceAccountData } from '../../model/google/service_account_data';
-import { gcpConfig, globalName, homeAssistantConfig } from '../configuration';
+import { backupBucketId, gcpConfig, globalName } from '../configuration';
 import { createHmacKey } from '../google/iam/hmac';
 import { createIAMMember } from '../google/kms/iam_member';
 import { createGCSIAMMember } from '../google/storage/iam_member';
@@ -52,7 +52,7 @@ export const createGCPKey = (): ServiceAccountData => {
 export const createGCSKey = (iam: ServiceAccountData) => {
   iam.serviceAccount.email.apply((email) =>
     createGCSIAMMember(
-      homeAssistantConfig.backupBucketId,
+      backupBucketId,
       `serviceAccount:${email}`,
       'roles/storage.objectAdmin',
     ),

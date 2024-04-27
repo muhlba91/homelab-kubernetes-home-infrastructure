@@ -7,6 +7,7 @@ import { parse } from 'yaml';
 
 import { createCertManagerResources } from './lib/cert_manager';
 import { deployCilium } from './lib/cilium';
+import { createCloudNativePGResources } from './lib/cloudnative_pg';
 import { createClusterResources } from './lib/cluster';
 import { createCluster } from './lib/cluster/k0sctl';
 import {
@@ -87,6 +88,7 @@ export = async () => {
   createExternalDNSResources();
   createCertManagerResources();
   createVeleroResources();
+  createCloudNativePGResources();
 
   // k0sctl cluster creation
   // eslint-disable-next-line functional/no-loop-statements

@@ -1,6 +1,7 @@
 secretsprovider: gcpkms://projects/tuxnet-385112/locations/europe/keyRings/infrastructure-encryption/cryptoKeys/infrastructure-encryption
 encryptedkey: CiQA9PdEcDR9kUapJh5zJ7obNp3tBRFIxaEMnWzboNVMgag5ZfQSSQA2N6cCQ2m7UJhDZ9DmT+rj+nHm1z7/8z/R5/4PH3X0dq8wSQSAK2KUuynQGp+goV0tgsQ12smkPhBUI1NGjVzLuYOi39XW/W8=
 config:
+  home_cluster-infrastructure-proxmox:backupBucketId: infrastructure-backups-5274ba70-fde0-47de-8e9a-f1bc64c11157
   home_cluster-infrastructure-proxmox:bucketId: infrastructure-assets-5274ba70-fde0-47de-8e9a-f1bc64c11157
   home_cluster-infrastructure-proxmox:cluster:
     featureGates:
@@ -33,7 +34,6 @@ config:
     athena:
       bytesScannedCutoffPerQuery: 10000000000
       resultsExpiryInDays: 7
-    backupBucketId: infrastructure-backups-5274ba70-fde0-47de-8e9a-f1bc64c11157
     bucketArn: arn:aws:s3:::home-assistant-5274ba70-fde0-47de-8e9a-f1bc64c11157
     firehose:
       buffer:

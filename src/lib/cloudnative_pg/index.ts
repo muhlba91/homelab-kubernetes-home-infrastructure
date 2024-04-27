@@ -7,10 +7,14 @@ import { createGCPServiceAccountAndKey } from '../util/google/service_account_us
 import { writeToVault } from '../util/vault/secret';
 
 /**
- * Creates the velero resources.
+ * Creates the CloudNativePG resources.
  */
-export const createVeleroResources = () => {
-  const iam = createGCPServiceAccountAndKey('velero', gcpConfig.project, {});
+export const createCloudNativePGResources = () => {
+  const iam = createGCPServiceAccountAndKey(
+    'cloudnative-pg',
+    gcpConfig.project,
+    {},
+  );
 
   iam.serviceAccount.email.apply((email) =>
     createGCSIAMMember(
@@ -23,16 +27,16 @@ export const createVeleroResources = () => {
   writeToDoppler(
     'GCP_CREDENTIALS',
     iam.key.privateKey,
-    `${globalName}-cluster-velero`,
+    `${globalName}-cluster-cloudnativepg`,
   );
   writeToDoppler(
     'GCP_BUCKET_ID',
     Output.create(backupBucketId),
-    `${globalName}-cluster-velero`,
+    `${globalName}-cluster-cloudnativepg`,
   );
 
   writeToVault(
-    'velero-google-cloud',
+    'cloudnativepg-google-cloud',
     iam.key.privateKey.apply((key) =>
       JSON.stringify({ credentials: key, bucket: backupBucketId }),
     ),

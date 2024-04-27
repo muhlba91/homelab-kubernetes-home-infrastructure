@@ -24,6 +24,7 @@ export const secretStoresConfig =
   config.requireObject<SecretStoresConfig>('secretStores');
 export const username = config.require<string>('username');
 export const bucketId = config.require<string>('bucketId');
+export const backupBucketId = config.require<string>('backupBucketId');
 
 export const globalName = 'home';
 
