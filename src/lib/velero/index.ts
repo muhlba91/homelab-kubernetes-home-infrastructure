@@ -12,13 +12,18 @@ import { writeToVault } from '../util/vault/secret';
 export const createVeleroResources = () => {
   const iam = createGCPServiceAccountAndKey('velero', gcpConfig.project, {});
 
-  iam.serviceAccount.email.apply((email) =>
+  iam.serviceAccount.email.apply((email) => {
     createGCSIAMMember(
       backupBucketId,
       `serviceAccount:${email}`,
       'roles/storage.objectAdmin',
-    ),
-  );
+    );
+    createGCSIAMMember(
+      backupBucketId,
+      `serviceAccount:${email}`,
+      'roles/storage.legacyBucketOwner',
+    );
+  });
 
   writeToDoppler(
     'GCP_CREDENTIALS',

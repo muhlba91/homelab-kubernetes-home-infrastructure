@@ -16,13 +16,18 @@ export const createCloudNativePGResources = () => {
     {},
   );
 
-  iam.serviceAccount.email.apply((email) =>
+  iam.serviceAccount.email.apply((email) => {
     createGCSIAMMember(
       backupBucketId,
       `serviceAccount:${email}`,
       'roles/storage.objectAdmin',
-    ),
-  );
+    );
+    createGCSIAMMember(
+      backupBucketId,
+      `serviceAccount:${email}`,
+      'roles/storage.legacyBucketOwner',
+    );
+  });
 
   writeToDoppler(
     'GCP_CREDENTIALS',
