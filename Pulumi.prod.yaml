@@ -16,8 +16,8 @@ config:
         labels:
           usb: zwave-controller
         memory:
-          max: 24576
-          min: 24576
+          max: 32896
+          min: 32896
         roles:
           - controller+worker
         startupOrder: 20
@@ -34,7 +34,8 @@ config:
     athena:
       bytesScannedCutoffPerQuery: 10000000000
       resultsExpiryInDays: 7
-    bucketArn: arn:aws:s3:::home-assistant-5274ba70-fde0-47de-8e9a-f1bc64c11157
+    bucketArn:
+      secure: v1:EwYKBpEa8fIsMkdp:XFSATrmai64YCfvxvYQGowt/fpxmLr31UoB6Ct1BU77W8LLQHLZpEYVVSBINg4DgN6NclNPqyW635P6hq7BtkweivQCSbF038ZjLel55W0M=
     firehose:
       buffer:
         interval: 900
