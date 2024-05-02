@@ -37,7 +37,7 @@
     "@pulumi/random": "^4.13.0",
     "@pulumi/tls": "^5.0.0",
     "@pulumi/vault": "^6.1.0",
-    "@pulumiverse/doppler": "^0.5.0",
+    "@pulumiverse/doppler": "^0.7.0",
     "bcryptjs": "^2.4.3",
     "nunjucks": "^3.2.4",
     "yaml": "^2.3.2"
