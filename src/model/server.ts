@@ -3,10 +3,10 @@
  */
 import { Output, Resource } from '@pulumi/pulumi';
 
-export type ServerData = {
+export interface ServerData {
   readonly resource: Resource;
   readonly hostname: string;
   readonly serverId: Output<number | undefined>;
   readonly ipv4Address: string;
   readonly ipv6Address: string;
-};
+}

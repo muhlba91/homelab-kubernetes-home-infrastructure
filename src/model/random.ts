@@ -4,7 +4,7 @@ import { RandomPassword } from '@pulumi/random';
 /**
  * Defines a random password.
  */
-export type RandomPasswordData = {
+export interface RandomPasswordData {
   readonly resource: RandomPassword;
   readonly password: Output<string>;
-};
+}

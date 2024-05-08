@@ -1,6 +1,6 @@
 /**
  * Defines UFW configuration.
  */
-export type UFWConfig = {
+export interface UFWConfig {
   readonly enabled: boolean;
-};
+}

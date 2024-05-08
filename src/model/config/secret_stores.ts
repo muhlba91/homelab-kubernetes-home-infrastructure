@@ -1,7 +1,7 @@
 /**
  * Defines secret stores configuration.
  */
-export type SecretStoresConfig = {
+export interface SecretStoresConfig {
   readonly doppler: boolean;
   readonly vault: boolean;
-};
+}

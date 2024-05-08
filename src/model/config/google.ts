@@ -1,17 +1,17 @@
 /**
  * Defines configuration data for GCP.
  */
-export type GCPConfig = {
+export interface GCPConfig {
   readonly project: string;
   readonly dnsProject: string;
   readonly encryptionKey: GCPEncryptionKeyConfig;
-};
+}
 
 /**
  * Defines encryption key configuration data for GCP.
  */
-export type GCPEncryptionKeyConfig = {
+export interface GCPEncryptionKeyConfig {
   readonly location: string;
   readonly keyringId: string;
   readonly cryptoKeyId: string;
-};
+}
