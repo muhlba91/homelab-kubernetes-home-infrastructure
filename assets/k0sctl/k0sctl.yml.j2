@@ -19,7 +19,7 @@ spec:
         - --labels="{{ nodeLabels[node.hostname] }}"
 {%- endfor %}
   k0s:
-    version: v1.29.4+k0s.0
+    version: v1.30.0+k0s.0
     dynamicConfig: true
     config:
       apiVersion: k0s.k0sproject.io/v1beta1
@@ -54,6 +54,17 @@ spec:
           nodeLocalLoadBalancing:
             enabled: true
             type: EnvoyProxy
+          controlPlaneLoadBalancing:
+            enabled: true
+            type: Keepalived
+            keepalived:
+              vrrpInstances:
+                - virtualIPs:
+                    - "{{ virtualIp.ipv4.address }}/{{ virtualIp.ipv4.cidr }}"
+                  authPass: {{ virtualIp.password }}
+                  virtualRouterID: 51
+              virtualServers:
+                - ipAddress: {{ virtualIp.ipv4.address }}
           kubeProxy:
             disabled: true
             mode: ipvs

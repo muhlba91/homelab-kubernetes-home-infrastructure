@@ -15,6 +15,7 @@ import {
   environment,
   globalName,
   k0sConfig,
+  networkConfig,
   ufwConfig,
   username,
 } from './lib/configuration';
@@ -34,6 +35,10 @@ export = async () => {
   createDir('outputs');
 
   // Servers
+  const k0sVirtualIPPassword = createRandomPassword('k0s-vip', {
+    length: 8,
+    special: false,
+  });
   const userPassword = createRandomPassword('server', {});
   const sshKey = createSSHKey('home', {});
   const clusterData = all([
@@ -57,11 +62,19 @@ export = async () => {
       clusterData.servers,
       clusterData.rolesToNodes,
       clusterData.nodeLabels,
-    ]).apply(([servers, rolesToNodes, nodeLabels]) =>
+      k0sVirtualIPPassword.password,
+    ]).apply(([servers, rolesToNodes, nodeLabels, vipPassword]) =>
       renderTemplate('assets/k0sctl/k0sctl.yml.j2', {
         environment: environment,
         clusterName: globalName,
         k0s: k0sConfig,
+        virtualIp: {
+          password: vipPassword,
+          ipv4: {
+            cidr: networkConfig.ipv4.cidrMask,
+            address: k0sConfig.apiLoadBalancer,
+          },
+        },
         username: username,
         clusterNodes: sortedServerData(Object.values(servers)),
         clusterRoles: rolesToNodes,
