@@ -486,10 +486,10 @@
     mime "^2.0.0"
     resolve "^1.7.1"
 
-"@pulumi/command@^0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/command/-/command-0.10.0.tgz#f2237637f181890308a707de34455cb4a0205438"
-  integrity sha512-fye7KpMepeqXX7H7JE5bs5hvtloifOgR3etuBdrvW1acfpeaPZOhUvLIWqSztAW+RkulchdGeIVZ6K6sQuOfJw==
+"@pulumi/command@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/command/-/command-0.11.0.tgz#17cf121c7db3106c5bb301ede6791566fd23a528"
+  integrity sha512-THzJasQuR0RHLTEfEhcS0G6i2EdA+9xkqj9w8Xz7u1zJjJfISLXWecPZ0e6C0FIvOPHPii0oNSj3Xfgm7I65GA==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
