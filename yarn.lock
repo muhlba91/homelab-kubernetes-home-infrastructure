@@ -296,9 +296,9 @@
     postcss-selector-parser "^6.0.10"
 
 "@npmcli/redact@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@npmcli/redact/-/redact-2.0.0.tgz#72f9689e87bd0ce419c35e75b8470ce8ac9e14f0"
-  integrity sha512-SEjCPAVHWYUIQR+Yn03kJmrJjZDtJLYpj300m3HV9OTRZNpC5YpbMsM3eTkECyT4aWj8lDr9WeY6TWefpubtYQ==
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@npmcli/redact/-/redact-2.0.1.tgz#95432fd566e63b35c04494621767a4312c316762"
+  integrity sha512-YgsR5jCQZhVmTJvjduTOIHph0L73pK8xwMVaDY0PatySqVM9AZj93jpoXYSJqfHFxFkN9dmqTw6OiqExsS3LPw==
 
 "@npmcli/run-script@^8.0.0", "@npmcli/run-script@^8.1.0":
   version "8.1.0"
@@ -523,9 +523,9 @@
     tmp "^0.0.33"
 
 "@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.25.0", "@pulumi/pulumi@^3.65.1":
-  version "3.118.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.118.0.tgz#e3f4852cb42e59de384c65d7e463a3d7dae26818"
-  integrity sha512-bjhmDK+sYuDpUgd2DKI0GrTnBYI7oWnokc/oekLI8t4mfI3ZW0K5/g3EMjg6cPO9hbbNNzT4beTZvYDA0hW3vQ==
+  version "3.119.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.119.0.tgz#e78384a09cb73474eb067337c13bd498f8539992"
+  integrity sha512-DpF1Kdfj0lQA5iRJJt6a7+XosCF+Lr9apny38C3I6+Rhzry+lpikMFwR7U1zyq2zD7J6L6t28RI/38fSYHr+ZQ==
   dependencies:
     "@grpc/grpc-js" "^1.10.1"
     "@logdna/tail-file" "^2.0.6"
