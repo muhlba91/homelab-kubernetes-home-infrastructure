@@ -510,9 +510,9 @@
     "@pulumi/pulumi" "^3.0.0"
 
 "@pulumi/kubernetes@^4.0.0":
-  version "4.12.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.12.0.tgz#13d0ecd71fcda544147e77bd0c374aadd77f70a4"
-  integrity sha512-P6a8jXYhr+YsyPFjUQaEh/6C0d6f7+TZv8/kiRHhLy2CDke9xAeuBXaHp/bw8EOOcLcibavPn97YKSt6YXeqDQ==
+  version "4.13.1"
+  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.13.1.tgz#3e9698fffce4404133ad927d26ca77f4da1620d7"
+  integrity sha512-NDLVltcMKzfODZPH69SWUMJ2m4eHDp3VvTGLWbLY+U/3pk//ImM/dEWmla/HfvJMHDs7hxH98QTnPLsSHYqG+A==
   dependencies:
     "@pulumi/pulumi" "^3.25.0"
     "@types/node-fetch" "^2.1.4"
