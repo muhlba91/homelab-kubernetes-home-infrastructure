@@ -134,9 +134,9 @@
   integrity sha512-XGSsWDweP80Fks16lwkAUIr54ICyBs6PsI4mpfTLQaWgEJRtY9xEV+PeyDpJ+sJEGZxqINlpmAwe/6tS1pP8Ng==
 
 "@muhlba91/pulumi-proxmoxve@^6.0.0":
-  version "6.10.0"
-  resolved "https://registry.yarnpkg.com/@muhlba91/pulumi-proxmoxve/-/pulumi-proxmoxve-6.10.0.tgz#c845311754fd5c175e2d8db786de571f307743a2"
-  integrity sha512-JsB4AtaNgZfZVLO4fykV4Zxb5DkWmQy7Y+Qw8JCpxeFwV0+QAHS+xYsmfjGwiTjGsFML7s4KnuaCvYyYYAB3uA==
+  version "6.10.1"
+  resolved "https://registry.yarnpkg.com/@muhlba91/pulumi-proxmoxve/-/pulumi-proxmoxve-6.10.1.tgz#5e7741c0b030bfde74726df1f39acd7ad09c3829"
+  integrity sha512-+RpwyuEx45pmLsJEAMz7axMkZ1dytPQ7kMcJ9vfh3p7oGa5aVfPa2WCHk+Ch/QU58ZoKauAkFqRULARthe2xbQ==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
@@ -2536,9 +2536,9 @@ lowercase-keys@^2.0.0:
   integrity sha512-tqNXrS78oMOE73NMxK4EMLQsQowWf8jKooH9g7xPavRT706R6bkQJ6DY2Te7QukaZsulxa30wQ7bk0pm4XiHmA==
 
 lru-cache@^10.0.1, lru-cache@^10.2.0, lru-cache@^10.2.2:
-  version "10.2.2"
-  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-10.2.2.tgz#48206bc114c1252940c41b25b41af5b545aca878"
-  integrity sha512-9hp3Vp2/hFQUiIwKo8XCeFVnrg8Pk3TYNPIR7tJADKi5YfcF7vEaK7avFHTlSy3kOKYaJQaalfEo6YuXdceBOQ==
+  version "10.3.0"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-10.3.0.tgz#4a4aaf10c84658ab70f79a85a9a3f1e1fb11196b"
+  integrity sha512-CQl19J/g+Hbjbv4Y3mFNNXFEL/5t/KCg8POCuUqd4rMKjGG+j1ybER83hxV58zL+dFI1PTkt3GNFSHRt+d8qEQ==
 
 lunr@^2.3.9:
   version "2.3.9"
