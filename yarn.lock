@@ -515,9 +515,9 @@
     "@pulumi/pulumi" "^3.0.0"
 
 "@pulumi/kubernetes@^4.0.0":
-  version "4.13.1"
-  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.13.1.tgz#3e9698fffce4404133ad927d26ca77f4da1620d7"
-  integrity sha512-NDLVltcMKzfODZPH69SWUMJ2m4eHDp3VvTGLWbLY+U/3pk//ImM/dEWmla/HfvJMHDs7hxH98QTnPLsSHYqG+A==
+  version "4.14.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-4.14.0.tgz#17fa467336b62c0779ca4a4bc41395cba56b4fd1"
+  integrity sha512-q3xwRJYx4hJpvpLboCZeyncqfzGtTVZ6zGEk4aZQ3jmbUUkIP8hYi1EkUedjtyjw9xtWch5Zb1s+PZgqXz9l3w==
   dependencies:
     "@pulumi/pulumi" "^3.25.0"
     "@types/node-fetch" "^2.1.4"
@@ -4018,6 +4018,6 @@ yocto-queue@^0.1.0:
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
 yocto-queue@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-1.0.0.tgz#7f816433fb2cbc511ec8bf7d263c3b58a1a3c251"
-  integrity sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-1.1.0.tgz#1c567759666a1b3bd4af7897551bacb488f482b9"
+  integrity sha512-cMojmlnwkAgIXqga+2sXshlgrrcI0QEPJ5n58pEvtuFo4PaekfomlCudArDD7hj8Hkswjl0/x4eu4q+Xa0WFgQ==
