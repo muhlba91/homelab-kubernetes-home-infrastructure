@@ -8,7 +8,6 @@ import {
   homeAssistantConfig,
 } from '../configuration';
 import { createAWSIamUserAndKey } from '../util/aws/iam_user';
-import { writeToDoppler } from '../util/doppler/secret';
 import { writeToVault } from '../util/vault/secret';
 
 /**
@@ -26,18 +25,6 @@ export const createGrafanaAWSAccessKey = (
     createAWSIamUserAndKey('home-assistant-grafana', {
       policies: iamPolicies,
     }),
-  );
-
-  writeToDoppler(
-    'GRAFANA_AWS_ACCESS_KEY_ID',
-    iam.accessKey.id,
-    `${globalName}-cluster-home-assistant`,
-  );
-
-  writeToDoppler(
-    'GRAFANA_AWS_SECRET_ACCESS_KEY',
-    iam.accessKey.secret,
-    `${globalName}-cluster-home-assistant`,
   );
 
   writeToVault(

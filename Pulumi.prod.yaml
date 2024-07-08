@@ -76,7 +76,6 @@ config:
     networkBridge: vmbr0
     storagePool: storage-pool
   home_cluster-infrastructure-proxmox:secretStores:
-    doppler: false
     vault: true
   home_cluster-infrastructure-proxmox:ufw:
     enabled: false

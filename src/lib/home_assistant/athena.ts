@@ -8,7 +8,6 @@ import {
   globalName,
   homeAssistantConfig,
 } from '../configuration';
-import { writeToDoppler } from '../util/doppler/secret';
 import { writeToVault } from '../util/vault/secret';
 
 /**
@@ -18,12 +17,6 @@ import { writeToVault } from '../util/vault/secret';
  */
 export const createAthenaWorkgroup = (): AthenaWorkgroupData => {
   const workgroup = createWorkgroup();
-
-  writeToDoppler(
-    'GRAFANA_ATHENA_WORKGROUP',
-    workgroup.workgroup.name,
-    `${globalName}-cluster-home-assistant`,
-  );
 
   writeToVault(
     'home-assistant-grafana-athena',

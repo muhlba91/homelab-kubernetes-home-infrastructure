@@ -48,7 +48,6 @@ jobs:
             github-homelab-kubernetes-home-infrastructure/data/google-cloud ci_service_account | GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT ;
             github-homelab-kubernetes-home-infrastructure/data/aws region | AWS_REGION ;
             github-homelab-kubernetes-home-infrastructure/data/aws identity_role_arn | AWS_IDENTITY_ROLE_ARN ;
-            github-homelab-kubernetes-home-infrastructure/data/doppler token | DOPPLER_TOKEN ;
             github-homelab-kubernetes-home-infrastructure/data/github token | GH_PAT_TOKEN ;
             github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_client_id | TS_OAUTH_CLIENT_ID ;
             github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_secret | TS_OAUTH_SECRET ;
@@ -135,7 +134,6 @@ jobs:
             github-homelab-kubernetes-home-infrastructure/data/google-cloud ci_service_account | GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT ;
             github-homelab-kubernetes-home-infrastructure/data/aws region | AWS_REGION ;
             github-homelab-kubernetes-home-infrastructure/data/aws identity_role_arn | AWS_IDENTITY_ROLE_ARN ;
-            github-homelab-kubernetes-home-infrastructure/data/doppler token | DOPPLER_TOKEN ;
             github-homelab-kubernetes-home-infrastructure/data/github token | GH_PAT_TOKEN ;
             github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_client_id | TS_OAUTH_CLIENT_ID ;
             github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_secret | TS_OAUTH_SECRET ;

@@ -3,7 +3,6 @@ import { all, Output } from '@pulumi/pulumi';
 
 import { commonLabels, globalName } from '../configuration';
 import { createAWSIamUserAndKey } from '../util/aws/iam_user';
-import { writeToDoppler } from '../util/doppler/secret';
 import { writeToVault } from '../util/vault/secret';
 
 /**
@@ -19,18 +18,6 @@ export const createTelegrafAWSAccessKey = (
     createAWSIamUserAndKey('home-assistant-telegraf', {
       policies: iamPolicies,
     }),
-  );
-
-  writeToDoppler(
-    'TELEGRAF_AWS_ACCESS_KEY_ID',
-    iam.accessKey.id,
-    `${globalName}-cluster-home-assistant`,
-  );
-
-  writeToDoppler(
-    'TELEGRAF_AWS_SECRET_ACCESS_KEY',
-    iam.accessKey.secret,
-    `${globalName}-cluster-home-assistant`,
   );
 
   writeToVault(

@@ -8,7 +8,6 @@ import {
   globalName,
   homeAssistantConfig,
 } from '../configuration';
-import { writeToDoppler } from '../util/doppler/secret';
 import { writeToVault } from '../util/vault/secret';
 
 /**
@@ -19,12 +18,6 @@ import { writeToVault } from '../util/vault/secret';
 export const createFirehose = (): Output<string> => {
   const lambdaProcessorArn = createLambda();
   const deliveryStream = createDeliveryStream(lambdaProcessorArn);
-
-  writeToDoppler(
-    'TELEGRAF_FIREHOSE_DELIVERY_STREAM',
-    deliveryStream.name,
-    `${globalName}-cluster-home-assistant`,
-  );
 
   writeToVault(
     'home-assistant-telegraf-firehose',

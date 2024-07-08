@@ -7,7 +7,6 @@ import {
   globalName,
   homeAssistantConfig,
 } from '../configuration';
-import { writeToDoppler } from '../util/doppler/secret';
 import { writeToVault } from '../util/vault/secret';
 
 /**
@@ -26,12 +25,6 @@ export const createGlueDatabase = (): Output<string> => {
   );
 
   createGlueCrawler(catalogDatabase.name);
-
-  writeToDoppler(
-    'GRAFANA_GLUE_DATABASE',
-    catalogDatabase.name,
-    `${globalName}-cluster-home-assistant`,
-  );
 
   writeToVault(
     'home-assistant-grafana-glue',

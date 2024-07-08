@@ -40,7 +40,6 @@ To successfully run, and configure the Pulumi plugins, you need to set a list of
 - `CLOUDSDK_CORE_PROJECT`: the Google Cloud (GCP) project
 - `CLOUDSDK_COMPUTE_REGION` the Google Cloud (GCP) region
 - `GOOGLE_APPLICATION_CREDENTIALS`: reference to a file containing the Google Cloud (GCP) service account credentials
-- `DOPPLER_TOKEN`: the Doppler access token (not a project token!)
 - `GITHUB_TOKEN`: the GitHub Personal Access Token (PAT)
 - `PROXMOX_VE_USERNAME`: the Proxmox username
 - `PROXMOX_VE_PASSWORD`: the Proxmox password

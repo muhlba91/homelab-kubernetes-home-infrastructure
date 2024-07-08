@@ -5,7 +5,6 @@ import { backupBucketId, gcpConfig, globalName } from '../configuration';
 import { createHmacKey } from '../google/iam/hmac';
 import { createIAMMember } from '../google/kms/iam_member';
 import { createGCSIAMMember } from '../google/storage/iam_member';
-import { writeToDoppler } from '../util/doppler/secret';
 import { createGCPServiceAccountAndKey } from '../util/google/service_account_user';
 import { writeToVault } from '../util/vault/secret';
 
@@ -27,12 +26,6 @@ export const createGCPKey = (): ServiceAccountData => {
       `serviceAccount:${email}`,
       'roles/cloudkms.cryptoKeyEncrypterDecrypter',
     ),
-  );
-
-  writeToDoppler(
-    'GCP_CREDENTIALS',
-    iam.key.privateKey,
-    `${globalName}-cluster-home-assistant`,
   );
 
   writeToVault(
@@ -59,18 +52,6 @@ export const createGCSKey = (iam: ServiceAccountData) => {
   );
 
   const key = iam.serviceAccount.email.apply((email) => createHmacKey(email));
-
-  writeToDoppler(
-    'GCS_ACCESS_KEY_ID',
-    key.accessId,
-    `${globalName}-cluster-home-assistant`,
-  );
-
-  writeToDoppler(
-    'GCS_SECRET_ACCESS_KEY',
-    key.secret,
-    `${globalName}-cluster-home-assistant`,
-  );
 
   writeToVault(
     'home-assistant-google-cloud-storage',
