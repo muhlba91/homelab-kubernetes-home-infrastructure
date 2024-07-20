@@ -13,7 +13,6 @@
     "enabledManagers": [
         "github-actions",
         "npm",
-        "poetry",
         "regex"
     ],
     "github-actions": {
@@ -29,21 +28,25 @@
         "rollbackPrs": true,
         "versioning": "npm"
     },
-    "poetry": {
-        "fileMatch": [
-            "(^|/)pyproject\\.toml$"
-        ]
-    },
     "customManagers": [
         {
             "customType": "regex",
             "fileMatch": [
-                "(^|/)k0sctl\\.yml\\.j2$"
+                "(^|/)controlplane\\.yml\\.j2$"
             ],
             "matchStrings": [
-                "\\s+version:\\s+(?<currentValue>\\S+)"
+                "# renovate: datasource=(?<datasource>[a-z-]+) packageName=(?<packageName>.+)\\s+image:.+:(?<currentValue>.+)"
+            ]
+        },
+        {
+            "customType": "regex",
+            "fileMatch": [
+                "(^|/)Pulumi\\.prod\\.yaml$"
             ],
-            "depNameTemplate": "k0sproject/k0s",
+            "matchStrings": [
+                "\\s+installImage:\\.+:(?<currentValue>.+)"
+            ],
+            "depNameTemplate": "siderolabs/talos",
             "versioningTemplate": "semver-coerced",
             "datasourceTemplate": "github-releases"
         }

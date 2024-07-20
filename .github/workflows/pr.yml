@@ -162,11 +162,7 @@ jobs:
             github-homelab-kubernetes-home-infrastructure/data/aws identity_role_arn | AWS_IDENTITY_ROLE_ARN ;
             github-homelab-kubernetes-home-infrastructure/data/github token | GH_PAT_TOKEN ;
             github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_client_id | TS_OAUTH_CLIENT_ID ;
-            github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_secret | TS_OAUTH_SECRET ;
-            github-homelab-kubernetes-home-infrastructure/data/proxmox username | PROXMOX_VE_USERNAME ;
-            github-homelab-kubernetes-home-infrastructure/data/proxmox password | PROXMOX_VE_PASSWORD ;
-            github-homelab-kubernetes-home-infrastructure/data/proxmox endpoint | PROXMOX_VE_ENDPOINT ;
-            github-homelab-kubernetes-home-infrastructure/data/proxmox insecure | PROXMOX_VE_INSECURE
+            github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_secret | TS_OAUTH_SECRET
 
       - uses: google-github-actions/auth@v2
         with:

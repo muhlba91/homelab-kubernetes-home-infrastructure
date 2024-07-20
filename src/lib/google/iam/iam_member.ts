@@ -1,7 +1,7 @@
 import * as gcp from '@pulumi/gcp';
 import { Output } from '@pulumi/pulumi';
 
-import { gcpConfig } from '../../configuration';
+import { googleConfig } from '../../configuration';
 import { sanitizeText } from '../../util/string';
 
 /**
@@ -17,7 +17,7 @@ export const createIAMMember = (
   member: Output<string>,
   roles: readonly string[],
   {
-    project = gcpConfig.project,
+    project = googleConfig.project,
   }: {
     readonly project?: string;
   },

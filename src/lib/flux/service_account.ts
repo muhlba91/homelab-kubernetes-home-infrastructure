@@ -1,6 +1,6 @@
 import { Output } from '@pulumi/pulumi';
 
-import { gcpConfig } from '../configuration';
+import { googleConfig } from '../configuration';
 import { createIAMMember } from '../google/kms/iam_member';
 import { createGCPServiceAccountAndKey } from '../util/google/service_account_user';
 
@@ -10,11 +10,11 @@ import { createGCPServiceAccountAndKey } from '../util/google/service_account_us
  * @returns {Output<string>} the generated key
  */
 export const createFluxServiceAccount = (): Output<string> => {
-  const iam = createGCPServiceAccountAndKey('flux', gcpConfig.project, {});
+  const iam = createGCPServiceAccountAndKey('flux', googleConfig.project, {});
 
   iam.serviceAccount.email.apply((email) =>
     createIAMMember(
-      `${gcpConfig.encryptionKey.location}/${gcpConfig.encryptionKey.keyringId}/${gcpConfig.encryptionKey.cryptoKeyId}`,
+      `${googleConfig.encryptionKey.location}/${googleConfig.encryptionKey.keyringId}/${googleConfig.encryptionKey.cryptoKeyId}`,
       `serviceAccount:${email}`,
       'roles/cloudkms.cryptoKeyEncrypterDecrypter',
     ),

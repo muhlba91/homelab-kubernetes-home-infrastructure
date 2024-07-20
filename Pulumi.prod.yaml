@@ -3,27 +3,7 @@ encryptedkey: CiQA9PdEcDR9kUapJh5zJ7obNp3tBRFIxaEMnWzboNVMgag5ZfQSSQA2N6cCQ2m7UJ
 config:
   home_cluster-infrastructure-proxmox:backupBucketId: infrastructure-backups-5274ba70-fde0-47de-8e9a-f1bc64c11157
   home_cluster-infrastructure-proxmox:bucketId: infrastructure-assets-5274ba70-fde0-47de-8e9a-f1bc64c11157
-  home_cluster-infrastructure-proxmox:cluster:
-    featureGates:
-      - SidecarContainers
-    nodes:
-      home-cluster-001:
-        cpu: 16
-        diskSize: 1024
-        host: pve
-        ipv4Address: 10.0.60.1
-        ipv6Address: 2a01:aea0:dd3:25a:1000:2:1:1
-        labels:
-          usb: zwave-controller
-        memory:
-          max: 32896
-          min: 32896
-        roles:
-          - controller+worker
-        startupOrder: 20
-        usbPassthrough:
-          - host: 1a86:55d4
-  home_cluster-infrastructure-proxmox:gcp:
+  home_cluster-infrastructure-proxmox:google:
     dnsProject: muehlbachler-dns
     encryptionKey:
       cryptoKeyId: infrastructure-encryption
@@ -49,11 +29,6 @@ config:
         timeout: 300
     glue:
       schedule: cron(0 1 1 * ? *)
-  home_cluster-infrastructure-proxmox:k0s:
-    apiLoadBalancer: 10.0.79.1
-    cilium:
-      enabled: true
-      version: 1.14.2
   home_cluster-infrastructure-proxmox:network:
     domain: internal.muehlbachler.io
     ipv4:
@@ -65,18 +40,22 @@ config:
       enabled: true
       gateway: 2a01:aea0:dd3:25a::1
     nameservers:
-      - 10.0.71.10
+      - 10.0.0.1
       - 1.1.1.1
-      - 2a01:aea0:dd3:25a:1000:3:2:10
+      - 2a01:aea0:dd3:25a::1
       - 2606:4700:4700::1111
-  home_cluster-infrastructure-proxmox:pve:
-    cpuType: host
-    imageName: local:iso/debian-bookworm-genericcloud.img
-    localStoragePool: local
-    networkBridge: vmbr0
-    storagePool: storage-pool
   home_cluster-infrastructure-proxmox:secretStores:
     vault: true
-  home_cluster-infrastructure-proxmox:ufw:
-    enabled: false
-  home_cluster-infrastructure-proxmox:username: proxmox
+  home_cluster-infrastructure-proxmox:talos:
+    cluster:
+      installImage: factory.talos.dev/installer/9b1d52b231d6712b7c7bdcb33f58cfe6e9bab7a59852623d84e194bc60cbc5de:v1.7.5
+      revision: rev2
+      vip: 10.0.70.1
+    machine:
+      disk: /dev/nvme0n1
+      hostname: home-cluster-001
+      network:
+        ip:
+          v4: 10.0.50.1
+          v6: 2a01:aea0:dd3:25a:1000:1:1:1
+        mac: "9c:dc:71:47:47:f0"

@@ -1,4 +1,4 @@
-import { backupBucketId, gcpConfig, globalName } from '../configuration';
+import { backupBucketId, globalName, googleConfig } from '../configuration';
 import { createGCSIAMMember } from '../google/storage/iam_member';
 import { createGCPServiceAccountAndKey } from '../util/google/service_account_user';
 import { writeToVault } from '../util/vault/secret';
@@ -7,7 +7,7 @@ import { writeToVault } from '../util/vault/secret';
  * Creates the velero resources.
  */
 export const createVeleroResources = () => {
-  const iam = createGCPServiceAccountAndKey('velero', gcpConfig.project, {});
+  const iam = createGCPServiceAccountAndKey('velero', googleConfig.project, {});
 
   iam.serviceAccount.email.apply((email) => {
     createGCSIAMMember(

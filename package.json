@@ -8,8 +8,8 @@
   "license": "MIT",
   "keywords": [
     "pulumi",
-    "proxmox",
     "homelab",
+    "talos",
     "kubernetes"
   ],
   "scripts": {
@@ -27,33 +27,33 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@muhlba91/pulumi-proxmoxve": "^6.0.0",
-    "@pulumi/aws": "^6.6.0",
-    "@pulumi/command": "^1.0.0",
-    "@pulumi/gcp": "^7.0.0",
+    "@pulumi/aws": "^6.47.0",
+    "@pulumi/command": "^1.0.1",
+    "@pulumi/gcp": "^7.32.0",
     "@pulumi/google-native": "^0.32.0",
-    "@pulumi/kubernetes": "^4.0.0",
-    "@pulumi/pulumi": "^3.65.1",
-    "@pulumi/random": "^4.13.0",
-    "@pulumi/tls": "^5.0.0",
-    "@pulumi/vault": "^6.1.0",
+    "@pulumi/kubernetes": "^4.15.0",
+    "@pulumi/pulumi": "^3.127.0",
+    "@pulumi/random": "^4.16.3",
+    "@pulumi/tls": "^5.0.4",
+    "@pulumi/vault": "^6.2.0",
+    "@pulumiverse/talos": "^0.2.0",
     "bcryptjs": "^2.4.3",
     "nunjucks": "^3.2.4",
-    "yaml": "^2.3.2"
+    "yaml": "^2.5.0"
   },
   "devDependencies": {
-    "@types/bcryptjs": "^2.4.2",
-    "@types/nunjucks": "^3.2.2",
-    "eslint": "^9.2.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/nunjucks": "^3.2.6",
+    "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-functional": "^6.5.1",
+    "eslint-plugin-functional": "^6.6.3",
     "eslint-plugin-import": "^2.29.1",
-    "npm-run-all2": "^6.1.2",
-    "prettier": "^3.2.5",
+    "npm-run-all2": "^6.2.2",
+    "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
-    "typedoc": "^0.26.0",
-    "typescript": "^5.4.5",
-    "typescript-eslint": "7.16.1"
+    "typedoc": "^0.26.5",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^7.17.0"
   },
   "files": [
     "build/main",

@@ -1,4 +1,4 @@
-import { backupBucketId, gcpConfig, globalName } from '../configuration';
+import { backupBucketId, globalName, googleConfig } from '../configuration';
 import { createGCSIAMMember } from '../google/storage/iam_member';
 import { createGCPServiceAccountAndKey } from '../util/google/service_account_user';
 import { writeToVault } from '../util/vault/secret';
@@ -9,7 +9,7 @@ import { writeToVault } from '../util/vault/secret';
 export const createCloudNativePGResources = () => {
   const iam = createGCPServiceAccountAndKey(
     'cloudnative-pg',
-    gcpConfig.project,
+    googleConfig.project,
     {},
   );
 
