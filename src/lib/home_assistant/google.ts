@@ -1,7 +1,7 @@
 import { all } from '@pulumi/pulumi';
 
 import { ServiceAccountData } from '../../model/google/service_account_data';
-import { backupBucketId, gcpConfig, globalName } from '../configuration';
+import { backupBucketId, globalName, googleConfig } from '../configuration';
 import { createHmacKey } from '../google/iam/hmac';
 import { createIAMMember } from '../google/kms/iam_member';
 import { createGCSIAMMember } from '../google/storage/iam_member';
@@ -16,13 +16,13 @@ import { writeToVault } from '../util/vault/secret';
 export const createGCPKey = (): ServiceAccountData => {
   const iam = createGCPServiceAccountAndKey(
     'home-assistant',
-    gcpConfig.project,
+    googleConfig.project,
     {},
   );
 
   iam.serviceAccount.email.apply((email) =>
     createIAMMember(
-      `${gcpConfig.encryptionKey.location}/${gcpConfig.encryptionKey.keyringId}/${gcpConfig.encryptionKey.cryptoKeyId}`,
+      `${googleConfig.encryptionKey.location}/${googleConfig.encryptionKey.keyringId}/${googleConfig.encryptionKey.cryptoKeyId}`,
       `serviceAccount:${email}`,
       'roles/cloudkms.cryptoKeyEncrypterDecrypter',
     ),

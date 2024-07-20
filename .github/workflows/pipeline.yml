@@ -50,11 +50,7 @@ jobs:
             github-homelab-kubernetes-home-infrastructure/data/aws identity_role_arn | AWS_IDENTITY_ROLE_ARN ;
             github-homelab-kubernetes-home-infrastructure/data/github token | GH_PAT_TOKEN ;
             github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_client_id | TS_OAUTH_CLIENT_ID ;
-            github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_secret | TS_OAUTH_SECRET ;
-            github-homelab-kubernetes-home-infrastructure/data/proxmox username | PROXMOX_VE_USERNAME ;
-            github-homelab-kubernetes-home-infrastructure/data/proxmox password | PROXMOX_VE_PASSWORD ;
-            github-homelab-kubernetes-home-infrastructure/data/proxmox endpoint | PROXMOX_VE_ENDPOINT ;
-            github-homelab-kubernetes-home-infrastructure/data/proxmox insecure | PROXMOX_VE_INSECURE
+            github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_secret | TS_OAUTH_SECRET
 
       - uses: google-github-actions/auth@v2
         with:
@@ -103,12 +99,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: jaxxstorm/action-install-gh-release@v1.12.0
+      - uses: sigoden/install-binary@v1
         with:
-          repo: k0sproject/k0sctl
-          extension-matching: disable
-          rename-to: k0sctl
-          chmod: 0755
+          repo: siderolabs/talos
+          name: talosctl
 
       - uses: yokawasa/action-setup-kube-tools@v0.11.1
         with:
@@ -136,11 +130,7 @@ jobs:
             github-homelab-kubernetes-home-infrastructure/data/aws identity_role_arn | AWS_IDENTITY_ROLE_ARN ;
             github-homelab-kubernetes-home-infrastructure/data/github token | GH_PAT_TOKEN ;
             github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_client_id | TS_OAUTH_CLIENT_ID ;
-            github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_secret | TS_OAUTH_SECRET ;
-            github-homelab-kubernetes-home-infrastructure/data/proxmox username | PROXMOX_VE_USERNAME ;
-            github-homelab-kubernetes-home-infrastructure/data/proxmox password | PROXMOX_VE_PASSWORD ;
-            github-homelab-kubernetes-home-infrastructure/data/proxmox endpoint | PROXMOX_VE_ENDPOINT ;
-            github-homelab-kubernetes-home-infrastructure/data/proxmox insecure | PROXMOX_VE_INSECURE
+            github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_secret | TS_OAUTH_SECRET
 
       - uses: google-github-actions/auth@v2
         with:
@@ -190,32 +180,3 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ env.GH_PAT_TOKEN }}"
           KUBECONFIG: "outputs/admin.conf"
-
-  triggers:
-    runs-on: ubuntu-latest
-    name: Trigger Downstream Pipelines
-    needs:
-      - deploy
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - uses: hashicorp/vault-action@v3
-        id: import-secrets
-        with:
-          method: jwt
-          url: ${{ secrets.VAULT_ADDR }}
-          path: ${{ secrets.VAULT_PATH }}
-          role: ${{ secrets.VAULT_ROLE }}
-          secrets: |
-            github-homelab-kubernetes-home-infrastructure/data/github token | GH_PAT_TOKEN
-
-      - name: Deploy Services
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          workflow: deploy.yml
-          repo: muhlba91/homelab-ansible-common-services
-          inputs: '{ "s3_asset_bucket": "infrastructure-assets-5274ba70-fde0-47de-8e9a-f1bc64c11157/cluster/home/prod" }'
-          token: "${{ env.GH_PAT_TOKEN }}"

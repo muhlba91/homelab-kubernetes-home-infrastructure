@@ -11,7 +11,7 @@ This repository contains the infrastructure as code (IaC) for the `home-cluster`
 
 - [NodeJS](https://nodejs.org/en), and [yarn](https://yarnpkg.com)
 - [Pulumi](https://www.pulumi.com/docs/install/)
-- [k0sctl](https://github.com/k0sproject/k0sctl)
+- [talosctl](https://github.com/siderolabs/talos)
 
 ## Creating the Infrastructure
 
@@ -41,10 +41,6 @@ To successfully run, and configure the Pulumi plugins, you need to set a list of
 - `CLOUDSDK_COMPUTE_REGION` the Google Cloud (GCP) region
 - `GOOGLE_APPLICATION_CREDENTIALS`: reference to a file containing the Google Cloud (GCP) service account credentials
 - `GITHUB_TOKEN`: the GitHub Personal Access Token (PAT)
-- `PROXMOX_VE_USERNAME`: the Proxmox username
-- `PROXMOX_VE_PASSWORD`: the Proxmox password
-- `PROXMOX_VE_ENDPOINT`: the endpoint to connect to Proxmox
-- `PROXMOX_VE_INSECURE`: turn on/off insecure connections to Proxmox
 
 ---
 
@@ -54,40 +50,27 @@ The following section describes the configuration which must be set in the Pulum
 
 ***Attention:*** do use [Secrets Encryption](https://www.pulumi.com/docs/concepts/secrets/#:~:text=Pulumi%20never%20sends%20authentication%20secrets,“secrets”%20for%20extra%20protection.) provided by Pulumi for secret values!
 
-### Bucket Identifier
+### Bucket Identifiers
 
 ```yaml
 bucketId: the bucket identifier to upload assets to
+backupBackedId: the bucket identifier to configure backups to
 ```
 
-### Cluster
-
-The cluster exists from created Proxmox KVM servers.
+### Secret Stores
 
 ```yaml
-cluster:
-  name: the cluster name
-  nodes: a map of servers to create in Promxox
-    <NODE_NAME>:
-      cpu: the CPU allocation
-      diskSize: the disk size to use
-      memory: memory configuration (enables or disables ballooning automatically)
-        min: the minimum memory to assign
-        max: the maximum memory to assign
-      host: the Proxmox host to create the node on
-      ipv4Address: the internal IPv4 address
-      ipv6Address: the internal IPv6 address (optional)
-      roles: a list of all k0s roles (the first one is chosen!)
-      labels: a map of Kubernetes node labels to apply
+secretStores:
+  vault: enables storing secrets to Vault
 ```
 
-### Google Cloud (GCP)
+### Google Cloud
 
 Flux deployed applications can reference secrets being encrypted with [sops](https://github.com/mozilla/sops).
 We need to specify, and allow access to this encryption stored in [Google KMS](https://cloud.google.com/security-key-management).
 
 ```yaml
-gcp:
+google:
   project: the GCP project to create all resources in
   encryptionKey: references the sops encryption key
     cryptoKeyId: the CryptoKey identifier
@@ -96,8 +79,6 @@ gcp:
 ```
 
 ### Network
-
-General configuration about the local network.
 
 ```yaml
 network:
@@ -113,55 +94,49 @@ network:
   nameservers: a list of all nameservers to set (IPv4, IPv6)
 ```
 
-### Proxmox VE (pve)
+### Talos
 
-General configuration about the Proxmox environment.
-
-***Attention:*** you must download the specifief `imageName` to each Proxmox host!
-
-```yaml
-pve:
-  cpuType: the default CPU type to assign to machines
-  imageName: the reference to the locally installed image
-  localStoragePool: the storage pool used for snippets
-  networkBridge: the network bridge to use for server connectivity
-  storagePool: the storage pool used for machine disks
-```
-
-### k0s
-
-[k0s](http://k0sproject.io) is used as the Kubernetes distribution.
+[talos](http://talos.dev) is used as the Kubernetes distribution.
 Additionally, [Cilium](http://cilium.io) as the CNI is installed.
 
 ```yaml
-k0s:
-  version: the k0s Kubernetes version
-  cilium:
-    enabled: enables deployment of cilium
-    version: the version of the cilium Helm chart to deploy initially
+talos:
+  cluster:
+    installImage: the install image to use for deployment and updates
+    vip: the virtual IP address to expose for the control plane
+    revision: the current revision of the cluster (necessary if a full restore needs to happen)
+  machine:
+    disk: the disk to install to
+    hostname: the hostname to set
+    network:
+      ip:
+        v4: the IPv4 address to set
+        v6: the IPv6 address to set
+      mac: the network link's MAC address to set the IPs for
+
 ```
 
-### Username
+### Home Assistant
 
 ```yaml
-username: the username to use for interacting with the servers
-```
-
-### SSH
-
-The SSH key needs to be specified especially for the external nodes, and for all operations to be able to connect to these servers.
-
-```yaml
-ssh:
-  privateKey: the SSH private key to provision/use
-  publicKey: the SSH public key to use
-```
-
-### UFW
-
-```yaml
-ufw:
-  enabled: turns on/off provisioning of the UFW in the inventory.yml file
+homeAssistant:
+  athena:
+    bytesScannedCutoffPerQuery: the upper data usage limit (cutoff) for the amount of bytes a single query in a workgroup is allowed to scan
+    resultsExpiryInDays: expiry time for cached results
+  bucketArn: the bucket to store the Home Assistant date in
+  firehose:
+    buffer:
+      interval: the flush interval of the Firehose buffer
+      size: the flush size of the Firehose buffer
+    compression: the compression to use when delivering data
+    lambda:
+      buffer:
+        interval: the flush interval of the Firehose Lambda processor buffer
+        size: the flush size of the Firehose Lambda processor buffer
+      memory: the memory to assign to the Lambda processor
+      timeout: the timeout for the Lambda processor
+  glue:
+    schedule: the cron schedule for the Glue indexing
 ```
 
 ---

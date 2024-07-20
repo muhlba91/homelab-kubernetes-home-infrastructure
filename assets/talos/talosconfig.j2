@@ -1,0 +1,10 @@
+context: {{ clusterName }}-cluster
+contexts:
+  {{ clusterName }}-cluster:
+    endpoints:
+      - {{ talos.machine.network.ip.v4 }}
+    nodes:
+      - {{ talos.machine.network.ip.v4 }}
+    ca: {{ config.caCertificate }}
+    crt: {{ config.clientCertificate }}
+    key: {{ config.clientKey }}

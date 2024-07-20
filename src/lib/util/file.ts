@@ -8,12 +8,16 @@ import { Output } from '@pulumi/pulumi';
  * @param {string} path the path to the file
  * @param {string} content the content
  * @param {string} permissions the permissions (default: 0644)
+ * @returns {string} the content
  */
 export const writeFileContents = (
   path: string,
   content: string,
   { permissions = '0644' }: { readonly permissions?: string },
-) => fs.writeFileSync(path, content, { mode: permissions });
+): string => {
+  fs.writeFileSync(path, content, { mode: permissions });
+  return content;
+};
 
 /**
  * Writes the pulumi Output to a file.

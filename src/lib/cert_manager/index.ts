@@ -1,6 +1,6 @@
 import { interpolate } from '@pulumi/pulumi';
 
-import { environment, gcpConfig, globalName } from '../configuration';
+import { environment, globalName, googleConfig } from '../configuration';
 import { createIAMMember } from '../google/iam/iam_member';
 import { createGCPServiceAccountAndKey } from '../util/google/service_account_user';
 import { writeToVault } from '../util/vault/secret';
@@ -12,7 +12,7 @@ export const createCertManagerResources = () => {
   const roles = ['roles/dns.admin'];
   const iam = createGCPServiceAccountAndKey(
     'cert-manager',
-    gcpConfig.project,
+    googleConfig.project,
     {},
   );
   createIAMMember(
@@ -20,7 +20,7 @@ export const createCertManagerResources = () => {
     interpolate`serviceAccount:${iam.serviceAccount.email}`,
     roles,
     {
-      project: gcpConfig.dnsProject,
+      project: googleConfig.dnsProject,
     },
   );
 
