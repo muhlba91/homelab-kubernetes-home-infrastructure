@@ -48,7 +48,7 @@ config:
     vault: true
   home_cluster-infrastructure-proxmox:talos:
     cluster:
-      installImage: factory.talos.dev/installer/9b1d52b231d6712b7c7bdcb33f58cfe6e9bab7a59852623d84e194bc60cbc5de:v1.7.5
+      installImage: factory.talos.dev/installer/4f73c8d4dfc588eb4d2d7ae1c8b8ecdc8d0c90e6c543dfaa12664478946b8e95:v1.7.5
       revision: rev2
       vip: 10.0.70.1
     machine:
@@ -58,4 +58,4 @@ config:
         ip:
           v4: 10.0.50.1
           v6: 2a01:aea0:dd3:25a:1000:1:1:1
-        mac: "9c:dc:71:47:47:f0"
+        mac: "9c:dc:71:47:47:f1"
