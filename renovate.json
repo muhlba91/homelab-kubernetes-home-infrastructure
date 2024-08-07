@@ -44,7 +44,7 @@
                 "(^|/)Pulumi\\.prod\\.yaml$"
             ],
             "matchStrings": [
-                "\\s+installImage:\\.+:(?<currentValue>.+)"
+                "\\s+installImage:.+:(?<currentValue>.+)"
             ],
             "depNameTemplate": "siderolabs/talos",
             "versioningTemplate": "semver-coerced",
