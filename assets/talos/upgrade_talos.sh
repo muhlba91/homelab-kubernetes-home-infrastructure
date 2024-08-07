@@ -6,5 +6,5 @@ set -e
 while [ ! -f ./outputs/talosconfig ]; do sleep 5; done
 
 # upgrade talos
-TALOSCONFIG="./outputs/talosconfig" talosctl upgrade --nodes ${CONTROL_PLANE_IP} --image ${INSTALL_IMAGE} --preserve
+TALOSCONFIG="./outputs/talosconfig" talosctl upgrade --nodes ${CONTROL_PLANE_IP} --image factory.talos.dev/installer/${INSTALL_IMAGE_HASH}:${TALOS_VERSION} --preserve
 sleep 300

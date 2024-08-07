@@ -40,7 +40,8 @@ export const upgradeCluster = (
       update: './assets/talos/upgrade_talos.sh',
       environment: {
         CONTROL_PLANE_IP: talosConfig.machine.network.ip.v4,
-        INSTALL_IMAGE: talosConfig.cluster.installImage,
+        INSTALL_IMAGE_HASH: talosConfig.cluster.installImageHash,
+        TALOS_VERSION: talosVersion,
       },
       triggers: [talosVersion],
     },

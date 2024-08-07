@@ -37,18 +37,6 @@
             "matchStrings": [
                 "# renovate: datasource=(?<datasource>[a-z-]+) packageName=(?<packageName>.+)\\s+image:.+:(?<currentValue>.+)"
             ]
-        },
-        {
-            "customType": "regex",
-            "fileMatch": [
-                "(^|/)Pulumi\\.prod\\.yaml$"
-            ],
-            "matchStrings": [
-                "\\s+installImage:.+:(?<currentValue>.+)"
-            ],
-            "depNameTemplate": "siderolabs/talos",
-            "versioningTemplate": "semver-coerced",
-            "datasourceTemplate": "github-releases"
         }
     ]
 }

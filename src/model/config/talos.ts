@@ -19,7 +19,7 @@ export interface TalosMachineConfig {
  * Defines configuration data for a cluster in Talos.
  */
 export interface TalosClusterConfig {
-  readonly installImage: string;
+  readonly installImageHash: string;
   readonly vip: string;
   readonly revision: string;
 }

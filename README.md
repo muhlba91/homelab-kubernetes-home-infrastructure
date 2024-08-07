@@ -102,7 +102,7 @@ Additionally, [Cilium](http://cilium.io) as the CNI is installed.
 ```yaml
 talos:
   cluster:
-    installImage: the install image to use for deployment and updates
+    installImageHash: the install image hash to use for deployment and updates
     vip: the virtual IP address to expose for the control plane
     revision: the current revision of the cluster (necessary if a full restore needs to happen)
   machine:

@@ -88,7 +88,8 @@ machine:
   #    - util-linux-tools
   install:
     disk: {{ talos.machine.disk }}
-    image: {{ talos.cluster.installImage }}
+    # renovate: datasource=github-releases packageName=siderolabs/talos
+    image: factory.talos.dev/installer/{{ talos.cluster.installImageHash }}:v1.7.6
     wipe: true
     extensions: []
   kernel:
