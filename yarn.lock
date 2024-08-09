@@ -573,9 +573,9 @@
     "@pulumi/pulumi" "^3.0.0"
 
 "@pulumi/vault@^6.2.0":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/vault/-/vault-6.2.0.tgz#f23ffae1f799ac66063e7c45e349dd929eb4e9b7"
-  integrity sha512-eISD+O/cBp0nackdCVCh++XeO+BxeQMyNrV31ce92JUqJNtlV2BlKUr63/StLWbI6aKFYvFaczKMl+2yR3ovLA==
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/vault/-/vault-6.3.0.tgz#71525b45027b09fa1371db071c47961157799cbf"
+  integrity sha512-PYwrr+8DmRGkQ+EhQdbXGR3ntut3Ec6R84GyBPcXn619iYALnx/mVCblhiq9sYVyb315cGvHdm5O0TBFB0HSRQ==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
