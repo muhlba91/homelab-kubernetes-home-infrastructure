@@ -29,7 +29,7 @@
   "dependencies": {
     "@pulumi/aws": "^6.47.0",
     "@pulumi/command": "^1.0.1",
-    "@pulumi/gcp": "^7.32.0",
+    "@pulumi/gcp": "^8.0.0",
     "@pulumi/google-native": "^0.32.0",
     "@pulumi/kubernetes": "^4.15.0",
     "@pulumi/pulumi": "^3.127.0",
