@@ -583,9 +583,9 @@
     "@pulumi/pulumi" "^3.0.0"
 
 "@pulumi/tls@^5.0.4":
-  version "5.0.6"
-  resolved "https://registry.yarnpkg.com/@pulumi/tls/-/tls-5.0.6.tgz#364ea0d705170f6b52b05d731462c0fb2b80d8bc"
-  integrity sha512-jQiGeKMONBxXmydz5qHJdhnu1oyxCaeuW6sBEj3KOMf2sNUS3skGvftQtUtMmqheamMZsgFetg8/KSjjZt9btA==
+  version "5.0.7"
+  resolved "https://registry.yarnpkg.com/@pulumi/tls/-/tls-5.0.7.tgz#4c9222497038b9181afcf1d351408b1630d335f6"
+  integrity sha512-Z/uSIPrzgHoP0F+O+3RNdWYHXayCHIPninlrMpsj2nPI+OULi8Czc0o+QajYh+cI/xmW7Dx0CFg6V1i+FJLgig==
   dependencies:
     "@pulumi/pulumi" "^3.0.0"
 
