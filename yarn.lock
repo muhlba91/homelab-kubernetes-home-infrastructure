@@ -547,7 +547,7 @@
     shell-quote "^1.6.1"
     tmp "^0.0.33"
 
-"@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.127.0", "@pulumi/pulumi@^3.25.0", "@pulumi/pulumi@^3.42.0":
+"@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.127.0", "@pulumi/pulumi@^3.136.0", "@pulumi/pulumi@^3.25.0", "@pulumi/pulumi@^3.42.0":
   version "3.136.1"
   resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.136.1.tgz#1ef187cdb3f3b4abf119ae6088e76edb20947ed4"
   integrity sha512-bO+AVYKyf4dFDVSbBRoCiwAVE0JhugwAEv5FmWit+VHE3f9eoy1qrw7t5DmGmAiL2cGCwTpvVEIf4y1N7360ZA==
@@ -603,11 +603,11 @@
     "@pulumi/pulumi" "^3.42.0"
 
 "@pulumi/vault@^6.2.0":
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/vault/-/vault-6.3.0.tgz#71525b45027b09fa1371db071c47961157799cbf"
-  integrity sha512-PYwrr+8DmRGkQ+EhQdbXGR3ntut3Ec6R84GyBPcXn619iYALnx/mVCblhiq9sYVyb315cGvHdm5O0TBFB0HSRQ==
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/@pulumi/vault/-/vault-6.3.1.tgz#33ee89df24115fb25184baef533f8c55ebab3be6"
+  integrity sha512-UEMe3LmJtJSsOcetZdtMfKGggLDf8YY7c/lEfoeAqRJFeYxdEJzgn+BhHomC3c92RiZfaSq61UKuZZ0SPAuBFQ==
   dependencies:
-    "@pulumi/pulumi" "^3.0.0"
+    "@pulumi/pulumi" "^3.136.0"
 
 "@pulumiverse/talos@^0.2.0":
   version "0.2.0"
