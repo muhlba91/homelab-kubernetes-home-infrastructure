@@ -547,7 +547,7 @@
     shell-quote "^1.6.1"
     tmp "^0.0.33"
 
-"@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.127.0", "@pulumi/pulumi@^3.136.0", "@pulumi/pulumi@^3.25.0", "@pulumi/pulumi@^3.42.0":
+"@pulumi/pulumi@^3.0.0", "@pulumi/pulumi@^3.127.0", "@pulumi/pulumi@^3.136.0", "@pulumi/pulumi@^3.25.0":
   version "3.136.1"
   resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-3.136.1.tgz#1ef187cdb3f3b4abf119ae6088e76edb20947ed4"
   integrity sha512-bO+AVYKyf4dFDVSbBRoCiwAVE0JhugwAEv5FmWit+VHE3f9eoy1qrw7t5DmGmAiL2cGCwTpvVEIf4y1N7360ZA==
@@ -596,11 +596,11 @@
     "@pulumi/pulumi" "^3.0.0"
 
 "@pulumi/tls@^5.0.4":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@pulumi/tls/-/tls-5.0.8.tgz#8c456ad216ef1d1ace9b7ed43252c44b2c1fb129"
-  integrity sha512-/Ka8FmkCEDP2dm/wBOg+TosjpnKXanUjbdW2cf70vCkRdyjK/pEelMFLnAnE/sjdD1g09nOuhYA1zBKNZNLWmw==
+  version "5.0.9"
+  resolved "https://registry.yarnpkg.com/@pulumi/tls/-/tls-5.0.9.tgz#b611ba871052f9386996b6b8a6b4ce0aa7d57504"
+  integrity sha512-AdER41itiGasBtDGk7zUQ7mAODPfqsCjsC3VTMcQBLiPSl7fdaABs4r0HFLq/9tC5VB6KN7uESLCsHf3GI4ZJg==
   dependencies:
-    "@pulumi/pulumi" "^3.42.0"
+    "@pulumi/pulumi" "^3.136.0"
 
 "@pulumi/vault@^6.2.0":
   version "6.3.1"
@@ -1107,10 +1107,15 @@ acorn-walk@^8.1.1:
   dependencies:
     acorn "^8.11.0"
 
-acorn@^8.11.0, acorn@^8.12.0, acorn@^8.4.1, acorn@^8.8.2:
+acorn@^8.11.0, acorn@^8.12.0, acorn@^8.4.1:
   version "8.12.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.12.1.tgz#71616bdccbe25e27a54439e0046e89ca76df2248"
   integrity sha512-tcpGyI9zbizT9JbV6oYE477V6mTlXvvi0T0G3SNIYE2apm/G5huBa1+K89VGeovbg+jycCrfhl3ADxErOuO6Jg==
+
+acorn@^8.8.2:
+  version "8.13.0"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.13.0.tgz#2a30d670818ad16ddd6a35d3842dacec9e5d7ca3"
+  integrity sha512-8zSiw54Oxrdym50NlZ9sUusyO1Z1ZchgRLWRaK6c86XJFClyCgFKetdowBg5bKxyp/u+CDBJG4Mpp0m3HLZl9w==
 
 agent-base@^7.0.2, agent-base@^7.1.0, agent-base@^7.1.1:
   version "7.1.1"
@@ -1966,9 +1971,9 @@ fastq@^1.6.0:
     reusify "^1.0.4"
 
 fdir@^6.1.1:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/fdir/-/fdir-6.4.0.tgz#8e80ab4b18a2ac24beebf9d20d71e1bc2627dbae"
-  integrity sha512-3oB133prH1o4j/L5lLW7uOCF1PlD+/It2L0eL/iAqWMB91RBbqTewABqxhj0ibBd90EEmWZq7ntIWzVaWcXTGQ==
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/fdir/-/fdir-6.4.1.tgz#51a873897b1dbb6a53d59d3c3eb227ce2f69e278"
+  integrity sha512-upAYvbFc8GU44qWv+r6YnWp3h13/hPFOnpCsuahbxFGmOCm7sc5UT1SytkHLS7Go/UwvhVD9k4dF6PJxpIjqAA==
 
 file-entry-cache@^8.0.0:
   version "8.0.0"
