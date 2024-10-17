@@ -589,11 +589,11 @@
   integrity sha512-xfo+yLRM2zVjVEA4p23IjQWzyWl1ZhWOGobsBqRpIarzLvwNH/RAGaoehdxlhx4X92302DrpdIFgTICMN4P38w==
 
 "@pulumi/random@^4.16.3":
-  version "4.16.6"
-  resolved "https://registry.yarnpkg.com/@pulumi/random/-/random-4.16.6.tgz#d2d78fe1eb55ccc8b92ca61eeb49ce22acd34f55"
-  integrity sha512-BFjUkkIR8EBQQhIC1kkmwVoFCFTyHqEttZ8L2Myr+1qSNs/wU4roMLd8k/TzPxTIqdDfOFB+37dncdil88Guug==
+  version "4.16.7"
+  resolved "https://registry.yarnpkg.com/@pulumi/random/-/random-4.16.7.tgz#6c787f9d9fddb16f6d7ce2d137dbafd8a83484b3"
+  integrity sha512-lY51FGL6dbD2o37HKqisrlHQH+q2yd+dInEcZR0H78fT33vTjzNHo2rUf89eK0Gb9JjFTCTw/CHC2qtT02MALA==
   dependencies:
-    "@pulumi/pulumi" "^3.0.0"
+    "@pulumi/pulumi" "^3.136.0"
 
 "@pulumi/tls@^5.0.4":
   version "5.0.9"
