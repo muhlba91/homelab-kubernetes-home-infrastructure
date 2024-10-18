@@ -13,9 +13,8 @@
     "kubernetes"
   ],
   "scripts": {
-    "build": "run-p build:*",
-    "build:main": "tsc -p tsconfig.json",
-    "fix": "run-s fix:*",
+    "build": "tsc -p tsconfig.json",
+    "fix": "run-s fix:prettier fix:lint",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
     "fix:lint": "eslint --fix",
     "lint": "eslint",
@@ -26,6 +25,7 @@
   "engines": {
     "node": ">=20"
   },
+  "packageManager": "yarn@4.5.0",
   "dependencies": {
     "@pulumi/aws": "^6.47.0",
     "@pulumi/command": "^1.0.1",
@@ -44,6 +44,7 @@
   "devDependencies": {
     "@eslint/compat": "^1.1.1",
     "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^22.7.6",
     "@types/nunjucks": "^3.2.6",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.1.0",
@@ -56,14 +57,6 @@
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.0.1"
   },
-  "files": [
-    "build/main",
-    "!**/*.spec.*",
-    "!**/*.json",
-    "CHANGELOG.md",
-    "LICENSE",
-    "README.md"
-  ],
   "prettier": {
     "singleQuote": true
   }

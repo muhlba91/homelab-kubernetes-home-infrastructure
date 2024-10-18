@@ -34,12 +34,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      - run: |
+          corepack enable
+
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
       - run: |
-          yarn install
+          yarn install --immutable
           yarn lint
 
   audit:
@@ -55,12 +58,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      - run: |
+          corepack enable
+
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
       - run: |
-          yarn audit
+          yarn install --immutable
+          yarn npm audit
         continue-on-error: true
 
   build:
@@ -76,12 +83,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      - run: |
+          corepack enable
+
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
       - run: |
-          yarn install
+          yarn install --immutable
           yarn build
 
   firehose-processor:
@@ -140,6 +150,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - run: |
+          corepack enable
+
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
@@ -180,10 +193,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - run: |
-          npm install -g yarn
-
-      - run: |
-          yarn install
+          yarn install --immutable
           yarn build
 
       - uses: tailscale/github-action@v2
