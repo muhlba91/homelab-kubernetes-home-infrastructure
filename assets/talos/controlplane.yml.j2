@@ -15,7 +15,7 @@ machine:
   #   - {{ talos.cluster.vip }}
   kubelet:
     # renovate: datasource=github-releases packageName=siderolabs/kubelet
-    image: ghcr.io/siderolabs/kubelet:v1.30.3
+    image: ghcr.io/siderolabs/kubelet:v1.31.1
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
     extraArgs:
@@ -84,12 +84,11 @@ machine:
   #    - nvidia-container-toolkit
   #    - nvidia-open-gpu-kernel-modules
   #    - thunderbolt
-  #    - usb-modem-drivers
   #    - util-linux-tools
   install:
     disk: {{ talos.machine.disk }}
     # renovate: datasource=github-releases packageName=siderolabs/talos
-    image: factory.talos.dev/installer/{{ talos.cluster.installImageHash }}:v1.7.6
+    image: factory.talos.dev/installer/{{ talos.cluster.installImageHash }}:v1.8.1
     wipe: true
     extensions: []
   kernel:
@@ -107,21 +106,6 @@ machine:
       - name: thunderbolt
       - name: thunderbolt_net
       - name: usbserial
-      - name: option
-      - name: cdc_mbim
-      - name: qmi_wwan
-      - name: usb_wwan
-      - name: usbnet
-      - name: ax88796b
-      - name: asix
-      - name: ax88179_178a
-      - name: cdc_ether
-      - name: cdc_ncm
-      - name: net1080
-      - name: cdc_subset
-      - name: zaurus
-      - name: cdc_wdm
-      - name: r8153_ecm
   sysctls:
     net.core.bpf_jit_harden: 1
     vm.max_map_count: 131060
@@ -155,7 +139,7 @@ cluster:
     key: {{ secrets.certs.k8sServiceaccount.key }}
   apiServer:
     # renovate: datasource=github-releases packageName=siderolabs/kubelet
-    image: registry.k8s.io/kube-apiserver:v1.30.3
+    image: registry.k8s.io/kube-apiserver:v1.31.1
     certSANs:
       - {{ talos.machine.network.ip.v4 }}
       - {{ talos.machine.network.ip.v6 }}
@@ -185,12 +169,12 @@ cluster:
         - level: Metadata
   controllerManager:
     # renovate: datasource=github-releases packageName=siderolabs/kubelet
-    image: registry.k8s.io/kube-controller-manager:v1.30.3
+    image: registry.k8s.io/kube-controller-manager:v1.31.1
     extraArgs:
       bind-address: 0.0.0.0
   scheduler:
     # renovate: datasource=github-releases packageName=siderolabs/kubelet
-    image: registry.k8s.io/kube-scheduler:v1.30.3
+    image: registry.k8s.io/kube-scheduler:v1.31.1
     extraArgs:
       bind-address: 0.0.0.0
   discovery:
