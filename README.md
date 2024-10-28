@@ -2,6 +2,7 @@
 
 [![Build status](https://img.shields.io/github/actions/workflow/status/muhlba91/homelab-kubernetes-home-infrastructure/pipeline.yml?style=for-the-badge)](https://github.com/muhlba91/homelab-kubernetes-home-infrastructure/actions/workflows/pipeline.yml)
 [![License](https://img.shields.io/github/license/muhlba91/homelab-kubernetes-home-infrastructure?style=for-the-badge)](LICENSE.md)
+[![](https://api.scorecard.dev/projects/github.com/muhlba91/homelab-kubernetes-home-infrastructure/badge?style=for-the-badge)](https://scorecard.dev/viewer/?uri=github.com/muhlba91/homelab-kubernetes-home-infrastructure)
 
 This repository contains the infrastructure as code (IaC) for the `home-cluster` using [Pulumi](http://pulumi.com).
 

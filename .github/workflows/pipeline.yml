@@ -8,8 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  id-token: write
-  contents: write
+  contents: read
 
 env:
   NODE_OPTIONS: "--max-old-space-size=4096"
@@ -18,24 +17,31 @@ jobs:
   preview:
     runs-on: ubuntu-latest
     name: Pulumi Preview
+    permissions:
+      id-token: write
+      contents: write
     strategy:
       max-parallel: 12
       matrix:
         node-version: ["20"]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: step-security/harden-runner@91182cccc01eb5e619899d80e4e971d6181294a7 # v2.10.1
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
 
       - run: |
           corepack enable
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
           node-version: ${{ matrix.node-version }}
 
-      - uses: hashicorp/vault-action@v3
+      - uses: hashicorp/vault-action@d1720f055e0635fd932a1d2a48f87a666a57906c # v3.0.0
         id: import-secrets
         with:
           method: jwt
@@ -54,18 +60,18 @@ jobs:
             github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_client_id | TS_OAUTH_CLIENT_ID ;
             github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_secret | TS_OAUTH_SECRET
 
-      - uses: pulumi/auth-actions@v1
+      - uses: pulumi/auth-actions@80dec0d5e009a11565cbf87d9ef9103fc7d24198 # v1.0.0
         with:
           organization: muhlba91
           requested-token-type: urn:pulumi:token-type:access_token:personal
           scope: user:muhlba91
 
-      - uses: google-github-actions/auth@v2
+      - uses: google-github-actions/auth@8254fb75a33b976a221574d287e93919e6a36f70 # v2.1.6
         with:
           workload_identity_provider: ${{ env.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ env.GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT }}
 
-      - uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2
         with:
           role-to-assume: ${{ env.AWS_IDENTITY_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
@@ -74,13 +80,13 @@ jobs:
           yarn install --immutable
           yarn build
 
-      - uses: tailscale/github-action@v2
+      - uses: tailscale/github-action@4e4c49acaa9818630ce0bd7a564372c17e33fb4d # v2
         with:
           oauth-client-id: ${{ env.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ env.TS_OAUTH_SECRET }}
           tags: tag:github-actions
-      
-      - uses: pulumi/actions@v6
+
+      - uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6.0.0
         with:
           command: preview
           stack-name: prod
@@ -92,6 +98,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Pulumi Deploy
+    permissions:
+      id-token: write
+      contents: write
     needs:
       - preview
     strategy:
@@ -100,27 +109,31 @@ jobs:
         node-version: ["20"]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: step-security/harden-runner@91182cccc01eb5e619899d80e4e971d6181294a7 # v2.10.1
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
 
-      - uses: sigoden/install-binary@v1
+      - uses: sigoden/install-binary@7eb4b088aedf19fe9b2bc6c6bbdc12379ffb355c # v1.2.0
         with:
           repo: siderolabs/talos
           name: talosctl
 
-      - uses: yokawasa/action-setup-kube-tools@v0.11.1
+      - uses: yokawasa/action-setup-kube-tools@5fe385031665158529decddddb51d6224422836e # v0.11.1
         with:
           setup-tools: helm
 
       - run: |
           corepack enable
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
           node-version: ${{ matrix.node-version }}
 
-      - uses: hashicorp/vault-action@v3
+      - uses: hashicorp/vault-action@d1720f055e0635fd932a1d2a48f87a666a57906c # v3.0.0
         id: import-secrets
         with:
           method: jwt
@@ -139,35 +152,35 @@ jobs:
             github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_client_id | TS_OAUTH_CLIENT_ID ;
             github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_secret | TS_OAUTH_SECRET
 
-      - uses: pulumi/auth-actions@v1
+      - uses: pulumi/auth-actions@80dec0d5e009a11565cbf87d9ef9103fc7d24198 # v1.0.0
         with:
           organization: muhlba91
           requested-token-type: urn:pulumi:token-type:access_token:personal
           scope: user:muhlba91
 
-      - uses: google-github-actions/auth@v2
+      - uses: google-github-actions/auth@8254fb75a33b976a221574d287e93919e6a36f70 # v2.1.6
         with:
           workload_identity_provider: ${{ env.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ env.GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT }}
 
-      - uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2
         with:
           role-to-assume: ${{ env.AWS_IDENTITY_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - uses: fluxcd/flux2/action@main
+      - uses: fluxcd/flux2/action@5350425cdcd5fa015337e09fa502153c0275bd4b # main
 
       - run: |
           yarn install --immutable
           yarn build
 
-      - uses: tailscale/github-action@v2
+      - uses: tailscale/github-action@4e4c49acaa9818630ce0bd7a564372c17e33fb4d # v2
         with:
           oauth-client-id: ${{ env.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ env.TS_OAUTH_SECRET }}
           tags: tag:github-actions
-      
-      - uses: pulumi/actions@v6
+
+      - uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6.0.0
         with:
           command: up
           stack-name: prod
