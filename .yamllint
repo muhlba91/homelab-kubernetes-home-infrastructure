@@ -1,0 +1,15 @@
+---
+extends: default
+
+ignore:
+  - Pulumi*.yaml
+  - node_modules/
+  - cluster-bootstrap/flux-system/gotk-components.yaml
+  - .pre-commit-config.yaml
+
+rules:
+  line-length:
+    max: 180
+  truthy:
+    ignore:
+      - .github/
