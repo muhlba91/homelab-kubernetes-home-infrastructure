@@ -743,8 +743,8 @@ __metadata:
   linkType: hard
 
 "@pulumi/kubernetes@npm:^4.15.0":
-  version: 4.18.2
-  resolution: "@pulumi/kubernetes@npm:4.18.2"
+  version: 4.18.3
+  resolution: "@pulumi/kubernetes@npm:4.18.3"
   dependencies:
     "@pulumi/pulumi": "npm:^3.136.0"
     "@types/node-fetch": "npm:^2.1.4"
@@ -753,7 +753,7 @@ __metadata:
     node-fetch: "npm:^2.3.0"
     shell-quote: "npm:^1.6.1"
     tmp: "npm:^0.0.33"
-  checksum: 10c0/04b7f746c80f9b2e0e7954110372a3553eaa674a84e025e7149528fdb5a9047a3ef77fb9d05c9bce9cf765c1580584fa54ce8737d01ed86d73f0ff2125dc5a7a
+  checksum: 10c0/40c147ce1a1bebbe2eaeff92e8d0496af17ded5e93b6147da0f2930a9731dafacd1f5fa8653befb0e6d7ca7ed774f760c8bf52adc9e6367a9b00162aa44697be
   languageName: node
   linkType: hard
 
