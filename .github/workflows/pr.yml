@@ -6,6 +6,7 @@ on:
 
 env:
   NODE_OPTIONS: "--max-old-space-size=4096"
+  GRPC_ENFORCE_ALPN_ENABLED: "false" # https://github.com/pulumiverse/pulumi-talos/issues/113
 
 permissions:
   contents: read

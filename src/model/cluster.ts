@@ -6,7 +6,7 @@ import * as talos from '@pulumiverse/talos';
  */
 export interface ClusterData {
   readonly resources: readonly Resource[];
-  readonly clientConfiguration: Output<talos.types.output.machine.SecretsClientConfiguration>;
+  readonly clientConfiguration: Output<talos.types.output.machine.ClientConfiguration>;
   readonly kubeconfig: Output<string>;
   readonly talosconfig: Output<string>;
 }

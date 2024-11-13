@@ -43,14 +43,18 @@ export const createCluster = (): ClusterData => {
   const talosctlKubeConfig = all([
     ...upgradeResources.map((resource) => resource.stdout),
     installResource.stdout,
-  ])
+  ]).apply(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    .apply((_) =>
-      talos.cluster.getKubeconfigOutput({
-        clientConfiguration: talosSecrets.clientConfiguration,
-        node: talosConfig.machine.network.ip.v4,
-      }),
-    );
+    (_) =>
+      new talos.cluster.Kubeconfig(
+        'talos-kubeconfig',
+        {
+          clientConfiguration: talosSecrets.clientConfiguration,
+          node: talosConfig.machine.network.ip.v4,
+        },
+        {},
+      ),
+  );
 
   return {
     resources: [installResource, ...upgradeResources],
