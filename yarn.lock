@@ -768,13 +768,13 @@ __metadata:
   linkType: hard
 
 "@pulumi/kubernetes@npm:^4.15.0":
-  version: 4.18.4
-  resolution: "@pulumi/kubernetes@npm:4.18.4"
+  version: 4.19.0
+  resolution: "@pulumi/kubernetes@npm:4.19.0"
   dependencies:
     "@pulumi/pulumi": "npm:^3.136.0"
     glob: "npm:^10.3.10"
     shell-quote: "npm:^1.6.1"
-  checksum: 10c0/db5a66b4ac654360534df0e20dbe9edfe692e37c2a4a4aee18773b001e3c7b4b5bdcf339d722b445ec5e9b7f4db0a7831bad9d5bd1bc12a2006d14b78d8a24f7
+  checksum: 10c0/9701c7d778afedd61ba225203feb3286a6627b0499a83435f529285678fc2d8aa058e8a82da768181be62d689125ac9e5efa6da620504839561da97b8804a5b6
   languageName: node
   linkType: hard
 
