@@ -20,7 +20,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: fluxcd/flux2/action@b45a8b5c1f511e48da6c22f8a72e2f65e248bd3a # main
+      - uses: fluxcd/flux2/action@b232bbe00449cf86939499c5ec99b6c9197c83a0 # main
 
       - id: update
         run: |
