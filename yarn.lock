@@ -860,11 +860,11 @@ __metadata:
   linkType: hard
 
 "@pulumiverse/talos@npm:^0.5.0":
-  version: 0.5.1
-  resolution: "@pulumiverse/talos@npm:0.5.1"
+  version: 0.5.2
+  resolution: "@pulumiverse/talos@npm:0.5.2"
   dependencies:
     "@pulumi/pulumi": "npm:^3.0.0"
-  checksum: 10c0/b1e285d896423e423b0533257b2081fcbba678717bda45dc08ace3bd1d13d842b8898fc3edcaa5d5979b18d67a806925d412d2e92f8bd6d1b6a657c296f90eda
+  checksum: 10c0/23634c90965d1a0a7798b913733902b3c22a40ad6c4831896cb7976eb27da0c7e532e67f7aeffcef3e5a7674dfc77e03de969073730919b9c1df2801b5990495
   languageName: node
   linkType: hard
 
