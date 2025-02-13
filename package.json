@@ -37,7 +37,7 @@
     "@pulumi/tls": "^5.0.4",
     "@pulumi/vault": "^6.2.0",
     "@pulumiverse/talos": "^0.5.0",
-    "bcryptjs": "^2.4.3",
+    "bcryptjs": "^3.0.0",
     "nunjucks": "^3.2.4",
     "yaml": "^2.5.0"
   },
