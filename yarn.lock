@@ -1755,11 +1755,11 @@ __metadata:
   linkType: hard
 
 "bcryptjs@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "bcryptjs@npm:3.0.0"
+  version: 3.0.1
+  resolution: "bcryptjs@npm:3.0.1"
   bin:
     bcrypt: bin/bcrypt
-  checksum: 10c0/8737182353d5e59f170475ad92db3d62f53f438f2720188be6bbcae0757f26b05cae0b94d36aa426566e7d24f3ab3e8e049edb21ad680b2d8fb0b2c25bc6a3f0
+  checksum: 10c0/5f51a8202aea9f196483baa099973ab6caa600ca966da34cfa82931a1dd49b895fed0b4ba009e74199594e800d0baf4533cec8a483e03aa9df3cf91593a415b1
   languageName: node
   linkType: hard
 
