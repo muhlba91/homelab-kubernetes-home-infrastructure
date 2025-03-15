@@ -848,11 +848,11 @@ __metadata:
   linkType: hard
 
 "@pulumi/tls@npm:^5.0.4":
-  version: 5.1.0
-  resolution: "@pulumi/tls@npm:5.1.0"
+  version: 5.1.1
+  resolution: "@pulumi/tls@npm:5.1.1"
   dependencies:
     "@pulumi/pulumi": "npm:^3.142.0"
-  checksum: 10c0/9b8e990d059ab26c7a1accacf8a852ffd31e28afd61c68ca1a324ee375f616cc8ecd8c28d976dd62fa0b7afa430e94ec83c57f7ada6c57f05ca12c3783c25997
+  checksum: 10c0/65a3e5071b546caf30e8a1b61bde7373886443f1f21505456aa5122c3dbbb3be6a3928013ceceba352d212d1c8f930e8b40ac1ca6d4c379764252ceb06cefd19
   languageName: node
   linkType: hard
 
