@@ -16,7 +16,7 @@
         "pre-commit",
         "npm",
         "poetry",
-        "regex"
+        "custom.regex"
     ],
     "github-actions": {
         "fileMatch": [
