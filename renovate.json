@@ -15,6 +15,7 @@
         "github-actions",
         "pre-commit",
         "npm",
+        "poetry",
         "regex"
     ],
     "github-actions": {
@@ -35,6 +36,11 @@
         ],
         "rollbackPrs": true,
         "versioning": "npm"
+    },
+    "poetry": {
+        "fileMatch": [
+            "(^|/)pyproject\\.toml$"
+        ]
     },
     "customManagers": [
         {
