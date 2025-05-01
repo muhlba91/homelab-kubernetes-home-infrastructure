@@ -749,11 +749,11 @@ __metadata:
   linkType: hard
 
 "@pulumi/command@npm:^1.0.1":
-  version: 1.0.2
-  resolution: "@pulumi/command@npm:1.0.2"
+  version: 1.0.3
+  resolution: "@pulumi/command@npm:1.0.3"
   dependencies:
     "@pulumi/pulumi": "npm:^3.142.0"
-  checksum: 10c0/4c5c7e39bd51ea746053d2b8e01891622e7c27f83b2a897a4e575f1e5144dd300538520762df26fd01a1f3e294d09b3df021c5b61f46b3c3dcc5d3a37405be0f
+  checksum: 10c0/f5e33587485c3037e5f7dff065be84ebd386835e17226279b882378986e72c9b678101e752c8250a2078f1bd73cd405f830dd5e4a97537e405c1b7ed7573f668
   languageName: node
   linkType: hard
 
