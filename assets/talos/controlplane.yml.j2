@@ -15,7 +15,7 @@ machine:
   #   - {{ talos.cluster.vip }}
   kubelet:
     # renovate: datasource=github-releases packageName=siderolabs/kubelet
-    image: ghcr.io/siderolabs/kubelet:v1.32.3
+    image: ghcr.io/siderolabs/kubelet:v1.33.0
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
     extraArgs:
@@ -88,9 +88,8 @@ machine:
   install:
     disk: {{ talos.machine.disk }}
     # renovate: datasource=github-releases packageName=siderolabs/talos
-    image: factory.talos.dev/installer/{{ talos.cluster.installImageHash }}:v1.9.5
+    image: factory.talos.dev/metal-installer/{{ talos.cluster.installImageHash }}:v1.10.1
     wipe: true
-    extensions: []
   kernel:
     modules:
       - name: binfmt_misc
@@ -139,7 +138,7 @@ cluster:
     key: {{ secrets.certs.k8sServiceaccount.key }}
   apiServer:
     # renovate: datasource=github-releases packageName=siderolabs/kubelet
-    image: registry.k8s.io/kube-apiserver:v1.32.3
+    image: registry.k8s.io/kube-apiserver:v1.33.0
     certSANs:
       - {{ talos.machine.network.ip.v4 }}
       - {{ talos.machine.network.ip.v6 }}
@@ -169,12 +168,12 @@ cluster:
         - level: Metadata
   controllerManager:
     # renovate: datasource=github-releases packageName=siderolabs/kubelet
-    image: registry.k8s.io/kube-controller-manager:v1.32.3
+    image: registry.k8s.io/kube-controller-manager:v1.33.0
     extraArgs:
       bind-address: 0.0.0.0
   scheduler:
     # renovate: datasource=github-releases packageName=siderolabs/kubelet
-    image: registry.k8s.io/kube-scheduler:v1.32.3
+    image: registry.k8s.io/kube-scheduler:v1.33.0
     extraArgs:
       bind-address: 0.0.0.0
   discovery:

@@ -48,7 +48,7 @@ config:
     vault: true
   home_cluster-infrastructure-proxmox:talos:
     cluster:
-      installImageHash: 01afe9cdcc0d4f3c7de8b551795019845eed0eafcf87aa2dd264af999aabc9a0
+      installImageHash: 047a75d56a229962afa2804d33dfd71de84f8b79a1179b29b6fd2cf8eb06b550
       revision: rev2
       vip: 10.0.70.1
     machine:
