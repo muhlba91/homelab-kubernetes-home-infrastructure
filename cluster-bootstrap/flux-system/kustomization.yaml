@@ -58,10 +58,9 @@ patches:
         path: /spec/template/spec/containers/0/resources
         value:
           requests:
-            cpu: 10m
+            cpu: 15m
             memory: 192Mi
           limits:
-            cpu: 1
             memory: 768Mi
     target:
       kind: Deployment
@@ -76,11 +75,10 @@ patches:
         path: /spec/template/spec/containers/0/resources
         value:
           requests:
-            cpu: 5m
-            memory: 128Mi
+            cpu: 25m
+            memory: 205Mi
           limits:
-            cpu: 250m
-            memory: 192Mi
+            memory: 256Mi
     target:
       kind: Deployment
       name: kustomize-controller
@@ -94,10 +92,9 @@ patches:
         path: /spec/template/spec/containers/0/resources
         value:
           requests:
-            cpu: 5m
-            memory: 128Mi
+            cpu: 10m
+            memory: 194Mi
           limits:
-            cpu: 250m
             memory: 256Mi
     target:
       kind: Deployment
@@ -108,11 +105,10 @@ patches:
         path: /spec/template/spec/containers/0/resources
         value:
           requests:
-            cpu: 5m
-            memory: 32Mi
+            cpu: 10m
+            memory: 100Mi
           limits:
-            cpu: 100m
-            memory: 56Mi
+            memory: 128Mi
     target:
       kind: Deployment
       name: notification-controller
