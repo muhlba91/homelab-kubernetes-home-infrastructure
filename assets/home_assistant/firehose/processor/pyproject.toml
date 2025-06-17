@@ -25,4 +25,4 @@ classifiers = [
 python = "^3.11"
 
 [tool.poetry.dev-dependencies]
-ruff = "^0.11.0"
+ruff = "^0.12.0"
