@@ -277,7 +277,7 @@ __metadata:
     "@pulumi/pulumi": "npm:^3.127.0"
     "@pulumi/random": "npm:^4.16.3"
     "@pulumi/tls": "npm:^5.0.4"
-    "@pulumi/vault": "npm:^6.2.0"
+    "@pulumi/vault": "npm:^7.0.0"
     "@pulumiverse/talos": "npm:^0.6.0"
     "@types/bcryptjs": "npm:^3.0.0"
     "@types/node": "npm:^22.7.6"
@@ -901,12 +901,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pulumi/vault@npm:^6.2.0":
-  version: 6.7.1
-  resolution: "@pulumi/vault@npm:6.7.1"
+"@pulumi/vault@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@pulumi/vault@npm:7.0.0"
   dependencies:
     "@pulumi/pulumi": "npm:^3.142.0"
-  checksum: 10c0/3f6966fb1a6d6e244e49ebc386db36f8889c81f331375df54582d8b7c8c60ef3f4d8526ebb40039f1ab918f57418b0212edd97f0fc76a42f31b0227fcba768aa
+  checksum: 10c0/d3448d078c5ab3d580e102d05c218b43d5bc34c39b34a4bfa071d4c11da5804de29b811638972bda6d33780fce39ee037eba77aabdb62b073266cf34f7bcc4c7
   languageName: node
   linkType: hard
 
