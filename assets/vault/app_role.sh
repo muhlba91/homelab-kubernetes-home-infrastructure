@@ -7,6 +7,9 @@ vault policy write kubernetes-home-cluster-external-secrets -<<EOF
 path "kubernetes-home-cluster/*" {
   capabilities = ["read", "list"]
 }
+path "kubernetes-home-cluster-muc/*" {
+  capabilities = ["read", "list"]
+}
 EOF
 
 # create a role for the kubernetes-home-cluster-external-secrets
