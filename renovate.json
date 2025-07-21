@@ -8,9 +8,7 @@
     ],
     "prHourlyLimit": 0,
     "prConcurrentLimit": 0,
-    "baseBranches": [
-        "main"
-    ],
+    "baseBranches": ["main"],
     "enabledManagers": [
         "github-actions",
         "pre-commit",
@@ -19,35 +17,27 @@
         "custom.regex"
     ],
     "github-actions": {
-        "fileMatch": [
-            "^(workflow-templates|\\.github/workflows)/[^/]+\\.ya?ml$",
-            "(^|/)action\\.ya?ml$"
+        "managerFilePatterns": [
+            "/^(workflow-templates|\\.github/workflows)/[^/]+\\.ya?ml$/",
+            "/(^|/)action\\.ya?ml$/"
         ]
     },
     "pre-commit": {
         "enabled": true,
-        "fileMatch": [
-            "(^|/)\\.pre-commit-config\\.ya?ml$"
-        ]
+        "managerFilePatterns": ["/(^|/)\\.pre-commit-config\\.ya?ml$/"]
     },
     "npm": {
-        "fileMatch": [
-            "(^|/)package\\.json$"
-        ],
+        "managerFilePatterns": ["/(^|/)package\\.json$/"],
         "rollbackPrs": true,
         "versioning": "npm"
     },
     "poetry": {
-        "fileMatch": [
-            "(^|/)pyproject\\.toml$"
-        ]
+        "managerFilePatterns": ["/(^|/)pyproject\\.toml$/"]
     },
     "customManagers": [
         {
             "customType": "regex",
-            "fileMatch": [
-                "(^|/)controlplane\\.yml\\.j2$"
-            ],
+            "managerFilePatterns": ["/(^|/)controlplane\\.yml\\.j2$/"],
             "matchStrings": [
                 "# renovate: datasource=(?<datasource>[a-z-]+) packageName=(?<packageName>.+)\\s+image:.+:(?<currentValue>.+)"
             ]
