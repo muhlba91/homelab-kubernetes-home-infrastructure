@@ -278,7 +278,6 @@ __metadata:
   resolution: "@muhlba91/homelab-kubernetes-home-infrastructure@workspace:."
   dependencies:
     "@eslint/compat": "npm:^1.1.1"
-    "@pulumi/aws": "npm:^7.0.0"
     "@pulumi/command": "npm:^1.0.1"
     "@pulumi/gcp": "npm:^8.0.0"
     "@pulumi/google-native": "npm:^0.32.0"
@@ -795,16 +794,6 @@ __metadata:
   version: 1.1.0
   resolution: "@protobufjs/utf8@npm:1.1.0"
   checksum: 10c0/a3fe31fe3fa29aa3349e2e04ee13dc170cc6af7c23d92ad49e3eeaf79b9766264544d3da824dba93b7855bd6a2982fb40032ef40693da98a136d835752beb487
-  languageName: node
-  linkType: hard
-
-"@pulumi/aws@npm:^7.0.0":
-  version: 7.1.0
-  resolution: "@pulumi/aws@npm:7.1.0"
-  dependencies:
-    "@pulumi/pulumi": "npm:^3.142.0"
-    mime: "npm:^2.0.0"
-  checksum: 10c0/104f43da0f74e0880c5d2199b326277f5a077167af489249b7f645e5576f9766c824d62b3aa00d14fc4e2dc051e04cde1e26be3feb4b5276fd2e6275a175d445
   languageName: node
   linkType: hard
 
@@ -4289,15 +4278,6 @@ __metadata:
     braces: "npm:^3.0.3"
     picomatch: "npm:^2.3.1"
   checksum: 10c0/166fa6eb926b9553f32ef81f5f531d27b4ce7da60e5baf8c021d043b27a388fb95e46a8038d5045877881e673f8134122b59624d5cecbd16eb50a42e7a6b5ca8
-  languageName: node
-  linkType: hard
-
-"mime@npm:^2.0.0":
-  version: 2.6.0
-  resolution: "mime@npm:2.6.0"
-  bin:
-    mime: cli.js
-  checksum: 10c0/a7f2589900d9c16e3bdf7672d16a6274df903da958c1643c9c45771f0478f3846dcb1097f31eb9178452570271361e2149310931ec705c037210fc69639c8e6c
   languageName: node
   linkType: hard
 

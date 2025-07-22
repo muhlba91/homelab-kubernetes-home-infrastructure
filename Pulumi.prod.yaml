@@ -10,25 +10,6 @@ config:
       keyringId: infrastructure-encryption
       location: europe
     project: tuxnet-385112
-  home_cluster-infrastructure-proxmox:homeAssistant:
-    athena:
-      bytesScannedCutoffPerQuery: 10000000000
-      resultsExpiryInDays: 7
-    bucketArn:
-      secure: v1:EwYKBpEa8fIsMkdp:XFSATrmai64YCfvxvYQGowt/fpxmLr31UoB6Ct1BU77W8LLQHLZpEYVVSBINg4DgN6NclNPqyW635P6hq7BtkweivQCSbF038ZjLel55W0M=
-    firehose:
-      buffer:
-        interval: 900
-        size: 64
-      compression: GZIP
-      lambda:
-        buffer:
-          interval: 900
-          size: 3
-        memory: 128
-        timeout: 300
-    glue:
-      schedule: cron(0 1 1 * ? *)
   home_cluster-infrastructure-proxmox:network:
     domain: internal.muehlbachler.io
     ipv4:

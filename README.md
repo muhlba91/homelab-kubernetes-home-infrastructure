@@ -117,29 +117,6 @@ talos:
 
 ```
 
-### Home Assistant
-
-```yaml
-homeAssistant:
-  athena:
-    bytesScannedCutoffPerQuery: the upper data usage limit (cutoff) for the amount of bytes a single query in a workgroup is allowed to scan
-    resultsExpiryInDays: expiry time for cached results
-  bucketArn: the bucket to store the Home Assistant date in
-  firehose:
-    buffer:
-      interval: the flush interval of the Firehose buffer
-      size: the flush size of the Firehose buffer
-    compression: the compression to use when delivering data
-    lambda:
-      buffer:
-        interval: the flush interval of the Firehose Lambda processor buffer
-        size: the flush size of the Firehose Lambda processor buffer
-      memory: the memory to assign to the Lambda processor
-      timeout: the timeout for the Lambda processor
-  glue:
-    schedule: the cron schedule for the Glue indexing
-```
-
 ---
 
 ## Continuous Integration and Automations
