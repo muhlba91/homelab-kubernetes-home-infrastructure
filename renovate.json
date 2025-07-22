@@ -8,12 +8,13 @@
     ],
     "prHourlyLimit": 0,
     "prConcurrentLimit": 0,
-    "baseBranches": ["main"],
+    "baseBranches": [
+        "main"
+    ],
     "enabledManagers": [
         "github-actions",
         "pre-commit",
         "npm",
-        "poetry",
         "custom.regex"
     ],
     "github-actions": {
@@ -24,20 +25,23 @@
     },
     "pre-commit": {
         "enabled": true,
-        "managerFilePatterns": ["/(^|/)\\.pre-commit-config\\.ya?ml$/"]
+        "managerFilePatterns": [
+            "/(^|/)\\.pre-commit-config\\.ya?ml$/"
+        ]
     },
     "npm": {
-        "managerFilePatterns": ["/(^|/)package\\.json$/"],
+        "managerFilePatterns": [
+            "/(^|/)package\\.json$/"
+        ],
         "rollbackPrs": true,
         "versioning": "npm"
-    },
-    "poetry": {
-        "managerFilePatterns": ["/(^|/)pyproject\\.toml$/"]
     },
     "customManagers": [
         {
             "customType": "regex",
-            "managerFilePatterns": ["/(^|/)controlplane\\.yml\\.j2$/"],
+            "managerFilePatterns": [
+                "/(^|/)controlplane\\.yml\\.j2$/"
+            ],
             "matchStrings": [
                 "# renovate: datasource=(?<datasource>[a-z-]+) packageName=(?<packageName>.+)\\s+image:.+:(?<currentValue>.+)"
             ]
