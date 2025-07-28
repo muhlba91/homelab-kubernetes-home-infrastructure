@@ -6,16 +6,10 @@ set -e
 while [ ! -f ./outputs/secrets.yaml ]; do sleep 5; done
 
 # generate talosconfig
-talosctl gen config --with-secrets ./outputs/secrets.yaml --output-types talosconfig -o ./outputs/talosconfig --force cluster https://cluster.talos.local &>/dev/null
-talosctl --talosconfig ./outputs/talosconfig config endpoint {{ endpoint }} &>/dev/null
-talosctl --talosconfig ./outputs/talosconfig config node {{ endpoint }} &>/dev/null
-
-# generate kubeconfig
-# TALOSCONFIG="./outputs/talosconfig" talosctl kubeconfig ./outputs/admin.conf --force &>/dev/null
+talosctl gen config --with-secrets ./outputs/secrets.yaml --output-types talosconfig -o - cluster https://cluster.talos.local > ./outputs/talosconfig
+talosctl --talosconfig ./outputs/talosconfig config endpoint {{ endpoint }}
+talosctl --talosconfig ./outputs/talosconfig config node {{ endpoint }}
 
 # output all files
 echo "---FILE---"
 cat ./outputs/talosconfig
-echo "---FILE---"
-# cat ./outputs/admin.conf
-echo "not needed"

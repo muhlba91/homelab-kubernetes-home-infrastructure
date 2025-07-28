@@ -117,21 +117,16 @@ const writeTalosConfigFiles = (): Output<string[]> => {
   );
 
   const files = configFiles.stdout.apply((output) => {
-    const files = output.split('---FILE---');
+    const file = output.split('---FILE---');
     writeFilePulumiAndUploadToS3(
       'talosconfig',
       Output.create(
-        writeFileContents('./outputs/talosconfig', files[1].trim(), {}),
+        writeFileContents('./outputs/talosconfig', file[1].trim(), {}),
       ),
       {},
     );
-    // writeFilePulumiAndUploadToS3(
-    //   'admin.conf',
-    //   Output.create(writeFileContents('./outputs/admin.conf', files[2].trim(), {})),
-    //   {},
-    // );
 
-    return [files[1].trim(), files[2].trim()];
+    return [file[1].trim()];
   });
 
   return files;
