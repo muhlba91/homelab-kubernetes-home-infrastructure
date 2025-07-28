@@ -1,0 +1,21 @@
+#! /bin/sh
+
+set -e
+
+# wait for all files to exist
+while [ ! -f ./outputs/secrets.yaml ]; do sleep 5; done
+
+# generate talosconfig
+talosctl gen config --with-secrets ./outputs/secrets.yaml --output-types talosconfig -o ./outputs/talosconfig --force cluster https://cluster.talos.local &>/dev/null
+talosctl --talosconfig ./outputs/talosconfig config endpoint {{ endpoint }} &>/dev/null
+talosctl --talosconfig ./outputs/talosconfig config node {{ endpoint }} &>/dev/null
+
+# generate kubeconfig
+# talosctl --talosconfig ./outputs/talosconfig kubeconfig ./outputs/admin.conf --force &>/dev/null
+
+# output all files
+echo "---FILE---"
+cat ./outputs/talosconfig
+echo "---FILE---"
+# cat ./outputs/admin.conf
+echo "not needed"
