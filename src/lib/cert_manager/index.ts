@@ -1,7 +1,7 @@
 import { interpolate } from '@pulumi/pulumi';
 
 import {
-  fixedStackName,
+  environment,
   gatesConfig,
   globalName,
   googleConfig,
@@ -25,7 +25,7 @@ export const createCertManagerResources = () => {
     {},
   );
   createIAMMember(
-    `cert-manager-${globalName}-${fixedStackName}`, // TODO: replace with dynamic value
+    `cert-manager-${globalName}-${environment}`,
     interpolate`serviceAccount:${iam.serviceAccount.email}`,
     roles,
     {

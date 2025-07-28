@@ -1,7 +1,7 @@
 import { interpolate } from '@pulumi/pulumi';
 
 import {
-  fixedStackName,
+  environment,
   gatesConfig,
   globalName,
   googleConfig,
@@ -24,7 +24,7 @@ export const createExternalDNSResources = () => {
     {},
   );
   createIAMMember(
-    `external-dns-${globalName}-${fixedStackName}`, // TODO: replace with dynamic value
+    `external-dns-${globalName}-${environment}`,
     interpolate`serviceAccount:${iam.serviceAccount.email}`,
     roles,
     {
