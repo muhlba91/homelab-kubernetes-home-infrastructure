@@ -11,7 +11,7 @@ talosctl --talosconfig ./outputs/talosconfig config endpoint {{ endpoint }} &>/d
 talosctl --talosconfig ./outputs/talosconfig config node {{ endpoint }} &>/dev/null
 
 # generate kubeconfig
-# talosctl --talosconfig ./outputs/talosconfig kubeconfig ./outputs/admin.conf --force &>/dev/null
+# TALOSCONFIG="./outputs/talosconfig" talosctl kubeconfig ./outputs/admin.conf --force &>/dev/null
 
 # output all files
 echo "---FILE---"
