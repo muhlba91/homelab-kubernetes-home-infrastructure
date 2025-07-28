@@ -174,8 +174,6 @@ jobs:
             github-homelab-kubernetes-home-infrastructure/data/google-cloud region | CLOUDSDK_COMPUTE_REGION ;
             github-homelab-kubernetes-home-infrastructure/data/google-cloud workload_identity_provider | GOOGLE_WORKLOAD_IDENTITY_PROVIDER ;
             github-homelab-kubernetes-home-infrastructure/data/google-cloud ci_service_account | GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT ;
-            github-homelab-kubernetes-home-infrastructure/data/aws region | AWS_REGION ;
-            github-homelab-kubernetes-home-infrastructure/data/aws identity_role_arn | AWS_IDENTITY_ROLE_ARN ;
             github-homelab-kubernetes-home-infrastructure/data/github token | GH_PAT_TOKEN ;
             github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_client_id | TS_OAUTH_CLIENT_ID ;
             github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_secret | TS_OAUTH_SECRET
@@ -190,11 +188,6 @@ jobs:
         with:
           workload_identity_provider: ${{ env.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ env.GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT }}
-
-      - uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
-        with:
-          role-to-assume: ${{ env.AWS_IDENTITY_ROLE_ARN }}
-          aws-region: ${{ env.AWS_REGION }}
 
       - run: |
           yarn install --immutable
