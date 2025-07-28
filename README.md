@@ -45,6 +45,14 @@ To successfully run, and configure the Pulumi plugins, you need to set a list of
 
 ---
 
+## Stacks
+
+The following stacks are available:
+
+- `vie`: identifies the cluster in Vienna
+
+---
+
 ## Configuration
 
 The following section describes the configuration which must be set in the Pulumi Stack.
@@ -114,7 +122,6 @@ talos:
         v4: the IPv4 address to set
         v6: the IPv6 address to set
       mac: the network link's MAC address to set the IPs for
-
 ```
 
 ---

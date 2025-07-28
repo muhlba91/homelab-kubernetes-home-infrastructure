@@ -182,7 +182,7 @@ jobs:
             --owner ${{ github.repository_owner }} \
             --repository ${{ github.event.repository.name }} \
             --branch main \
-            --path ./cluster-bootstrap/ \
+            --path ./cluster-bootstrap/vie/ \
             --personal \
             --interval 5m \
             --author-name "github-actions[bot]" \

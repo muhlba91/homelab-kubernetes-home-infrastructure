@@ -27,7 +27,7 @@ jobs:
           flux install \
             --components source-controller,kustomize-controller,helm-controller,notification-controller \
             --cluster-domain cluster.local \
-            --export > ./cluster-bootstrap/flux-system/gotk-components.yaml
+            --export > ./cluster-bootstrap/vie/flux-system/gotk-components.yaml
 
           VERSION="$(flux -v)"
           echo "flux_version=$VERSION" >> $GITHUB_OUTPUT

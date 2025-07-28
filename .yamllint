@@ -3,8 +3,10 @@ extends: default
 
 ignore:
   - Pulumi*.yaml
+  - .github/workflows/
   - node_modules/
-  - cluster-bootstrap/flux-system/gotk-components.yaml
+  - outputs/
+  - cluster-bootstrap/**/flux-system/gotk-components.yaml
   - .pre-commit-config.yaml
 
 rules:
