@@ -1,6 +1,11 @@
 import { interpolate } from '@pulumi/pulumi';
 
-import { fixedStackName, globalName, googleConfig } from '../configuration';
+import {
+  fixedStackName,
+  gatesConfig,
+  globalName,
+  googleConfig,
+} from '../configuration';
 import { createIAMMember } from '../google/iam/iam_member';
 import { createGCPServiceAccountAndKey } from '../util/google/service_account_user';
 import { writeToVault } from '../util/vault/secret';
@@ -9,6 +14,9 @@ import { writeToVault } from '../util/vault/secret';
  * Creates the external-dns resources.
  */
 export const createExternalDNSResources = () => {
+  if (!gatesConfig.externalDns) {
+    return;
+  }
   const roles = ['roles/dns.admin'];
   const iam = createGCPServiceAccountAndKey(
     'external-dns',

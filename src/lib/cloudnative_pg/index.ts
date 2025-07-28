@@ -1,4 +1,9 @@
-import { backupBucketId, globalName, googleConfig } from '../configuration';
+import {
+  backupBucketId,
+  gatesConfig,
+  globalName,
+  googleConfig,
+} from '../configuration';
 import { createGCSIAMMember } from '../google/storage/iam_member';
 import { createGCPServiceAccountAndKey } from '../util/google/service_account_user';
 import { writeToVault } from '../util/vault/secret';
@@ -7,6 +12,10 @@ import { writeToVault } from '../util/vault/secret';
  * Creates the CloudNativePG resources.
  */
 export const createCloudNativePGResources = () => {
+  if (!gatesConfig.cloudNativePg) {
+    return;
+  }
+
   const iam = createGCPServiceAccountAndKey(
     'cloudnative-pg',
     googleConfig.project,

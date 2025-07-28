@@ -59,11 +59,23 @@ The following section describes the configuration which must be set in the Pulum
 
 ***Attention:*** do use [Secrets Encryption](https://www.pulumi.com/docs/concepts/secrets/#:~:text=Pulumi%20never%20sends%20authentication%20secrets,“secrets”%20for%20extra%20protection.) provided by Pulumi for secret values!
 
+### Gates
+
+```yaml
+gates:
+  homeAssistant: enables the Home Assistant integration
+  externalDns: enables the External DNS integration
+  certManager: enables the Cert Manager integration
+  velero: enables the Velero integration
+  cloudNativePg: enables the Cloud Native PostgreSQL integration
+  cluster: enables the cluster creation integration
+```
+
 ### Bucket Identifiers
 
 ```yaml
 bucketId: the bucket identifier to upload assets to
-backupBackedId: the bucket identifier to configure backups to
+backupBucketId: the bucket identifier to configure backups to
 ```
 
 ### Secret Stores

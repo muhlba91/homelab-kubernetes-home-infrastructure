@@ -1,12 +1,9 @@
-import { Output, Resource } from '@pulumi/pulumi';
-import * as talos from '@pulumiverse/talos';
+import { Output } from '@pulumi/pulumi';
 
 /**
  * Defines a cluster.
  */
 export interface ClusterData {
-  readonly resources: readonly Resource[];
-  readonly clientConfiguration: Output<talos.types.output.machine.ClientConfiguration>;
   readonly kubeconfig: Output<string>;
   readonly talosconfig: Output<string>;
 }
