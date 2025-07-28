@@ -78,17 +78,18 @@ machine:
   #    - btrfs
   #    - drbd
   #    - fuse3
+  #    - gasket-driver
   #    - i915-ucode
   #    - intel-ucode
   #    - iscsi-tools
-  #    - nvidia-container-toolkit
-  #    - nvidia-open-gpu-kernel-modules
+  #    - nvidia-container-toolkit-production
+  #    - nvidia-open-gpu-kernel-modules-production
   #    - thunderbolt
   #    - util-linux-tools
   install:
     disk: {{ talos.machine.disk }}
     # renovate: datasource=github-releases packageName=siderolabs/talos
-    image: factory.talos.dev/metal-installer/{{ talos.cluster.installImageHash }}:v1.10.3
+    image: factory.talos.dev/metal-installer/{{ talos.cluster.installImageHash }}:v1.10.5
     wipe: true
   kernel:
     modules:
