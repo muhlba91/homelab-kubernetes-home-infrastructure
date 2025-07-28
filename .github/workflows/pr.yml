@@ -202,7 +202,7 @@ jobs:
       - uses: pulumi/actions@cc7494be991dba0978f7ffafaf995b0449a0998e # v6.5.0
         with:
           command: preview
-          stack-name: prod
+          stack-name: vie
           comment-on-pr: true
           refresh: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
         env:
