@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+
 import { Command } from '@pulumi/command/local';
 import { Output } from '@pulumi/pulumi';
 import * as talos from '@pulumiverse/talos';
@@ -63,17 +65,18 @@ export const writeTalosConfigFiles = (): Output<string[]> => {
     },
   );
 
-  const files = configFiles.stdout.apply((output) => {
-    const file = output.split('---FILE---');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const files = configFiles.stdout.apply((_) => {
+    const talosconfig = fs.readFileSync('./outputs/talosconfig.tmp', 'utf-8');
     writeFilePulumiAndUploadToS3(
       'talosconfig',
       Output.create(
-        writeFileContents('./outputs/talosconfig', file[1].trim(), {}),
+        writeFileContents('./outputs/talosconfig', talosconfig, {}),
       ),
       {},
     );
 
-    return [file[1].trim()];
+    return [talosconfig];
   });
 
   return files;
