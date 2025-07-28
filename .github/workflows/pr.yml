@@ -144,6 +144,8 @@ jobs:
       max-parallel: 12
       matrix:
         node-version: ["24"]
+        site:
+          - vie
 
     steps:
       - uses: step-security/harden-runner@ec9f2d5744a09debf3a187a3f4f675c53b671911 # v2.13.0
@@ -202,7 +204,7 @@ jobs:
       - uses: pulumi/actions@cc7494be991dba0978f7ffafaf995b0449a0998e # v6.5.0
         with:
           command: preview
-          stack-name: vie
+          stack-name: ${{ matrix.site }}
           comment-on-pr: true
           refresh: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
         env:

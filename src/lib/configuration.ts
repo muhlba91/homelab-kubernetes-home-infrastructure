@@ -1,5 +1,6 @@
 import { Config, getStack } from '@pulumi/pulumi';
 
+import { ClusterIntegrationConfig } from '../model/config/cluster_integration';
 import { GatesConfig } from '../model/config/gates';
 import { GoogleConfig } from '../model/config/google';
 import { NetworkConfig } from '../model/config/network';
@@ -12,6 +13,8 @@ const config = new Config();
 export const gatesConfig = config.requireObject<GatesConfig>('gates');
 export const googleConfig = config.requireObject<GoogleConfig>('google');
 export const talosConfig = config.requireObject<TalosConfig>('talos');
+export const clusterIntegrationConfig =
+  config.getObject<ClusterIntegrationConfig>('clusterIntegration');
 export const networkConfig = config.requireObject<NetworkConfig>('network');
 export const secretStoresConfig =
   config.requireObject<SecretStoresConfig>('secretStores');

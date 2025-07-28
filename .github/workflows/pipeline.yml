@@ -25,6 +25,8 @@ jobs:
       max-parallel: 12
       matrix:
         node-version: ["24"]
+        site:
+          - vie
 
     steps:
       - uses: step-security/harden-runner@ec9f2d5744a09debf3a187a3f4f675c53b671911 # v2.13.0
@@ -83,7 +85,7 @@ jobs:
       - uses: pulumi/actions@cc7494be991dba0978f7ffafaf995b0449a0998e # v6.5.0
         with:
           command: preview
-          stack-name: vie
+          stack-name: ${{ matrix.site }}
           refresh: true
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
@@ -101,6 +103,8 @@ jobs:
       max-parallel: 12
       matrix:
         node-version: ["24"]
+        site:
+          - vie
 
     steps:
       - uses: step-security/harden-runner@ec9f2d5744a09debf3a187a3f4f675c53b671911 # v2.13.0
@@ -170,7 +174,7 @@ jobs:
       - uses: pulumi/actions@cc7494be991dba0978f7ffafaf995b0449a0998e # v6.5.0
         with:
           command: up
-          stack-name: vie
+          stack-name: ${{ matrix.site }}
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           VAULT_ADDR: "${{ secrets.VAULT_ADDR }}"
@@ -182,7 +186,7 @@ jobs:
             --owner ${{ github.repository_owner }} \
             --repository ${{ github.event.repository.name }} \
             --branch main \
-            --path ./cluster-bootstrap/vie/ \
+            --path ./cluster-bootstrap/${{ matrix.site }}/ \
             --personal \
             --interval 5m \
             --author-name "github-actions[bot]" \

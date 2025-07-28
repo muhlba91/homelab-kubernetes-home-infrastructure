@@ -7,5 +7,6 @@ export interface GatesConfig {
   readonly certManager: boolean;
   readonly velero: boolean;
   readonly cloudNativePg: boolean;
+  readonly flux: boolean;
   readonly cluster: boolean;
 }

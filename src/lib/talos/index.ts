@@ -1,15 +1,17 @@
+import * as kubernetes from '@pulumi/kubernetes';
 import { all } from '@pulumi/pulumi';
 import * as talos from '@pulumiverse/talos';
 
 import { ClusterData } from '../../model/cluster';
-import { gatesConfig, talosConfig } from '../configuration';
+import { deployCilium } from '../cilium';
+import { gatesConfig, globalName, talosConfig } from '../configuration';
+import { writeFilePulumiAndUploadToS3 } from '../util/storage';
 
 import {
   writeControlplaneAndSecretsFiles,
   writeTalosConfigFiles,
 } from './files';
 import { installCluster } from './install';
-import { postInstall } from './post_install';
 import { upgradeCluster } from './upgrade';
 
 /**
@@ -22,6 +24,7 @@ export const createCluster = (): ClusterData | undefined => {
     return undefined;
   }
 
+  // Talos related secrets
   const talosSecrets = new talos.machine.Secrets(
     `talos-secrets-${talosConfig.cluster.revision}`,
     {},
@@ -56,16 +59,44 @@ export const createCluster = (): ClusterData | undefined => {
         {},
       ),
   );
-
-  // post-installation tasks
-  postInstall(
+  const kubeconfigFile = writeFilePulumiAndUploadToS3(
+    'admin.conf',
     talosctlKubeConfig.kubeconfigRaw,
-    talosSecrets.clientConfiguration,
-    [installResource, ...upgradeResources],
+    {},
+  );
+  const kubernetesProvider = talosctlKubeConfig.kubeconfigRaw.apply(
+    (kubeconfig) =>
+      new kubernetes.Provider(
+        `${globalName}-cluster`,
+        {
+          kubeconfig: kubeconfig,
+        },
+        {
+          dependsOn: [kubeconfigFile],
+        },
+      ),
+  );
+
+  // cilium
+  const cilium = deployCilium({
+    pulumiOptions: {
+      dependsOn: [installResource, kubeconfigFile, ...upgradeResources],
+    },
+  });
+
+  // health check
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  cilium.stdout.apply((_) =>
+    talos.cluster.getHealthOutput({
+      clientConfiguration: talosSecrets.clientConfiguration,
+      controlPlaneNodes: [talosConfig.machine.network.ip.v4],
+      endpoints: [talosConfig.machine.network.ip.v4],
+    }),
   );
 
   return {
     kubeconfig: talosctlKubeConfig.kubeconfigRaw,
     talosconfig: talosconfigFile,
+    provider: kubernetesProvider,
   };
 };

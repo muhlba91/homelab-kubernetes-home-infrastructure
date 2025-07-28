@@ -136,6 +136,13 @@ talos:
       mac: the network link's MAC address to set the IPs for
 ```
 
+### Cluster Integration
+
+```yaml
+clusterIntegration:
+  kubeconfig: the kubeconfig to use for the cluster integration
+```
+
 ---
 
 ## Continuous Integration and Automations

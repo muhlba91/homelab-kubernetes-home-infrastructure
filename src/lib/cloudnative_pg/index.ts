@@ -1,8 +1,8 @@
 import {
   backupBucketId,
   gatesConfig,
-  globalName,
   googleConfig,
+  secretStoresConfig,
 } from '../configuration';
 import { createGCSIAMMember } from '../google/storage/iam_member';
 import { createGCPServiceAccountAndKey } from '../util/google/service_account_user';
@@ -40,6 +40,6 @@ export const createCloudNativePGResources = () => {
     iam.key.privateKey.apply((key) =>
       JSON.stringify({ credentials: key, bucket: backupBucketId }),
     ),
-    `kubernetes-${globalName}-cluster`,
+    secretStoresConfig.vaultMount,
   );
 };

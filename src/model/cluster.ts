@@ -1,3 +1,4 @@
+import * as kubernetes from '@pulumi/kubernetes';
 import { Output } from '@pulumi/pulumi';
 
 /**
@@ -5,5 +6,6 @@ import { Output } from '@pulumi/pulumi';
  */
 export interface ClusterData {
   readonly kubeconfig: Output<string>;
-  readonly talosconfig: Output<string>;
+  readonly talosconfig?: Output<string>;
+  readonly provider: Output<kubernetes.Provider>;
 }

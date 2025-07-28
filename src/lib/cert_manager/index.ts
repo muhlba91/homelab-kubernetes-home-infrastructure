@@ -5,6 +5,7 @@ import {
   gatesConfig,
   globalName,
   googleConfig,
+  secretStoresConfig,
 } from '../configuration';
 import { createIAMMember } from '../google/iam/iam_member';
 import { createGCPServiceAccountAndKey } from '../util/google/service_account_user';
@@ -36,6 +37,6 @@ export const createCertManagerResources = () => {
   writeToVault(
     'cert-manager-google-cloud',
     iam.key.privateKey.apply((key) => JSON.stringify({ credentials: key })),
-    `kubernetes-${globalName}-cluster`,
+    secretStoresConfig.vaultMount,
   );
 };

@@ -27,6 +27,7 @@ config:
       - 2606:4700:4700::1111
   home_cluster-infrastructure-proxmox:secretStores:
     vault: true
+    vaultMount: kubernetes-home-cluster
   home_cluster-infrastructure-proxmox:talos:
     cluster:
       installImageHash: 0fdd85bb75e9617b52bc133b604067d88a8e6a40ad8b5bd32edc835cf6c8cb0b
@@ -47,3 +48,4 @@ config:
     velero: true
     cloudNativePg: true
     cluster: true
+    flux: true

@@ -1,7 +1,11 @@
 import { all } from '@pulumi/pulumi';
 
 import { ServiceAccountData } from '../../model/google/service_account_data';
-import { backupBucketId, globalName, googleConfig } from '../configuration';
+import {
+  backupBucketId,
+  googleConfig,
+  secretStoresConfig,
+} from '../configuration';
 import { createHmacKey } from '../google/iam/hmac';
 import { createIAMMember } from '../google/kms/iam_member';
 import { createGCSIAMMember } from '../google/storage/iam_member';
@@ -31,7 +35,7 @@ export const createGCPKey = (): ServiceAccountData => {
   writeToVault(
     'home-assistant-google-cloud',
     iam.key.privateKey.apply((key) => JSON.stringify({ credentials: key })),
-    `kubernetes-${globalName}-cluster`,
+    secretStoresConfig.vaultMount,
   );
 
   return iam;
@@ -61,6 +65,6 @@ export const createGCSKey = (iam: ServiceAccountData) => {
         secret_access_key: secretKey,
       }),
     ),
-    `kubernetes-${globalName}-cluster`,
+    secretStoresConfig.vaultMount,
   );
 };
