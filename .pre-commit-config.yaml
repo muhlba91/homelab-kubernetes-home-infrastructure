@@ -1,48 +1,33 @@
----
 repos:
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.12.4
-    hooks:
-      - id: ruff
-        args: [--fix]
-      - id: ruff-format
-  - repo: https://github.com/talos-systems/conform
+-   repo: https://github.com/talos-systems/conform
     rev: v0.1.0-alpha.30
     hooks:
-      - id: conform
+    -   id: conform
         stages:
-          - commit-msg
-  - repo: https://github.com/pre-commit/pre-commit-hooks
+        - commit-msg
+-   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
-      - id: trailing-whitespace
-      - id: check-json
-      - id: check-merge-conflict
-      - id: check-symlinks
-      - id: check-toml
-      - id: check-xml
-      - id: detect-aws-credentials
-        args: [
-            "--allow-missing-credentials"
-        ]
-      - id: detect-private-key
-      - id: end-of-file-fixer
-#      - id: no-commit-to-branch
-#        args: [
-#            "--branch",
-#            "main",
-#            "--branch",
-#            "next"
-#        ]
-  - repo: https://github.com/gitleaks/gitleaks
+    -   id: trailing-whitespace
+    -   id: check-json
+    -   id: check-merge-conflict
+    -   id: check-symlinks
+    -   id: check-toml
+    -   id: check-xml
+    -   id: detect-aws-credentials
+        args:
+        - --allow-missing-credentials
+    -   id: detect-private-key
+    -   id: end-of-file-fixer
+-   repo: https://github.com/gitleaks/gitleaks
     rev: v8.28.0
     hooks:
-      - id: gitleaks
-  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    -   id: gitleaks
+-   repo: https://github.com/jumanjihouse/pre-commit-hooks
     rev: 3.0.0
     hooks:
-      - id: shellcheck
-  - repo: https://github.com/pre-commit/mirrors-eslint
+    -   id: shellcheck
+-   repo: https://github.com/pre-commit/mirrors-eslint
     rev: v9.32.0
     hooks:
-      - id: eslint
+    -   id: eslint
