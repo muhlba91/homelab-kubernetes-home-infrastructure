@@ -6,6 +6,7 @@ import { SecretStoresConfig } from '../model/config/secret_stores';
 import { TalosConfig } from '../model/config/talos';
 
 export const environment = getStack();
+export const fixedStackName = 'prod'; // TODO: replace all occurrences of this with a dynamic value based on the environment
 
 const config = new Config();
 export const googleConfig = config.requireObject<GoogleConfig>('google');

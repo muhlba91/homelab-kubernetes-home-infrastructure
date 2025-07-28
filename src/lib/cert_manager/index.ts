@@ -1,6 +1,6 @@
 import { interpolate } from '@pulumi/pulumi';
 
-import { environment, globalName, googleConfig } from '../configuration';
+import { fixedStackName, globalName, googleConfig } from '../configuration';
 import { createIAMMember } from '../google/iam/iam_member';
 import { createGCPServiceAccountAndKey } from '../util/google/service_account_user';
 import { writeToVault } from '../util/vault/secret';
@@ -16,7 +16,7 @@ export const createCertManagerResources = () => {
     {},
   );
   createIAMMember(
-    `cert-manager-${globalName}-${environment}`,
+    `cert-manager-${globalName}-${fixedStackName}`, // TODO: replace with dynamic value
     interpolate`serviceAccount:${iam.serviceAccount.email}`,
     roles,
     {

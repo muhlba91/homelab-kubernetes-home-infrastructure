@@ -1,12 +1,12 @@
 import * as gcp from '@pulumi/gcp';
 import { Output } from '@pulumi/pulumi';
 
-import { bucketId, environment, globalName } from '../configuration';
+import { bucketId, fixedStackName, globalName } from '../configuration';
 import { uploadToGCS } from '../google/storage/upload';
 
 import { writeFilePulumi } from './file';
 
-export const BUCKET_PATH = `cluster/${globalName}/${environment}`;
+export const BUCKET_PATH = `cluster/${globalName}/${fixedStackName}`; // TODO: replace with dynamic value based on the environment
 
 /**
  * Writes the pulumi Output to a file and uploads it to S3.
