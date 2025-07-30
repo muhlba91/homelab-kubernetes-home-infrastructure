@@ -1,15 +1,7 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": [
-        "config:recommended",
-        "helpers:pinGitHubActionDigests",
-        ":dependencyDashboard",
-        ":semanticCommitTypeAll(chore)"
-    ],
-    "prHourlyLimit": 0,
-    "prConcurrentLimit": 0,
-    "baseBranches": [
-        "main"
+        "github>muhlba91/renovate-config"
     ],
     "enabledManagers": [
         "github-actions",
@@ -17,25 +9,6 @@
         "npm",
         "custom.regex"
     ],
-    "github-actions": {
-        "managerFilePatterns": [
-            "/^(workflow-templates|\\.github/workflows)/[^/]+\\.ya?ml$/",
-            "/(^|/)action\\.ya?ml$/"
-        ]
-    },
-    "pre-commit": {
-        "enabled": true,
-        "managerFilePatterns": [
-            "/(^|/)\\.pre-commit-config\\.ya?ml$/"
-        ]
-    },
-    "npm": {
-        "managerFilePatterns": [
-            "/(^|/)package\\.json$/"
-        ],
-        "rollbackPrs": true,
-        "versioning": "npm"
-    },
     "customManagers": [
         {
             "customType": "regex",
