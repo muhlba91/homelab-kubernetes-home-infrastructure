@@ -1,7 +1,7 @@
 import * as gcp from '@pulumi/gcp';
 import { Output } from '@pulumi/pulumi';
 
-import { bucketId, environment, globalName } from '../configuration';
+import { bucketId, environment } from '../configuration';
 import { uploadToGCS } from '../google/storage/upload';
 
 import { writeFilePulumi } from './file';
