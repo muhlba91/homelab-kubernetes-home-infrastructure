@@ -25,7 +25,7 @@ export const writeFilePulumiAndUploadToS3 = (
     permissions = '0644',
   }: { readonly s3SubPath?: string; readonly permissions?: string },
 ): Output<gcp.storage.BucketObject> => {
-  const path = `outputs/${name}`;
+  const path = `outputs/${environment}/${name}`;
   return writeFilePulumi(path, content, {
     permissions: permissions,
   }).apply(() =>

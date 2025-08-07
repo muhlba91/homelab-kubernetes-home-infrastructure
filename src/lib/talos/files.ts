@@ -5,7 +5,12 @@ import { Output } from '@pulumi/pulumi';
 import * as talos from '@pulumiverse/talos';
 import * as yaml from 'yaml';
 
-import { globalName, networkConfig, talosConfig } from '../configuration';
+import {
+  environment,
+  globalName,
+  networkConfig,
+  talosConfig,
+} from '../configuration';
 import { writeFileContents } from '../util/file';
 import { writeFilePulumiAndUploadToS3 } from '../util/storage';
 import { renderTemplate } from '../util/template';
@@ -53,9 +58,11 @@ export const writeTalosConfigFiles = (): Output<string[]> => {
     'talos-config-files',
     {
       create: renderTemplate('assets/talos/talosconfig.sh.j2', {
+        environment: environment,
         endpoint: talosConfig.machine.network.ip.v4,
       }),
       update: renderTemplate('assets/talos/talosconfig.sh.j2', {
+        environment: environment,
         endpoint: talosConfig.machine.network.ip.v4,
       }),
       triggers: [Math.random()],
@@ -67,11 +74,18 @@ export const writeTalosConfigFiles = (): Output<string[]> => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const files = configFiles.stdout.apply((_) => {
-    const talosconfig = fs.readFileSync('./outputs/talosconfig.tmp', 'utf-8');
+    const talosconfig = fs.readFileSync(
+      `./outputs/${environment}/talosconfig.tmp`,
+      'utf-8',
+    );
     writeFilePulumiAndUploadToS3(
       'talosconfig',
       Output.create(
-        writeFileContents('./outputs/talosconfig', talosconfig, {}),
+        writeFileContents(
+          `./outputs/${environment}/talosconfig`,
+          talosconfig,
+          {},
+        ),
       ),
       {},
     );

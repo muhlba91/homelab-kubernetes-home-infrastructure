@@ -1,6 +1,6 @@
 import { local } from '@pulumi/command';
 
-import { talosConfig } from '../configuration';
+import { environment, talosConfig } from '../configuration';
 
 /**
  * Installs the cluster.
@@ -12,6 +12,9 @@ export const installCluster = (): local.Command => {
   const talosctlValidate = new local.Command('talosctl-validate', {
     create: './assets/talos/validate.sh',
     update: './assets/talos/validate.sh',
+    environment: {
+      ENVIRONMENT: environment,
+    },
   });
 
   // install Talos
@@ -20,6 +23,7 @@ export const installCluster = (): local.Command => {
     {
       create: './assets/talos/apply.sh',
       environment: {
+        ENVIRONMENT: environment,
         CONTROL_PLANE_IP: talosConfig.machine.network.ip.v4,
       },
     },

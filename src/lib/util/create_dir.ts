@@ -9,5 +9,5 @@ import * as fs from 'fs';
  */
 export const createDir = (path: string) => {
   fs.rmSync(path, { recursive: true, force: true });
-  fs.mkdirSync(path);
+  fs.mkdirSync(path, { recursive: true });
 };
