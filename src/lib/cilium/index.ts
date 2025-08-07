@@ -1,6 +1,8 @@
 import { local } from '@pulumi/command';
 import { CustomResourceOptions } from '@pulumi/pulumi';
 
+import { environment } from '../configuration';
+
 /**
  * Deploy cilium.
  *
@@ -17,6 +19,7 @@ export const deployCilium = ({
     {
       create: './assets/helm/install.sh',
       environment: {
+        ENVIRONMENT: environment,
         DEPLOYMENT_ID: 'cilium',
         DEPLOYMENT_NAMESPACE: 'cilium',
         VALUES_FILE: './assets/helm/cilium.yml',

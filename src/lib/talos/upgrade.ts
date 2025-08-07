@@ -2,7 +2,7 @@ import { local } from '@pulumi/command';
 import { Output } from '@pulumi/pulumi';
 import { parse } from 'yaml';
 
-import { talosConfig } from '../configuration';
+import { environment, talosConfig } from '../configuration';
 import { readFileContents } from '../util/file';
 
 /**
@@ -20,16 +20,16 @@ export const upgradeCluster = (
   const talosVersion = controlplane.apply(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (_) =>
-      parse(readFileContents('./outputs/controlplane.yml'))['machine'][
-        'install'
-      ]['image'].split(':')[1],
+      parse(readFileContents(`./outputs/${environment}/controlplane.yml`))[
+        'machine'
+      ]['install']['image'].split(':')[1],
   );
   const kubernetesVersion = controlplane.apply(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (_) =>
-      parse(readFileContents('./outputs/controlplane.yml'))['cluster'][
-        'apiServer'
-      ]['image'].split(':')[1],
+      parse(readFileContents(`./outputs/${environment}/controlplane.yml`))[
+        'cluster'
+      ]['apiServer']['image'].split(':')[1],
   );
 
   // upgrade Talos
@@ -39,6 +39,7 @@ export const upgradeCluster = (
       create: './assets/talos/noop.sh',
       update: './assets/talos/upgrade_talos.sh',
       environment: {
+        ENVIRONMENT: environment,
         CONTROL_PLANE_IP: talosConfig.machine.network.ip.v4,
         INSTALL_IMAGE_HASH: talosConfig.cluster.installImageHash,
         TALOS_VERSION: talosVersion,
@@ -60,6 +61,7 @@ export const upgradeCluster = (
       create: './assets/talos/noop.sh',
       update: './assets/talos/upgrade_k8s.sh',
       environment: {
+        ENVIRONMENT: environment,
         CONTROL_PLANE_IP: talosConfig.machine.network.ip.v4,
         KUBERNETES_VERSION: kubernetesVersion,
       },

@@ -193,4 +193,4 @@ jobs:
             --author-email "${{ github.action }}+github-actions[bot]@users.noreply.github.com"
         env:
           GITHUB_TOKEN: "${{ env.GH_PAT_TOKEN }}"
-          KUBECONFIG: "outputs/admin.conf"
+          KUBECONFIG: "outputs/${{ matrix.site }}/admin.conf"

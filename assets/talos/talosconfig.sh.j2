@@ -3,9 +3,9 @@
 set -e
 
 # wait for all files to exist
-while [ ! -f ./outputs/secrets.yaml ]; do sleep 5; done
+while [ ! -f ./outputs/{{ environment }}/secrets.yaml ]; do sleep 5; done
 
 # generate talosconfig
-talosctl gen config --with-secrets ./outputs/secrets.yaml --output-types talosconfig -o - cluster https://cluster.talos.local > ./outputs/talosconfig.tmp
-talosctl --talosconfig ./outputs/talosconfig.tmp config endpoint {{ endpoint }}
-talosctl --talosconfig ./outputs/talosconfig.tmp config node {{ endpoint }}
+talosctl gen config --with-secrets ./outputs/{{ environment }}/secrets.yaml --output-types talosconfig -o - cluster https://cluster.talos.local > ./outputs/{{ environment }}/talosconfig.tmp
+talosctl --talosconfig ./outputs/{{ environment }}/talosconfig.tmp config endpoint {{ endpoint }}
+talosctl --talosconfig ./outputs/{{ environment }}/talosconfig.tmp config node {{ endpoint }}
