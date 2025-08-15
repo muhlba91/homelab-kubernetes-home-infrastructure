@@ -27,6 +27,7 @@ jobs:
         node-version: ["24"]
         site:
           - vie
+          - muc
 
     steps:
       - uses: step-security/harden-runner@ec9f2d5744a09debf3a187a3f4f675c53b671911 # v2.13.0
@@ -105,6 +106,7 @@ jobs:
         node-version: ["24"]
         site:
           - vie
+          - muc
 
     steps:
       - uses: step-security/harden-runner@ec9f2d5744a09debf3a187a3f4f675c53b671911 # v2.13.0
