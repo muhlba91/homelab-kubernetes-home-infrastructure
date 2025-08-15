@@ -1,5 +1,5 @@
 import * as google from '@pulumi/google-native';
-import { interpolate } from '@pulumi/pulumi';
+import { Output } from '@pulumi/pulumi';
 
 import { createIAMMember } from './iam_member';
 
@@ -31,7 +31,14 @@ export const createServiceAccount = (
   );
 
   if (roles) {
-    createIAMMember(name, interpolate`serviceAccount:${user.email}`, roles, {});
+    user.email.apply((email) =>
+      createIAMMember(
+        name,
+        Output.create(`serviceAccount:${email}`),
+        roles,
+        {},
+      ),
+    );
   }
 
   return user;
