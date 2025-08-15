@@ -1,0 +1,49 @@
+config:
+  home_cluster-infrastructure-proxmox:backupBucketId: infrastructure-backups-5274ba70-fde0-47de-8e9a-f1bc64c11157
+  home_cluster-infrastructure-proxmox:bucketId: infrastructure-assets-5274ba70-fde0-47de-8e9a-f1bc64c11157
+  home_cluster-infrastructure-proxmox:gates:
+    certManager: false
+    cloudNativePg: false
+    cluster: false
+    externalDns: false
+    flux: false
+    homeAssistant: false
+    velero: false
+  home_cluster-infrastructure-proxmox:google:
+    dnsProject: muehlbachler-dns
+    encryptionKey:
+      cryptoKeyId: infrastructure-encryption
+      keyringId: infrastructure-encryption
+      location: europe
+    project: tuxnet-385112
+  home_cluster-infrastructure-proxmox:network:
+    domain: muc.internal.muehlbachler.io
+    ipv4:
+      cidrMask: 16
+      enabled: true
+      gateway: 10.1.0.1
+    ipv6:
+      cidrMask: 64
+      enabled: true
+      gateway: fd40:2e3:42a::1
+    nameservers:
+      - 10.1.0.1
+      - 1.1.1.1
+      - fd40:2e3:42a::1
+      - 2606:4700:4700::1111
+  home_cluster-infrastructure-proxmox:secretStores:
+    vault: true
+    vaultMount: kubernetes-home-cluster-muc
+  home_cluster-infrastructure-proxmox:talos:
+    cluster:
+      installImageHash: 0fdd85bb75e9617b52bc133b604067d88a8e6a40ad8b5bd32edc835cf6c8cb0b
+      revision: rev1
+      vip: 10.1.70.1
+    machine:
+      disk: /dev/nvme0n1
+      hostname: home-cluster-001
+      network:
+        ip:
+          v4: 10.1.50.1
+          v6: fd40:2e3:42a::1000:1:1:1
+        mac: 00:e0:b4:68:33:9a
