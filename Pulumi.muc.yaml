@@ -7,7 +7,7 @@ config:
     cluster: true
     externalDns: true
     flux: true
-    homeAssistant: false
+    homeAssistant: true
     velero: true
     nvidia: false
     coralTpu: true
