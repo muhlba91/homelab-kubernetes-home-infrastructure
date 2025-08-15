@@ -7,6 +7,7 @@ import * as yaml from 'yaml';
 
 import {
   environment,
+  gatesConfig,
   globalName,
   networkConfig,
   talosConfig,
@@ -32,6 +33,7 @@ export const writeControlplaneAndSecretsFiles = (
         network: networkConfig,
         talos: talosConfig,
         secrets: secrets,
+        gates: gatesConfig,
       }),
     ),
     {},

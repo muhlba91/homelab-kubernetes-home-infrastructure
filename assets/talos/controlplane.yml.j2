@@ -95,6 +95,10 @@ machine:
     modules:
       - name: binfmt_misc
       - name: btrfs
+      - name: thunderbolt
+      - name: thunderbolt_net
+      - name: usbserial
+{%- if gates.nvidia %}
       - name: nvidia
         parameters:
           - NVreg_OpenRmEnableUnsupportedGpus=1
@@ -103,9 +107,11 @@ machine:
       - name: nvidia_modeset
         parameters:
           - NVreg_OpenRmEnableUnsupportedGpus=1
-      - name: thunderbolt
-      - name: thunderbolt_net
-      - name: usbserial
+{%- endif %}
+{%- if gates.coralTpu %}
+      - name: gasket
+      - name: apex
+{%- endif %}
   sysctls:
     net.core.bpf_jit_harden: 1
     vm.max_map_count: 131060

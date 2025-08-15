@@ -49,3 +49,5 @@ config:
     cloudNativePg: true
     cluster: true
     flux: true
+    nvidia: true
+    coralTpu: false
