@@ -1,5 +1,7 @@
 import { gatesConfig } from '../configuration';
 
+import { createHomeAssistantBackupConfiguration } from './backup';
+import { createHomeAssistantEmqx } from './emqx';
 import { createGCPKey, createGCSKey } from './google';
 import { createHomeAssistantInfluxDb } from './influxdb';
 
@@ -15,4 +17,6 @@ export const createHomeAssistantResources = () => {
   createGCSKey(iam);
 
   createHomeAssistantInfluxDb();
+  createHomeAssistantEmqx();
+  createHomeAssistantBackupConfiguration();
 };
