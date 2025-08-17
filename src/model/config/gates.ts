@@ -3,6 +3,7 @@
  */
 export interface GatesConfig {
   readonly homeAssistant: boolean;
+  readonly influxdb: boolean;
   readonly externalDns: boolean;
   readonly certManager: boolean;
   readonly velero: boolean;

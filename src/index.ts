@@ -4,6 +4,7 @@ import { environment } from './lib/configuration';
 import { createExternalDNSResources } from './lib/external_dns';
 import { createFluxResources } from './lib/flux';
 import { createHomeAssistantResources } from './lib/home_assistant';
+import { createInfluxDBResources } from './lib/influxdb';
 import { retrieveProvider } from './lib/kubernetes/provider';
 import { createCluster } from './lib/talos';
 import { createDir } from './lib/util/create_dir';
@@ -14,6 +15,7 @@ export = async () => {
 
   // Kubernetes cloud resources
   createHomeAssistantResources();
+  createInfluxDBResources();
   createExternalDNSResources();
   createCertManagerResources();
   createVeleroResources();

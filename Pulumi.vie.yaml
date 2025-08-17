@@ -51,3 +51,4 @@ config:
     flux: true
     nvidia: true
     coralTpu: false
+    influxdb: true
