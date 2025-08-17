@@ -4,6 +4,7 @@ import { createHomeAssistantBackupConfiguration } from './backup';
 import { createHomeAssistantEmqx } from './emqx';
 import { createGCPKey, createGCSKey } from './google';
 import { createHomeAssistantInfluxDb } from './influxdb';
+import { createHomeAssistantNodeRed } from './node_red';
 
 /**
  * Creates the Home Assistant resources.
@@ -19,4 +20,5 @@ export const createHomeAssistantResources = () => {
   createHomeAssistantInfluxDb();
   createHomeAssistantEmqx();
   createHomeAssistantBackupConfiguration();
+  createHomeAssistantNodeRed();
 };
