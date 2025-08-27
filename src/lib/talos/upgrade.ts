@@ -1,6 +1,6 @@
 import { local } from '@pulumi/command';
 import { Output } from '@pulumi/pulumi';
-import { parse } from 'yaml';
+import { parseAllDocuments } from 'yaml';
 
 import { environment, talosConfig } from '../configuration';
 import { readFileContents } from '../util/file';
@@ -19,17 +19,23 @@ export const upgradeCluster = (
   // extract Talos versions
   const talosVersion = controlplane.apply(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    (_) =>
-      parse(readFileContents(`./outputs/${environment}/controlplane.yml`))[
-        'machine'
-      ]['install']['image'].split(':')[1],
+    (_) => {
+      const docs = parseAllDocuments(
+        readFileContents(`./outputs/${environment}/controlplane.yml`),
+      );
+      const doc = docs[docs.length - 1]?.toJSON?.() ?? {};
+      return doc['machine']['install']['image'].split(':')[1];
+    },
   );
   const kubernetesVersion = controlplane.apply(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    (_) =>
-      parse(readFileContents(`./outputs/${environment}/controlplane.yml`))[
-        'cluster'
-      ]['apiServer']['image'].split(':')[1],
+    (_) => {
+      const docs = parseAllDocuments(
+        readFileContents(`./outputs/${environment}/controlplane.yml`),
+      );
+      const doc = docs[docs.length - 1]?.toJSON?.() ?? {};
+      return doc['cluster']['apiServer']['image'].split(':')[1];
+    },
   );
 
   // upgrade Talos

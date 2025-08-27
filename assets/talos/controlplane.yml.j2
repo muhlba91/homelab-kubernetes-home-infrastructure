@@ -1,3 +1,10 @@
+{%- if gates.coralTpu %}
+---
+apiVersion: v1alpha1
+kind: PCIDriverRebindConfig
+name: 0000:05:00.0
+targetDriver: vfio-pci
+{%- endif %}
 ---
 version: v1alpha1
 debug: false
@@ -78,18 +85,19 @@ machine:
   #    - btrfs
   #    - drbd
   #    - fuse3
-  #    - gasket-driver
-  #    - i915-ucode
+  #    - gasket-driver # only for coral
+  #    - i915
   #    - intel-ucode
   #    - iscsi-tools
-  #    - nvidia-container-toolkit-production
-  #    - nvidia-open-gpu-kernel-modules-production
+  #    - nvidia-container-toolkit-production # only for nvidia
+  #    - nvidia-open-gpu-kernel-modules-production # only for nvidia
   #    - thunderbolt
   #    - util-linux-tools
+  # - extra kernel arguments: intel_iommu=on iommu=pt
   install:
     disk: {{ talos.machine.disk }}
     # renovate: datasource=github-releases packageName=siderolabs/talos
-    image: factory.talos.dev/metal-installer/{{ talos.cluster.installImageHash }}:v1.10.5
+    image: factory.talos.dev/metal-installer/{{ talos.cluster.installImageHash }}:v1.10.7
     wipe: true
   kernel:
     modules:
@@ -98,6 +106,9 @@ machine:
       - name: thunderbolt
       - name: thunderbolt_net
       - name: usbserial
+      - name: vfio_pci
+      - name: vfio_iommu_type1
+      - name: uio_pci_generic
 {%- if gates.nvidia %}
       - name: nvidia
         parameters:
