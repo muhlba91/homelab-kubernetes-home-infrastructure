@@ -12,6 +12,7 @@ config:
     nvidia: false
     coralTpu: true
     influxdb: true
+    frigate: true
   home_cluster-infrastructure-proxmox:google:
     dnsProject: muehlbachler-dns
     encryptionKey:

@@ -9,6 +9,7 @@ export interface GatesConfig {
   readonly velero: boolean;
   readonly cloudNativePg: boolean;
   readonly flux: boolean;
+  readonly frigate: boolean;
   readonly nvidia: boolean;
   readonly coralTpu: boolean;
   readonly cluster: boolean;

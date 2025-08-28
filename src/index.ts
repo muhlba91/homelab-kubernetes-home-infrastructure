@@ -3,6 +3,7 @@ import { createCloudNativePGResources } from './lib/cloudnative_pg';
 import { environment } from './lib/configuration';
 import { createExternalDNSResources } from './lib/external_dns';
 import { createFluxResources } from './lib/flux';
+import { createFrigateResources } from './lib/frigate';
 import { createHomeAssistantResources } from './lib/home_assistant';
 import { createInfluxDBResources } from './lib/influxdb';
 import { retrieveProvider } from './lib/kubernetes/provider';
@@ -20,6 +21,7 @@ export = async () => {
   createCertManagerResources();
   createVeleroResources();
   createCloudNativePGResources();
+  createFrigateResources();
 
   // Talos cluster resources
   const cluster = createCluster();
