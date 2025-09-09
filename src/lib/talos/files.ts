@@ -42,7 +42,7 @@ export const writeControlplaneAndSecretsFiles = (
   writeFilePulumiAndUploadToS3(
     'secrets.yaml',
     machineSecrets.apply((secrets) =>
-      yaml.stringify(structuredClone(secrets)).replace(/cert:/g, 'crt:'),
+      sanitizeSecretsFile(yaml.stringify(structuredClone(secrets))),
     ),
     {},
   );
@@ -96,4 +96,19 @@ export const writeTalosConfigFiles = (): Output<string[]> => {
   });
 
   return files;
+};
+
+/**
+ * Sanitizes the secrets file by adhering to Talos' formatting requirements.
+ *
+ * @param {string} secrets the secrets file content
+ * @returns {string} the sanitized secrets file content
+ */
+const sanitizeSecretsFile = (secrets: string): string => {
+  return secrets
+    .replace(/cert:/g, 'crt:')
+    .replace(/bootstrapToken:/g, 'bootstraptoken:')
+    .replace(/secretboxEncryptionSecret:/g, 'secretboxencryptionsecret:')
+    .replace(/k8sAggregator:/g, 'k8saggregator:')
+    .replace(/k8sServiceaccount:/g, 'k8sserviceaccount:');
 };
