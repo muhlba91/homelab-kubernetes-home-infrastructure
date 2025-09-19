@@ -28,7 +28,7 @@
   "packageManager": "yarn@4.10.0",
   "dependencies": {
     "@pulumi/command": "^1.0.1",
-    "@pulumi/gcp": "^8.0.0",
+    "@pulumi/gcp": "^9.0.0",
     "@pulumi/google-native": "^0.32.0",
     "@pulumi/kubernetes": "^4.15.0",
     "@pulumi/pulumi": "^3.127.0",
