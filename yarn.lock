@@ -811,11 +811,11 @@ __metadata:
   linkType: hard
 
 "@pulumi/command@npm:^1.0.1":
-  version: 1.1.1
-  resolution: "@pulumi/command@npm:1.1.1"
+  version: 1.1.2
+  resolution: "@pulumi/command@npm:1.1.2"
   dependencies:
     "@pulumi/pulumi": "npm:^3.142.0"
-  checksum: 10c0/2c74750c9e50ae6dc36a0f04ff1feefecce6b0c31eb51adf3b71570836bd736b0b08f955e97d31f40da0c101d81347157605ce5427fc4b4c888adb1f5a8e96c9
+  checksum: 10c0/766b9234053d10c36b0a870c6ca2c510af511eb247cc4ca376189a3cd6eea0241ccf7b572eeb195da79b2a838a9093c942c55b91f082ccfebed3f4483c1e9c67
   languageName: node
   linkType: hard
 
