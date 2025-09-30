@@ -83,7 +83,7 @@ jobs:
           oauth-secret: ${{ env.TS_OAUTH_SECRET }}
           tags: tag:github-actions
 
-      - uses: pulumi/actions@cc7494be991dba0978f7ffafaf995b0449a0998e # v6.5.0
+      - uses: pulumi/actions@d7ceb0215da5a14ec84f50b703365ddf0194a9c8 # v6.6.0
         with:
           command: preview
           stack-name: ${{ matrix.site }}
@@ -173,7 +173,7 @@ jobs:
           oauth-secret: ${{ env.TS_OAUTH_SECRET }}
           tags: tag:github-actions
 
-      - uses: pulumi/actions@cc7494be991dba0978f7ffafaf995b0449a0998e # v6.5.0
+      - uses: pulumi/actions@d7ceb0215da5a14ec84f50b703365ddf0194a9c8 # v6.6.0
         with:
           command: up
           stack-name: ${{ matrix.site }}
