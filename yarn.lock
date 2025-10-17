@@ -915,11 +915,11 @@ __metadata:
   linkType: hard
 
 "@pulumiverse/talos@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "@pulumiverse/talos@npm:0.6.0"
+  version: 0.6.1
+  resolution: "@pulumiverse/talos@npm:0.6.1"
   dependencies:
     "@pulumi/pulumi": "npm:^3.0.0"
-  checksum: 10c0/f11c999e165ac63328464061df3067565953b400c5969acf3c08f0f96becc0e7a208fa22b9cbdafd57bc11081c2418cad61fdb8533a3a941558e8228bb622ca2
+  checksum: 10c0/11227eb653c4d81a12cd1e56755e2e5aa92618b37b9cdfcc6d7c242c16f208e41aba6e8bf98dc9de0669a288996e10479d2dc7cca50371715de1b0dcc21ea272
   languageName: node
   linkType: hard
 
