@@ -58,10 +58,10 @@ patches:
         path: /spec/template/spec/containers/0/resources
         value:
           requests:
-            cpu: 15m
-            memory: 192Mi
+            cpu: 32m
+            memory: 217Mi
           limits:
-            memory: 768Mi
+            memory: 384Mi
     target:
       kind: Deployment
       name: helm-controller
@@ -75,8 +75,8 @@ patches:
         path: /spec/template/spec/containers/0/resources
         value:
           requests:
-            cpu: 25m
-            memory: 205Mi
+            cpu: 43m
+            memory: 218Mi
           limits:
             memory: 256Mi
     target:
@@ -92,8 +92,8 @@ patches:
         path: /spec/template/spec/containers/0/resources
         value:
           requests:
-            cpu: 10m
-            memory: 194Mi
+            cpu: 15m
+            memory: 235Mi
           limits:
             memory: 256Mi
     target:
@@ -106,7 +106,7 @@ patches:
         value:
           requests:
             cpu: 10m
-            memory: 100Mi
+            memory: 102Mi
           limits:
             memory: 128Mi
     target:
