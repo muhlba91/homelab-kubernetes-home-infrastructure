@@ -196,7 +196,7 @@ jobs:
           yarn install --immutable
           yarn build
 
-      - uses: tailscale/github-action@3a217367cadc62d7600a77470ffe542e2313e6b9 # v4
+      - uses: tailscale/github-action@a392da0a182bba0e9613b6243ebd69529b1878aa # v4
         with:
           oauth-client-id: ${{ env.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ env.TS_OAUTH_SECRET }}
