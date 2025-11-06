@@ -833,13 +833,13 @@ __metadata:
   linkType: hard
 
 "@pulumi/kubernetes@npm:^4.15.0":
-  version: 4.23.0
-  resolution: "@pulumi/kubernetes@npm:4.23.0"
+  version: 4.24.0
+  resolution: "@pulumi/kubernetes@npm:4.24.0"
   dependencies:
     "@pulumi/pulumi": "npm:^3.142.0"
     glob: "npm:^10.3.10"
     shell-quote: "npm:^1.6.1"
-  checksum: 10c0/a7aa8631355d98b0aacc725adfb30c7f248ed2da94364709c718abd9bf33ba4a4d97a02fc5dbfbab70c8d48b6f2ce36feae6b95ef5c3e9248155686b475a0aa4
+  checksum: 10c0/3e0499c4b82a20b36a3b32e5e5142bd8e11dbd57aa9b9d5c26a6508018eb5af68a6448b0f5231fe16dae44eebca66e9cfb75908015b33a0137ccdb908e5595b5
   languageName: node
   linkType: hard
 
