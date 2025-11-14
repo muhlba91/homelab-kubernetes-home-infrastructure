@@ -897,11 +897,11 @@ __metadata:
   linkType: hard
 
 "@pulumi/tls@npm:^5.0.4":
-  version: 5.2.2
-  resolution: "@pulumi/tls@npm:5.2.2"
+  version: 5.2.3
+  resolution: "@pulumi/tls@npm:5.2.3"
   dependencies:
     "@pulumi/pulumi": "npm:^3.142.0"
-  checksum: 10c0/7f15ede4423be8ed07b8475e75064b8458b85098f4451121c7e609e46a2d6e0e8d359f87d12d8c20fefd21c50516102b3d24a0bfbbfc06405302f45813738c45
+  checksum: 10c0/a7981e2fee55b286513d1a4c0f491fe4d4563990a9d44a0479e3c00b408d8870703c53d98cedfcb5c86f5021d3f03fe6b143c00829bc51699a7bdc6b0132fb21
   languageName: node
   linkType: hard
 
