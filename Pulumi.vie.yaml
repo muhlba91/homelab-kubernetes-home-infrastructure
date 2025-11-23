@@ -33,6 +33,13 @@ config:
       installImageHash: f720b2d7926d6e4b00137e4b386052d848f67a179ad2452d6c3a3b50ec96fdac
       revision: rev2
       vip: 10.0.70.1
+      network:
+        podSubnets:
+          v4: 10.244.0.0/16
+          v6: fc00:db8:10::/56
+        serviceSubnets:
+          v4: 10.96.0.0/12
+          v6: fc00:db8:20::/112
     machine:
       disk: /dev/nvme0n1
       hostname: home-cluster-001

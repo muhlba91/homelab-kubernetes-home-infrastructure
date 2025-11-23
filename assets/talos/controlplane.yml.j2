@@ -135,11 +135,11 @@ cluster:
   network:
     dnsDomain: cluster.local
     podSubnets:
-      - 10.244.0.0/16
-      - fc00:db8:10::/56
+      - {{ talos.cluster.network.podSubnets.v4 }}
+      - {{ talos.cluster.network.podSubnets.v6 }}
     serviceSubnets:
-      - 10.96.0.0/12
-      - fc00:db8:20::/112
+      - {{ talos.cluster.network.serviceSubnets.v4 }}
+      - {{ talos.cluster.network.serviceSubnets.v6 }}
     cni:
       name: none
   proxy:

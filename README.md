@@ -126,6 +126,13 @@ talos:
     installImageHash: the install image hash to use for deployment and updates
     vip: the virtual IP address to expose for the control plane
     revision: the current revision of the cluster (necessary if a full restore needs to happen)
+    network:
+      podSubnets:
+        v4: the IPv4 pod subnet
+        v6: the IPv6 pod subnet
+      serviceSubnets:
+        v4: the IPv4 service subnet
+        v6: the IPv6 service subnet
   machine:
     disk: the disk to install to
     hostname: the hostname to set

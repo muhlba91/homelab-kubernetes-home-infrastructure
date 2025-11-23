@@ -22,6 +22,15 @@ export interface TalosClusterConfig {
   readonly installImageHash: string;
   readonly vip: string;
   readonly revision: string;
+  readonly network: TalosClusterNetworkConfig;
+}
+
+/**
+ * Defines configuration data for the cluster network in Talos.
+ */
+export interface TalosClusterNetworkConfig {
+  readonly podSubnets: TalosIPAddressConfig;
+  readonly serviceSubnets: TalosIPAddressConfig;
 }
 
 /**

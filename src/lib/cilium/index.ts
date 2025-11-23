@@ -3,6 +3,7 @@ import { CustomResourceOptions } from '@pulumi/pulumi';
 
 import { environment } from '../configuration';
 
+// FIXME: templateize cilium.yml to use network config
 /**
  * Deploy cilium.
  *
