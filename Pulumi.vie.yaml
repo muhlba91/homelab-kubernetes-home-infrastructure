@@ -60,3 +60,7 @@ config:
     coralTpu: false
     influxdb: true
     frigate: true
+  home_cluster-infrastructure-proxmox:cilium:
+    podSubnets:
+      v4: 10.244.0.0/16
+      v6: fc00:db8:10::/56

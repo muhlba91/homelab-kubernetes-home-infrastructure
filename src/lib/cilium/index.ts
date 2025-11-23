@@ -1,7 +1,7 @@
 import { local } from '@pulumi/command';
 import { CustomResourceOptions, Output } from '@pulumi/pulumi';
 
-import { environment, talosConfig } from '../configuration';
+import { ciliumConfig, environment } from '../configuration';
 import { writeFilePulumiAndUploadToS3 } from '../util/storage';
 import { renderTemplate } from '../util/template';
 
@@ -20,7 +20,7 @@ export const deployCilium = ({
     'cilium_values.yml',
     Output.create(
       renderTemplate('assets/helm/cilium.yml.j2', {
-        network: talosConfig.cluster.network,
+        network: ciliumConfig,
       }),
     ),
     {},

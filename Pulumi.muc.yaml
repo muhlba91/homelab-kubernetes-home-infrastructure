@@ -58,3 +58,7 @@ config:
           v4: 10.1.50.1
           v6: fd40:2e3:42a::1000:1:1:1
         mac: 00:e0:b4:68:33:9a
+  home_cluster-infrastructure-proxmox:cilium:
+    podSubnets:
+      v6: fc00:db8:10::/56
+      v4: 10.244.0.0/16
