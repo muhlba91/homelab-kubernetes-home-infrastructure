@@ -38,8 +38,8 @@ config:
           v4: 10.244.0.0/16
           v6: fc00:db8:10::/56
         serviceSubnets:
-          v4: 10.96.0.0/12
-          v6: fc00:db8:20::/112
+          v4: 10.105.0.0/16
+          v6: fc00:db8:105::/112
     machine:
       disk: /dev/nvme0n1
       hostname: home-cluster-001
@@ -62,5 +62,5 @@ config:
     frigate: true
   home_cluster-infrastructure-proxmox:cilium:
     podSubnets:
-      v4: 10.244.0.0/16
-      v6: fc00:db8:10::/56
+      v4: 10.101.0.0/16
+      v6: fc00:db8:101::/112

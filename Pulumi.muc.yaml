@@ -60,5 +60,5 @@ config:
         mac: 00:e0:b4:68:33:9a
   home_cluster-infrastructure-proxmox:cilium:
     podSubnets:
-      v6: fc00:db8:102::/56
+      v6: fc00:db8:102::/112
       v4: 10.102.0.0/16
