@@ -126,6 +126,7 @@ machine:
   sysctls:
     net.core.bpf_jit_harden: 1
     vm.max_map_count: 131060
+    net.ipv6.conf.all.accept_ra: 2
 cluster:
   id: {{ secrets.cluster.id }}
   secret: {{ secrets.cluster.secret }}
