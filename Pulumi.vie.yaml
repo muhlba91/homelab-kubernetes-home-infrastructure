@@ -72,6 +72,17 @@ config:
         backupBucket: true
       home-assistant:
         backupBucket: true
+      librechat:
+        defaultBucket: true
+        cors:
+          maxAgeSeconds: 3600
+          responseHeader:
+            - Content-Type
+          method:
+            - GET
+            - POST
+          origin:
+            - https://gpt.home.muehlbachler.io
   home_cluster-infrastructure-proxmox:passwords:
     data:
       home-assistant-node-red-credential-secret:

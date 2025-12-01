@@ -90,6 +90,7 @@ buckets:
   gcs: # map of bucket names to their configuration
     <name>:
       vaultPath: the Vault path to store the credentials at (optional)
+      defaultName: the default name to create the bucket with (optional)
       defaultBucket: creates a new bucket with the same name (optional)
       mainBucket: uses the main bucket (optional)
       backupBucket: uses the backup bucket (optional)

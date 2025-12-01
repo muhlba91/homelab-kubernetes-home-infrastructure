@@ -37,10 +37,13 @@ export const createBuckets = (): StringMap<ServiceAccountData> => {
 
       if (bucketConfig.defaultBucket) {
         bucket = new google.storage.v1.Bucket(`gcs-bucket-${name}`, {
-          name: `${name}-${environment}`,
+          name: bucketConfig.defaultName
+            ? `${bucketConfig.defaultName}-${environment}`
+            : undefined,
           location: gcpDefaultRegion,
           labels: commonLabels,
-        }).id;
+          cors: bucketConfig.cors ? [bucketConfig.cors] : undefined,
+        }).name;
       }
       if (bucketConfig?.mainBucket) {
         bucket = Output.create(bucketId);
