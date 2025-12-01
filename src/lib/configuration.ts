@@ -1,10 +1,12 @@
 import { Config, getStack } from '@pulumi/pulumi';
 
+import { BucketsConfig } from '../model/config/bucket';
 import { CiliumConfig } from '../model/config/cilium';
 import { ClusterIntegrationConfig } from '../model/config/cluster_integration';
 import { GatesConfig } from '../model/config/gates';
 import { GoogleConfig } from '../model/config/google';
 import { NetworkConfig } from '../model/config/network';
+import { PasswordsConfig } from '../model/config/password';
 import { SecretStoresConfig } from '../model/config/secret_stores';
 import { TalosConfig } from '../model/config/talos';
 
@@ -20,6 +22,9 @@ export const clusterIntegrationConfig =
 export const networkConfig = config.requireObject<NetworkConfig>('network');
 export const secretStoresConfig =
   config.requireObject<SecretStoresConfig>('secretStores');
+export const bucketsConfig = config.requireObject<BucketsConfig>('buckets');
+export const passwordsConfig =
+  config.requireObject<PasswordsConfig>('passwords');
 export const bucketId = config.require<string>('bucketId');
 export const backupBucketId = config.require<string>('backupBucketId');
 

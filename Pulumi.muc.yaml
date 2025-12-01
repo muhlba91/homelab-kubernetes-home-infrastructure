@@ -3,16 +3,13 @@ config:
   home_cluster-infrastructure-proxmox:bucketId: infrastructure-assets-5274ba70-fde0-47de-8e9a-f1bc64c11157
   home_cluster-infrastructure-proxmox:gates:
     certManager: true
-    cloudNativePg: true
     cluster: true
     externalDns: true
     flux: true
     homeAssistant: true
-    velero: true
     nvidia: false
     coralTpu: true
     influxdb: true
-    frigate: true
   home_cluster-infrastructure-proxmox:google:
     dnsProject: muehlbachler-dns
     encryptionKey:
@@ -62,3 +59,23 @@ config:
     podSubnets:
       v6: fc00:db8:102::/112
       v4: 10.102.0.0/16
+  home_cluster-infrastructure-proxmox:buckets:
+    gcs:
+      cloudnative-pg:
+        backupBucket: true
+        vaultPath: cloudnativepg
+      frigate:
+        mainBucket: true
+      velero:
+        backupBucket: true
+      home-assistant:
+        backupBucket: true
+  home_cluster-infrastructure-proxmox:passwords:
+    data:
+      home-assistant-node-red-credential-secret:
+        vaultPath: home-assistant-node-red
+        vaultKey: credential_secret
+      home-assistant-influxdb:
+        special: false
+      home-assistant-emqx:
+        length: 20

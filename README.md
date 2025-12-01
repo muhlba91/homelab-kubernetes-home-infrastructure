@@ -66,8 +66,6 @@ gates:
   homeAssistant: enables the Home Assistant integration
   externalDns: enables the External DNS integration
   certManager: enables the Cert Manager integration
-  velero: enables the Velero integration
-  cloudNativePg: enables the Cloud Native PostgreSQL integration
   cluster: enables the cluster creation integration
 ```
 
@@ -83,6 +81,30 @@ backupBucketId: the bucket identifier to configure backups to
 ```yaml
 secretStores:
   vault: enables storing secrets to Vault
+```
+
+### S3 Buckets
+
+```yaml
+buckets:
+  gcs: # map of bucket names to their configuration
+    <name>:
+      vaultPath: the Vault path to store the credentials at (optional)
+      defaultBucket: creates a new bucket with the same name (optional)
+      mainBucket: uses the main bucket (optional)
+      backupBucket: uses the backup bucket (optional)
+```
+
+### Passwords
+
+```yaml
+passwords:
+  data: # map of password names to their configuration
+    <name>:
+      vaultPath: the Vault path to store the credentials at (optional)
+      vaultKey: the key in Vault to store the password at (optional)
+      length: the length of the password (optional)
+      special: whether to include special characters (optional)
 ```
 
 ### Google Cloud

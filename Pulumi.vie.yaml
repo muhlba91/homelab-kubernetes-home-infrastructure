@@ -52,15 +52,32 @@ config:
     homeAssistant: true
     externalDns: true
     certManager: true
-    velero: true
-    cloudNativePg: true
     cluster: true
     flux: true
     nvidia: true
     coralTpu: false
     influxdb: true
-    frigate: true
   home_cluster-infrastructure-proxmox:cilium:
     podSubnets:
       v4: 10.101.0.0/16
       v6: fc00:db8:101::/112
+  home_cluster-infrastructure-proxmox:buckets:
+    gcs:
+      cloudnative-pg:
+        backupBucket: true
+        vaultPath: cloudnativepg
+      frigate:
+        mainBucket: true
+      velero:
+        backupBucket: true
+      home-assistant:
+        backupBucket: true
+  home_cluster-infrastructure-proxmox:passwords:
+    data:
+      home-assistant-node-red-credential-secret:
+        vaultPath: home-assistant-node-red
+        vaultKey: credential_secret
+      home-assistant-influxdb:
+        special: false
+      home-assistant-emqx:
+        length: 20
