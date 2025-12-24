@@ -822,13 +822,13 @@ __metadata:
   linkType: hard
 
 "@pulumi/gcp@npm:^9.0.0":
-  version: 9.6.0
-  resolution: "@pulumi/gcp@npm:9.6.0"
+  version: 9.7.0
+  resolution: "@pulumi/gcp@npm:9.7.0"
   dependencies:
     "@npmcli/package-json": "npm:^6.2.0"
     "@pulumi/pulumi": "npm:^3.142.0"
     "@types/express": "npm:^4.16.0"
-  checksum: 10c0/72afcbe63483772b12f0b38a813df68c891689ae35c7890efb24621cc0d783dfa8575c10b9cbdb3c635b7e0c51e24eb64180499effcf7bc7345920a2a6c5bf00
+  checksum: 10c0/fc10695d0bdde0fc2a1a9b66f5b064a1706a9519c73f9f4bc6f5259470a672da2b10e471156831abae41b48b21db6d7fb82be8b12cbb9a256b69c09232f27221
   languageName: node
   linkType: hard
 
