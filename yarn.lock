@@ -935,11 +935,11 @@ __metadata:
   linkType: hard
 
 "@pulumiverse/talos@npm:^0.7.0":
-  version: 0.7.0
-  resolution: "@pulumiverse/talos@npm:0.7.0"
+  version: 0.7.1
+  resolution: "@pulumiverse/talos@npm:0.7.1"
   dependencies:
     "@pulumi/pulumi": "npm:^3.0.0"
-  checksum: 10c0/79e5e582da3da510eb24051c8cabe515fec896080a0e5c103ff66f9524f8d76f6599cd7c93deee5b2b59a88aea8fff1bec9c3d6f2dd3d84167f6d0c5c0dcbe17
+  checksum: 10c0/d17d5dde8e682724524e5995edde7e36955745d4b396a7d972b56bce5c17fc64d183291833cb12b2134df4f753cf5e71025cfd1ad1adebfe0aeb096356d773a0
   languageName: node
   linkType: hard
 
