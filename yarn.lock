@@ -948,11 +948,11 @@ __metadata:
   linkType: hard
 
 "@pulumi/vault@npm:^7.0.0":
-  version: 7.6.0
-  resolution: "@pulumi/vault@npm:7.6.0"
+  version: 7.7.0
+  resolution: "@pulumi/vault@npm:7.7.0"
   dependencies:
     "@pulumi/pulumi": "npm:^3.142.0"
-  checksum: 10c0/3c8ef9d667e62a0c962e472e3e7a9ee52cd5b1c3e278695e7df887f185503c5f0b21a0fb65040d9e3dbe3ac474f7d02b389acfb1aaf48dd68adc9f1c5e8972d2
+  checksum: 10c0/49d9c35e8287db600637d36ce8acd02c9cefd36f0b9b7de2e1fa16bc59492192e33193cb28988791d9a0448aade76b734c7277aac60f4300b13dc62c531fb12f
   languageName: node
   linkType: hard
 
