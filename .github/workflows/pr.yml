@@ -208,6 +208,7 @@ jobs:
           stack-name: ${{ matrix.site }}
           comment-on-pr: true
           refresh: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+          continue-on-error: true # FIXME: temporary workaround for MUC being down...
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           VAULT_ADDR: "${{ secrets.VAULT_ADDR }}"

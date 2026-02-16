@@ -88,6 +88,7 @@ jobs:
           command: preview
           stack-name: ${{ matrix.site }}
           refresh: true
+          continue-on-error: true # FIXME: temporary workaround for MUC being down...
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           VAULT_ADDR: "${{ secrets.VAULT_ADDR }}"
@@ -178,9 +179,11 @@ jobs:
         with:
           command: up
           stack-name: ${{ matrix.site }}
+          continue-on-error: true # FIXME: temporary workaround for MUC being down...
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           VAULT_ADDR: "${{ secrets.VAULT_ADDR }}"
+        continue-on-error: true # FIXME: temporary workaround for MUC being down...
 
       - run: |
           flux bootstrap github \
