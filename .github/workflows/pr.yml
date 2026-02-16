@@ -211,3 +211,4 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           VAULT_ADDR: "${{ secrets.VAULT_ADDR }}"
+        continue-on-error: true # FIXME: temporary workaround for MUC being down...

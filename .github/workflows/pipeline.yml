@@ -91,6 +91,7 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           VAULT_ADDR: "${{ secrets.VAULT_ADDR }}"
+        continue-on-error: true # FIXME: temporary workaround for MUC being down...
 
   deploy:
     runs-on: ubuntu-latest
@@ -196,3 +197,4 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ env.GH_PAT_TOKEN }}"
           KUBECONFIG: "outputs/${{ matrix.site }}/admin.conf"
+        continue-on-error: true # FIXME: temporary workaround for MUC being down...
