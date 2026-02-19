@@ -10,7 +10,7 @@ This repository contains the infrastructure as code (IaC) for the `home-cluster`
 
 ## Requirements
 
-- [NodeJS](https://nodejs.org/en), and [yarn](https://yarnpkg.com)
+- [Go](https://golang.org/dl/)
 - [Pulumi](https://www.pulumi.com/docs/install/)
 - [talosctl](https://github.com/siderolabs/talos)
 
@@ -21,8 +21,7 @@ To create the infrastructure and deploy the cluster, a [Pulumi Stack](https://ww
 The stack can be deployed via:
 
 ```bash
-yarn install
-yarn build; pulumi up
+pulumi up
 ```
 
 ## Destroying the Infrastructure
@@ -30,8 +29,7 @@ yarn build; pulumi up
 The entire infrastructure can be destroyed via:
 
 ```bash
-yarn install
-yarn build; pulumi destroy
+pulumi destroy
 ```
 
 ## Environment Variables
@@ -50,6 +48,7 @@ To successfully run, and configure the Pulumi plugins, you need to set a list of
 The following stacks are available:
 
 - `vie`: identifies the cluster in Vienna
+- `muc`: identifies the cluster in Munich
 
 ---
 
@@ -178,4 +177,4 @@ clusterIntegration:
 ## Continuous Integration and Automations
 
 - [GitHub Actions](https://docs.github.com/en/actions) are linting, and verifying the code.
-- [Renovate Bot](https://github.com/renovatebot/renovate) is updating NodeJS packages, and GitHub Actions.
+- [Renovate Bot](https://github.com/renovatebot/renovate) is updating Go modules, and GitHub Actions.

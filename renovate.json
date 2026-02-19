@@ -16,7 +16,7 @@
     "enabledManagers": [
         "github-actions",
         "pre-commit",
-        "npm",
+        "gomod",
         "custom.regex"
     ],
     "customManagers": [

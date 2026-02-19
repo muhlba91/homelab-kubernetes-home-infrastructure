@@ -5,10 +5,10 @@ ipam:
   mode: cluster-pool
   operator:
     clusterPoolIPv4PodCIDRList:
-      - {{ network.podSubnets.v4 }}
+      - {{ .network.PodSubnets.V4 }}
     clusterPoolIPv4MaskSize: 24
     clusterPoolIPv6PodCIDRList:
-      - {{ network.podSubnets.v6 }}
+      - {{ .network.PodSubnets.V6 }}
     clusterPoolIPv6MaskSize: 120
 ipv6:
   enabled: true

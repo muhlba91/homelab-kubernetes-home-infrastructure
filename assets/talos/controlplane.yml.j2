@@ -1,25 +1,25 @@
-{%- if gates.coralTpu %}
+{{- if .gates.CoralTPU }}
 ---
 apiVersion: v1alpha1
 kind: PCIDriverRebindConfig
 name: 0000:05:00.0
 targetDriver: vfio-pci
-{%- endif %}
+{{- end }}
 ---
 version: v1alpha1
 debug: false
 persist: true
 machine:
   type: controlplane
-  token: {{ secrets.trustdinfo.token }}
+  token: {{ .secrets.Trustdinfo.Token }}
   ca:
-    crt: {{ secrets.certs.os.cert }}
-    key: {{ secrets.certs.os.key }}
+    crt: {{ .secrets.Certs.Os.Cert }}
+    key: {{ .secrets.Certs.Os.Key }}
   certSANs: []
   # certSANs:
-  #   - {{ talos.machine.network.ip.v4 }}
-  #   - {{ talos.machine.network.ip.v6 }}
-  #   - {{ talos.cluster.vip }}
+  #   - {{ .talos.Machine.Network.IP.V4 }}
+  #   - {{ .talos.Machine.Network.IP.V6 }}
+  #   - {{ .talos.Cluster.VIP }}
   kubelet:
     # renovate: datasource=github-releases packageName=siderolabs/kubelet
     image: ghcr.io/siderolabs/kubelet:v1.35.1
@@ -29,36 +29,36 @@ machine:
       rotate-server-certificates: true
     # nodeIP:
     #   validSubnets:
-    #     - {{ talos.machine.network.ip.v4 }}/{{ network.ipv4.cidrMask }}
-    #     - {{ talos.machine.network.ip.v6 }}/{{ network.ipv6.cidrMask }}
+    #     - {{ .talos.Machine.Network.IP.V4 }}/{{ .network.IPv4.CIDRMask }}
+    #     - {{ .talos.Machine.Network.IP.V6 }}/{{ .network.IPv6.CIDRMask }}
   network:
-    hostname: {{ talos.machine.hostname }}
+    hostname: {{ .talos.Machine.Hostname }}
     nameservers:
-{%- for nameserver in network.nameservers %}
-      - {{ nameserver }}
-{%- endfor %}
+{{- range .network.Nameservers }}
+      - {{ . }}
+{{- end }}
     interfaces:
       - deviceSelector:
-          hardwareAddr: "{{ talos.machine.network.mac }}"
+          hardwareAddr: "{{ .talos.Machine.Network.MAC }}"
         dhcp: false
         mtu: 1500
         addresses:
-          - {{ talos.machine.network.ip.v4 }}/{{ network.ipv4.cidrMask }}
-          - {{ talos.machine.network.ip.v6 }}/{{ network.ipv6.cidrMask }}
+          - {{ .talos.Machine.Network.IP.V4 }}/{{ .network.IPv4.CIDRMask }}
+          - {{ .talos.Machine.Network.IP.V6 }}/{{ .network.IPv6.CIDRMask }}
         routes:
           - network: 0.0.0.0/0
-            gateway: {{ network.ipv4.gateway }}
+            gateway: {{ .network.IPv4.Gateway }}
           - network: ::/0
-            gateway: {{ network.ipv6.gateway }}
+            gateway: {{ .network.IPv6.Gateway }}
         # vip:
-        #   ip: {{ talos.cluster.vip }}
+        #   ip: {{ .talos.Cluster.VIP }}
     kubespan:
       enabled: false
   # disks:
   #   - device: /dev/sdb
   #     partitions:
   #       - mountpoint: /var/mnt/extra
-  registries: {}
+  #     registries: {}
   features:
     rbac: true
     stableHostname: true
@@ -95,9 +95,9 @@ machine:
   #    - util-linux-tools
   # - extra kernel arguments: intel_iommu=on iommu=pt
   install:
-    disk: {{ talos.machine.disk }}
+    disk: {{ .talos.Machine.Disk }}
     # renovate: datasource=github-releases packageName=siderolabs/talos
-    image: factory.talos.dev/metal-installer/{{ talos.cluster.installImageHash }}:v1.12.4
+    image: factory.talos.dev/metal-installer/{{ .talos.Cluster.InstallImageHash }}:v1.12.4
     wipe: true
   kernel:
     modules:
@@ -109,7 +109,7 @@ machine:
       - name: vfio_pci
       - name: vfio_iommu_type1
       - name: uio_pci_generic
-{%- if gates.nvidia %}
+{{- if .gates.Nvidia }}
       - name: nvidia
         parameters:
           - NVreg_OpenRmEnableUnsupportedGpus=1
@@ -118,50 +118,50 @@ machine:
       - name: nvidia_modeset
         parameters:
           - NVreg_OpenRmEnableUnsupportedGpus=1
-{%- endif %}
-{%- if gates.coralTpu %}
+{{- end }}
+{{- if .gates.CoralTPU }}
       - name: gasket
       - name: apex
-{%- endif %}
+{{- end }}
   sysctls:
     net.core.bpf_jit_harden: 1
     vm.max_map_count: 131060
     net.ipv6.conf.all.accept_ra: 2
 cluster:
-  id: {{ secrets.cluster.id }}
-  secret: {{ secrets.cluster.secret }}
+  id: {{ .secrets.Cluster.Id }}
+  secret: {{ .secrets.Cluster.Secret }}
   controlPlane:
-    endpoint: https://{{ talos.machine.network.ip.v4 }}:6443
-  clusterName: {{ clusterName }}-cluster
+    endpoint: https://{{ .talos.Machine.Network.IP.V4 }}:6443
+  clusterName: {{ .clusterName }}-cluster
   network:
     dnsDomain: cluster.local
     podSubnets:
-      - {{ talos.cluster.network.podSubnets.v4 }}
-      - {{ talos.cluster.network.podSubnets.v6 }}
+      - {{ .talos.Cluster.Network.PodSubnets.V4 }}
+      - {{ .talos.Cluster.Network.PodSubnets.V6 }}
     serviceSubnets:
-      - {{ talos.cluster.network.serviceSubnets.v4 }}
-      - {{ talos.cluster.network.serviceSubnets.v6 }}
+      - {{ .talos.Cluster.Network.ServiceSubnets.V4 }}
+      - {{ .talos.Cluster.Network.ServiceSubnets.V6 }}
     cni:
       name: none
   proxy:
     disabled: true
-  token: {{ secrets.secrets.bootstrapToken }}
-  secretboxEncryptionSecret: {{ secrets.secrets.secretboxEncryptionSecret }}
+  token: {{ .secrets.Secrets.BootstrapToken }}
+  secretboxEncryptionSecret: {{ .secrets.Secrets.SecretboxEncryptionSecret }}
   ca:
-    crt: {{ secrets.certs.k8s.cert }}
-    key: {{ secrets.certs.k8s.key }}
+    crt: {{ .secrets.Certs.K8s.Cert }}
+    key: {{ .secrets.Certs.K8s.Key }}
   aggregatorCA:
-    crt: {{ secrets.certs.k8sAggregator.cert }}
-    key: {{ secrets.certs.k8sAggregator.key }}
+    crt: {{ .secrets.Certs.K8sAggregator.Cert }}
+    key: {{ .secrets.Certs.K8sAggregator.Key }}
   serviceAccount:
-    key: {{ secrets.certs.k8sServiceaccount.key }}
+    key: {{ .secrets.Certs.K8sServiceAccount.Key }}
   apiServer:
     # renovate: datasource=github-releases packageName=siderolabs/kubelet
     image: registry.k8s.io/kube-apiserver:v1.35.1
     certSANs:
-      - {{ talos.machine.network.ip.v4 }}
-      - {{ talos.machine.network.ip.v6 }}
-    #   - {{ talos.cluster.vip }}
+      - {{ .talos.Machine.Network.IP.V4 }}
+      - {{ .talos.Machine.Network.IP.V6 }}
+    #   - {{ .talos.Cluster.VIP }}
     disablePodSecurityPolicy: true
     admissionControl: []
       # - name: PodSecurity
@@ -204,11 +204,11 @@ cluster:
         disabled: false
   etcd:
     ca:
-      crt: {{ secrets.certs.etcd.cert }}
-      key: {{ secrets.certs.etcd.key }}
+      crt: {{ .secrets.Certs.Etcd.Cert }}
+      key: {{ .secrets.Certs.Etcd.Key }}
     # advertisedSubnets:
-    #   - {{ talos.machine.network.ip.v4 }}/{{ network.ipv4.cidrMask }}
-    #   - {{ talos.machine.network.ip.v6 }}/{{ network.ipv6.cidrMask }}
+    #   - {{ .talos.Machine.Network.IP.V4 }}/{{ .network.IPv4.CIDRMask }}
+    #   - {{ .talos.Machine.Network.IP.V6 }}/{{ .network.IPv6.CIDRMask }}
   extraManifests: []
   inlineManifests: []
   allowSchedulingOnControlPlanes: true

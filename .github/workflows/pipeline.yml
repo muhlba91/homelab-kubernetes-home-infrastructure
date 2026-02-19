@@ -10,21 +10,17 @@ on:
 permissions:
   contents: read
 
-env:
-  NODE_OPTIONS: "--max-old-space-size=4096"
-  GRPC_ENFORCE_ALPN_ENABLED: "false" # https://github.com/pulumiverse/pulumi-talos/issues/113
-
 jobs:
   preview:
     runs-on: ubuntu-latest
     name: Pulumi Preview
     permissions:
       id-token: write
-      contents: write
+      contents: read
     strategy:
-      max-parallel: 12
+      max-parallel: 4
       matrix:
-        node-version: ["24"]
+        go-version: [1.25.x]
         site:
           - vie
           - muc
@@ -38,12 +34,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      - run: |
-          corepack enable
-
-      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+      - uses: actions/setup-go@7a3fe6cf4cb3a834922a1244abfce67bcef6a0c5 # v6.2.0
         with:
-          node-version: ${{ matrix.node-version }}
+          go-version: "${{ matrix.go-version }}"
 
       - uses: hashicorp/vault-action@4c06c5ccf5c0761b6029f56cfb1dcf5565918a3b # v3.4.0
         id: import-secrets
@@ -73,10 +66,6 @@ jobs:
           workload_identity_provider: ${{ env.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ env.GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT }}
 
-      - run: |
-          yarn install --immutable
-          yarn build
-
       - uses: tailscale/github-action@53acf823325fe9ca47f4cdaa951f90b4b0de5bb9 # v4
         with:
           oauth-client-id: ${{ env.TS_OAUTH_CLIENT_ID }}
@@ -99,16 +88,16 @@ jobs:
     name: Pulumi Deploy
     permissions:
       id-token: write
-      contents: write
+      contents: read
     needs:
       - preview
     strategy:
-      max-parallel: 12
+      max-parallel: 4
       matrix:
-        node-version: ["24"]
+        go-version: [1.25.x]
         site:
           - vie
-          - muc
+          # - muc
 
     steps:
       - uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
@@ -128,12 +117,9 @@ jobs:
         with:
           setup-tools: helm
 
-      - run: |
-          corepack enable
-
-      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+      - uses: actions/setup-go@7a3fe6cf4cb3a834922a1244abfce67bcef6a0c5 # v6.2.0
         with:
-          node-version: ${{ matrix.node-version }}
+          go-version: "${{ matrix.go-version }}"
 
       - uses: hashicorp/vault-action@4c06c5ccf5c0761b6029f56cfb1dcf5565918a3b # v3.4.0
         id: import-secrets
@@ -165,10 +151,6 @@ jobs:
 
       - uses: fluxcd/flux2/action@e169a975772837daba38b1ed677029d5bbafca98 # main
 
-      - run: |
-          yarn install --immutable
-          yarn build
-
       - uses: tailscale/github-action@53acf823325fe9ca47f4cdaa951f90b4b0de5bb9 # v4
         with:
           oauth-client-id: ${{ env.TS_OAUTH_CLIENT_ID }}
@@ -179,11 +161,9 @@ jobs:
         with:
           command: up
           stack-name: ${{ matrix.site }}
-          continue-on-error: true # FIXME: temporary workaround for MUC being down...
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           VAULT_ADDR: "${{ secrets.VAULT_ADDR }}"
-        continue-on-error: true # FIXME: temporary workaround for MUC being down...
 
       - run: |
           flux bootstrap github \
@@ -200,4 +180,3 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ env.GH_PAT_TOKEN }}"
           KUBECONFIG: "outputs/${{ matrix.site }}/admin.conf"
-        continue-on-error: true # FIXME: temporary workaround for MUC being down...
