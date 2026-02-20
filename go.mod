@@ -6,7 +6,7 @@ require (
 	github.com/muhlba91/pulumi-shared-library v0.0.0-20260219140858-b5a9dfb70450
 	github.com/pulumi/pulumi-command/sdk v1.1.3
 	github.com/pulumi/pulumi-gcp/sdk/v9 v9.12.0
-	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.25.0
+	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.26.0
 	github.com/pulumi/pulumi/sdk/v3 v3.222.0
 	github.com/pulumiverse/pulumi-talos/sdk v0.7.1
 	github.com/rs/zerolog v1.34.0
