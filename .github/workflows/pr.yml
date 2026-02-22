@@ -151,12 +151,12 @@ jobs:
             github-homelab-kubernetes-home-infrastructure/data/github token | GH_PAT_TOKEN ;
             github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_client_id | TS_OAUTH_CLIENT_ID ;
             github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_secret | TS_OAUTH_SECRET ;
-            github-muehlbachler-mail-services-infrastructure/data/scaleway organization_id | SCW_ORGANIZATION_ID ;
-            github-muehlbachler-mail-services-infrastructure/data/scaleway project_id | SCW_PROJECT_ID ;
-            github-muehlbachler-mail-services-infrastructure/data/scaleway region | SCW_DEFAULT_REGION ;
-            github-muehlbachler-mail-services-infrastructure/data/scaleway zone | SCW_DEFAULT_ZONE ;
-            github-muehlbachler-mail-services-infrastructure/data/scaleway access_key | SCW_ACCESS_KEY ;
-            github-muehlbachler-mail-services-infrastructure/data/scaleway secret_key | SCW_SECRET_KEY
+            github-homelab-kubernetes-home-infrastructure/data/scaleway organization_id | SCW_ORGANIZATION_ID ;
+            github-homelab-kubernetes-home-infrastructure/data/scaleway project_id | SCW_PROJECT_ID ;
+            github-homelab-kubernetes-home-infrastructure/data/scaleway region | SCW_DEFAULT_REGION ;
+            github-homelab-kubernetes-home-infrastructure/data/scaleway zone | SCW_DEFAULT_ZONE ;
+            github-homelab-kubernetes-home-infrastructure/data/scaleway access_key | SCW_ACCESS_KEY ;
+            github-homelab-kubernetes-home-infrastructure/data/scaleway secret_key | SCW_SECRET_KEY
 
       - uses: pulumi/auth-actions@1c89817aab0c66407723cdef72b05266e7376640 # v1.0.1
         with:
