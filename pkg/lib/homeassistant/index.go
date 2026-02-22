@@ -46,7 +46,7 @@ func CreateResources(
 			Role:   "roles/cloudkms.cryptoKeyEncrypterDecrypter",
 		})
 		if err != nil {
-			log.Error().Err(err).Msgf("[homeassistant] failed to create KMS IAM member for %s", email)
+			log.Error().Err(err).Msgf("[homeassistant][backup] failed to create KMS IAM member for %s", email)
 		}
 		return nil
 	})
@@ -57,7 +57,7 @@ func CreateResources(
 		"bucket_reference": fmt.Sprintf("%s/%s/home-assistant", config.BackupBucketID, config.BucketPath),
 	})
 	if err != nil {
-		log.Error().Err(err).Msg("[homeassistant][vault] failed to marshal backup configuration")
+		log.Error().Err(err).Msg("[homeassistant][backup][vault] failed to marshal backup configuration")
 	}
 
 	_, errVault := secret.Create(ctx, &secret.CreateOptions{
@@ -66,6 +66,6 @@ func CreateResources(
 		Path:  secretStoresConfig.VaultMount,
 	})
 	if errVault != nil {
-		log.Error().Err(errVault).Msg("[homeassistant][vault] failed to create secret")
+		log.Error().Err(errVault).Msg("[homeassistant][backup][vault] failed to create secret")
 	}
 }
