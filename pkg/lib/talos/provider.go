@@ -5,8 +5,6 @@ import (
 
 	"github.com/rs/zerolog/log"
 
-	"github.com/muhlba91/pulumi-shared-library/pkg/util/storage"
-	"github.com/muhlba91/pulumi-shared-library/pkg/util/storage/google"
 	k8sProvider "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumiverse/pulumi-talos/sdk/go/talos/cluster"
@@ -14,6 +12,7 @@ import (
 
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/config"
 	talosModel "github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/talos"
+	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/util/file"
 )
 
 // createKubernetesProvider creates a Kubernetes provider using the kubeconfig generated from the Talos secrets and configuration.
@@ -42,14 +41,7 @@ func createKubernetesProvider(
 		return kubeconfig.KubeconfigRaw
 	}).(pulumi.StringOutput)
 
-	_ = google.WriteFileAndUpload(ctx, &storage.WriteFileAndUploadOptions{
-		Name:       "admin.conf",
-		Content:    talosctlKubeConfig,
-		OutputPath: fmt.Sprintf("./outputs/%s", config.Environment),
-		BucketID:   config.BucketID,
-		BucketPath: config.BucketPath,
-		Labels:     config.CommonLabels(),
-	})
+	_ = file.WriteAndUpload(ctx, "admin.conf", talosctlKubeConfig)
 
 	kubernetesProvider, errProv := k8sProvider.NewProvider(
 		ctx,

@@ -5,15 +5,14 @@ import (
 
 	"github.com/rs/zerolog/log"
 
-	"github.com/muhlba91/pulumi-shared-library/pkg/util/file"
-	"github.com/muhlba91/pulumi-shared-library/pkg/util/storage"
-	"github.com/muhlba91/pulumi-shared-library/pkg/util/storage/google"
+	fileUtil "github.com/muhlba91/pulumi-shared-library/pkg/util/file"
 	"github.com/muhlba91/pulumi-shared-library/pkg/util/template"
 	"github.com/pulumi/pulumi-command/sdk/go/command/local"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/config"
 	talosModel "github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/talos"
+	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/util/file"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/util/random"
 )
 
@@ -44,19 +43,12 @@ func writeTalosConfigFiles(
 	}
 
 	files, _ := (configFiles.Stdout.ApplyT(func(_ string) []string {
-		talosconfig, err := file.ReadContents(fmt.Sprintf("./outputs/%s/talosconfig.tmp", config.Environment))
+		talosconfig, err := fileUtil.ReadContents(fmt.Sprintf("./outputs/%s/talosconfig.tmp", config.Environment))
 		if err != nil {
 			log.Error().Err(err).Msg("[talos][configs] failed to read temporary talosconfig")
 		}
 
-		_ = google.WriteFileAndUpload(ctx, &storage.WriteFileAndUploadOptions{
-			Name:       "talosconfig",
-			Content:    pulumi.String(talosconfig),
-			OutputPath: fmt.Sprintf("./outputs/%s", config.Environment),
-			BucketID:   config.BucketID,
-			BucketPath: config.BucketPath,
-			Labels:     config.CommonLabels(),
-		})
+		_ = file.WriteAndUpload(ctx, "talosconfig", pulumi.String(talosconfig))
 
 		return []string{talosconfig}
 	})).(pulumi.StringArrayOutput)

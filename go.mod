@@ -75,6 +75,7 @@ require (
 	github.com/pulumi/pulumi-google-native/sdk v0.32.0 // indirect
 	github.com/pulumi/pulumi-random/sdk/v4 v4.19.1 // indirect
 	github.com/pulumi/pulumi-vault/sdk/v7 v7.7.0 // indirect
+	github.com/pulumiverse/pulumi-scaleway/sdk v1.43.0 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
 	github.com/santhosh-tekuri/jsonschema/v5 v5.3.1 // indirect

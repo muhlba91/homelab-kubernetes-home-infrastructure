@@ -2,10 +2,7 @@ package configs
 
 import (
 	"bytes"
-	"fmt"
 
-	"github.com/muhlba91/pulumi-shared-library/pkg/util/storage"
-	"github.com/muhlba91/pulumi-shared-library/pkg/util/storage/google"
 	"github.com/muhlba91/pulumi-shared-library/pkg/util/template"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumiverse/pulumi-talos/sdk/go/talos/machine"
@@ -16,6 +13,7 @@ import (
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/gates"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/network"
 	talosModel "github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/talos"
+	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/util/file"
 )
 
 const defaultIndent = 2
@@ -46,14 +44,7 @@ func writeControlplaneAndSecretsFiles(
 		return sanitizeSecretsFile(b.String())
 	})).(pulumi.StringOutput)
 
-	_ = google.WriteFileAndUpload(ctx, &storage.WriteFileAndUploadOptions{
-		Name:       "secrets.yaml",
-		Content:    secretsFile,
-		OutputPath: fmt.Sprintf("./outputs/%s", config.Environment),
-		BucketID:   config.BucketID,
-		BucketPath: config.BucketPath,
-		Labels:     config.CommonLabels(),
-	})
+	_ = file.WriteAndUpload(ctx, "secrets.yaml", secretsFile)
 
 	return controlplaneFile
 }
@@ -153,12 +144,5 @@ func renderControlplaneFile(
 		return cp
 	}).(pulumi.StringOutput)
 
-	return google.WriteFileAndUpload(ctx, &storage.WriteFileAndUploadOptions{
-		Name:       "controlplane.yml",
-		Content:    controlplane,
-		OutputPath: fmt.Sprintf("./outputs/%s", config.Environment),
-		BucketID:   config.BucketID,
-		BucketPath: config.BucketPath,
-		Labels:     config.CommonLabels(),
-	})
+	return file.WriteAndUpload(ctx, "controlplane.yml", controlplane)
 }
