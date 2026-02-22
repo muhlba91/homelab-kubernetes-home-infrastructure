@@ -1,4 +1,4 @@
-package buckets
+package gcs
 
 import (
 	"encoding/json"
@@ -37,7 +37,7 @@ func createHmacKey(
 			Project:        pulumi.String(googleConfig.Project),
 		})
 		if err != nil {
-			log.Error().Err(err).Msgf("[buckets][hmac] failed to create HMAC key for %s", email)
+			log.Error().Err(err).Msgf("[buckets][gcs][hmac] failed to create HMAC key for %s", email)
 		}
 		return key
 	})
@@ -45,21 +45,21 @@ func createHmacKey(
 	vaultStorageValue, _ := (pulumi.All(hmacKey, bucketID).ApplyT(func(args []any) pulumi.StringOutput {
 		key, ok := args[0].(*gcpStorage.HmacKey)
 		if !ok {
-			log.Error().Msgf("[buckets][hmac] failed to cast hmacKey for %s", vaultPath)
+			log.Error().Msgf("[buckets][gcs][hmac] failed to cast hmacKey for %s", vaultPath)
 		}
 		bID, ok := args[1].(string)
 		if !ok {
-			log.Error().Msgf("[buckets][hmac] failed to cast bucketID for %s", vaultPath)
+			log.Error().Msgf("[buckets][gcs][hmac] failed to cast bucketID for %s", vaultPath)
 		}
 
 		output, _ := (pulumi.All(key.AccessId, key.Secret).ApplyT(func(keys []any) string {
 			accessKey, okAccess := keys[0].(string)
 			if !okAccess {
-				log.Error().Msgf("[buckets][hmac] failed to cast accessKey for %s", vaultPath)
+				log.Error().Msgf("[buckets][gcs][hmac] failed to cast accessKey for %s", vaultPath)
 			}
 			secretKey, okSecret := keys[1].(string)
 			if !okSecret {
-				log.Error().Msgf("[buckets][hmac] failed to cast secretKey for %s", vaultPath)
+				log.Error().Msgf("[buckets][gcs][hmac] failed to cast secretKey for %s", vaultPath)
 			}
 
 			data, err := json.Marshal(map[string]string{
@@ -68,7 +68,7 @@ func createHmacKey(
 				"bucket":            bID,
 			})
 			if err != nil {
-				log.Error().Err(err).Msgf("[buckets][hmac][vault] failed to marshal credentials for %s", vaultPath)
+				log.Error().Err(err).Msgf("[buckets][gcs][hmac][vault] failed to marshal credentials for %s", vaultPath)
 			}
 			return string(data)
 		})).(pulumi.StringOutput)
@@ -81,6 +81,6 @@ func createHmacKey(
 		Path:  secretStoresConfig.VaultMount,
 	})
 	if errVault != nil {
-		log.Error().Err(errVault).Msgf("[buckets][hmac][vault] failed to create secret for %s", vaultPath)
+		log.Error().Err(errVault).Msgf("[buckets][gcs][hmac][vault] failed to create secret for %s", vaultPath)
 	}
 }

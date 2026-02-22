@@ -83,6 +83,27 @@ config:
             - POST
           origin:
             - https://gpt.home.muehlbachler.io
+    scaleway:
+      cloudnative-pg:
+        backupBucket: true
+        vaultPath: cloudnativepg
+      frigate:
+        mainBucket: true
+      velero:
+        backupBucket: true
+      home-assistant:
+        backupBucket: true
+      librechat:
+        defaultBucket: true
+        cors:
+          maxAgeSeconds: 3600
+          responseHeader:
+            - Content-Type
+          method:
+            - GET
+            - POST
+          origin:
+            - https://gpt.home.muehlbachler.io
   home_cluster-infrastructure-proxmox:passwords:
     data:
       home-assistant-node-red-credential-secret:
@@ -92,3 +113,6 @@ config:
         special: false
       home-assistant-emqx:
         length: 20
+  home_cluster-infrastructure-proxmox:scaleway:
+    project: b47e1b1d-8201-4e51-9ce0-9d39678751a6
+    dnsProject: bc87ca3f-e096-46cc-b849-fef5cb361511

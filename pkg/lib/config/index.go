@@ -14,6 +14,7 @@ import (
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/google"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/network"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/password"
+	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/scaleway"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/secretstores"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/talos"
 )
@@ -26,6 +27,8 @@ var (
 	GlobalName = "home"
 	// GCPDefaultRegion is the default GCP region for deployments.
 	GCPDefaultRegion = "europe-west4"
+	// ScalewayDefaultRegion is the default Scaleway region for deployments.
+	ScalewayDefaultRegion = "fr-par"
 	// BucketPath is the path within the buckets for this project.
 	BucketPath string
 	// BucketID is the ID of the main storage bucket.
@@ -41,6 +44,7 @@ func LoadConfig(
 ) (
 	*gates.Config,
 	*google.Config,
+	*scaleway.Config,
 	*talos.Config,
 	*cilium.Config,
 	*clusterintegration.Config,
@@ -63,6 +67,9 @@ func LoadConfig(
 
 	var googleConfig google.Config
 	cfg.RequireObject("google", &googleConfig)
+
+	var scalewayConfig scaleway.Config
+	cfg.RequireObject("scaleway", &scalewayConfig)
 
 	var talosConfig talos.Config
 	cfg.RequireObject("talos", &talosConfig)
@@ -90,6 +97,7 @@ func LoadConfig(
 
 	return &gatesConfig,
 		&googleConfig,
+		&scalewayConfig,
 		&talosConfig,
 		&ciliumConfig,
 		&clusterIntegrationConfig,

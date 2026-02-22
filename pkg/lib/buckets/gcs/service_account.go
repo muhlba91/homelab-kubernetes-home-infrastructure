@@ -1,4 +1,4 @@
-package buckets
+package gcs
 
 import (
 	"encoding/json"
@@ -37,17 +37,17 @@ func createServiceAccount(
 		Project: pulumi.String(googleConfig.Project),
 	})
 	if err != nil {
-		log.Error().Err(err).Msgf("[buckets][serviceaccount] failed to create service account user for %s", name)
+		log.Error().Err(err).Msgf("[buckets][gcs][serviceaccount] failed to create service account user for %s", name)
 	}
 
 	_ = pulumi.All(bucketID, iam.ServiceAccount.Email).ApplyT(func(args []any) any {
 		bID, ok := args[0].(string)
 		if !ok {
-			log.Error().Msgf("[buckets][serviceaccount] failed to cast bucketID for %s", name)
+			log.Error().Msgf("[buckets][gcs][serviceaccount] failed to cast bucketID for %s", name)
 		}
 		email, ok := args[1].(string)
 		if !ok {
-			log.Error().Msgf("[buckets][serviceaccount] failed to cast email for %s", name)
+			log.Error().Msgf("[buckets][gcs][serviceaccount] failed to cast email for %s", name)
 		}
 
 		_, errMemberAdmin := giam.CreateIAMMember(ctx, &giam.MemberOptions{
@@ -58,7 +58,7 @@ func createServiceAccount(
 		if errMemberAdmin != nil {
 			log.Error().
 				Err(errMemberAdmin).
-				Msgf("[buckets][serviceaccount] failed to create IAM member (objectAdmin) for %s", name)
+				Msgf("[buckets][gcs][serviceaccount] failed to create IAM member (objectAdmin) for %s", name)
 		}
 		_, errMemberOwner := giam.CreateIAMMember(ctx, &giam.MemberOptions{
 			BucketID: bID,
@@ -68,7 +68,7 @@ func createServiceAccount(
 		if errMemberOwner != nil {
 			log.Error().
 				Err(errMemberOwner).
-				Msgf("[buckets][serviceaccount] failed to create IAM member (legacyBucketOwner) for %s", name)
+				Msgf("[buckets][gcs][serviceaccount] failed to create IAM member (legacyBucketOwner) for %s", name)
 		}
 		return nil
 	})
@@ -76,18 +76,18 @@ func createServiceAccount(
 	vaultValue, _ := (pulumi.All(iam.Key.PrivateKey, bucketID).ApplyT(func(args []any) string {
 		creds, ok := args[0].(string)
 		if !ok {
-			log.Error().Msgf("[buckets][serviceaccount] failed to cast creds for %s", name)
+			log.Error().Msgf("[buckets][gcs][serviceaccount] failed to cast creds for %s", name)
 		}
 		bID, ok := args[1].(string)
 		if !ok {
-			log.Error().Msgf("[buckets][serviceaccount] failed to cast bucketID for %s", name)
+			log.Error().Msgf("[buckets][gcs][serviceaccount] failed to cast bucketID for %s", name)
 		}
 		data, errMarshal := json.Marshal(map[string]string{
 			"credentials": creds,
 			"bucket":      bID,
 		})
 		if errMarshal != nil {
-			log.Error().Err(errMarshal).Msgf("[buckets][serviceaccount][vault] failed to marshal credentials for %s", name)
+			log.Error().Err(errMarshal).Msgf("[buckets][gcs][serviceaccount][vault] failed to marshal credentials for %s", name)
 		}
 		return string(data)
 	})).(pulumi.StringOutput)
@@ -98,7 +98,7 @@ func createServiceAccount(
 		Path:  secretStoresConfig.VaultMount,
 	})
 	if errVault != nil {
-		log.Error().Err(errVault).Msgf("[buckets][serviceaccount][vault] failed to create secret for %s", name)
+		log.Error().Err(errVault).Msgf("[buckets][gcs][serviceaccount][vault] failed to create secret for %s", name)
 	}
 
 	return iam
