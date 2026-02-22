@@ -116,3 +116,4 @@ config:
   home_cluster-infrastructure-proxmox:scaleway:
     project: b47e1b1d-8201-4e51-9ce0-9d39678751a6
     dnsProject: bc87ca3f-e096-46cc-b849-fef5cb361511
+    organizationId: 2535e3b0-5c19-476b-8c0b-8a2a5bfac7c3

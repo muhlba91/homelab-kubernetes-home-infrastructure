@@ -81,9 +81,12 @@ func createApplication(
 			log.Error().Msgf("[buckets][scaleway][application] failed to cast bucketID for %s", name)
 		}
 		data, errMarshal := json.Marshal(map[string]string{
-			"access_key": accessKey,
-			"secret_key": secretKey,
-			"bucket":     bID,
+			"access_key":      accessKey,
+			"secret_key":      secretKey,
+			"organization_id": scalewayConfig.OrganizationID,
+			"project_id":      scalewayConfig.Project,
+			"region":          config.ScalewayDefaultRegion,
+			"bucket":          bID,
 		})
 		if errMarshal != nil {
 			log.Error().Err(errMarshal).Msgf("[buckets][scaleway][application][vault] failed to marshal credentials for %s", name)
