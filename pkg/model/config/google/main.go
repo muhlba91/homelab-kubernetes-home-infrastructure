@@ -8,6 +8,8 @@ type Config struct {
 	DNSProject string `yaml:"dnsProject,omitempty"`
 	// EncryptionKey is the encryption key configuration for GCP.
 	EncryptionKey *EncryptionKeyConfig `yaml:"encryptionKey,omitempty"`
+	// ServiceAccounts is the list of service accounts to create in GCP.
+	ServiceAccounts []string `yaml:"serviceAccounts,omitempty"`
 }
 
 // EncryptionKeyConfig defines encryption key configuration data for GCP.

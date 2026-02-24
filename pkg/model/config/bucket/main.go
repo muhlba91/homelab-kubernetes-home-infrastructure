@@ -2,8 +2,6 @@ package bucket
 
 // Config defines configuration data for S3 buckets.
 type Config struct {
-	// GCS is a map of bucket configurations for Google Cloud Storage.
-	GCS map[string]*BucketConfig `yaml:"gcs,omitempty"`
 	// Scaleway is a map of bucket configurations for Scaleway.
 	Scaleway map[string]*BucketConfig `yaml:"scaleway,omitempty"`
 }

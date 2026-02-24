@@ -11,6 +11,7 @@ import (
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/config"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/externaldns"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/flux"
+	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/google/serviceaccount"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/homeassistant"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/influxdb"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/kubernetes"
@@ -30,7 +31,8 @@ func main() {
 		_ = dir.Create(fmt.Sprintf("outputs/%s", config.Environment))
 
 		// resources
-		iam := buckets.CreateBuckets(ctx, googleConfig, scalewayConfig, bucketsConfig, secretStoresConfig)
+		iam := serviceaccount.Create(ctx, googleConfig, secretStoresConfig)
+		buckets.CreateBuckets(ctx, scalewayConfig, bucketsConfig, secretStoresConfig)
 		passwords.Create(ctx, passwordsConfig, secretStoresConfig)
 		homeassistant.CreateResources(ctx, gatesConfig, googleConfig, secretStoresConfig, iam["home-assistant"])
 		influxdb.CreateResources(ctx, gatesConfig, secretStoresConfig)

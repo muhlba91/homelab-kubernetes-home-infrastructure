@@ -10,6 +10,8 @@ config:
       keyringId: infrastructure-encryption
       location: europe
     project: tuxnet-385112
+    serviceAccounts:
+      - home-assistant
   home_cluster-infrastructure-proxmox:network:
     domain: internal.muehlbachler.io
     ipv4:
@@ -62,27 +64,6 @@ config:
       v4: 10.101.0.0/16
       v6: fc00:db8:101::/112
   home_cluster-infrastructure-proxmox:buckets:
-    gcs:
-      cloudnative-pg:
-        backupBucket: true
-        vaultPath: cloudnativepg
-      frigate:
-        mainBucket: true
-      velero:
-        backupBucket: true
-      home-assistant:
-        backupBucket: true
-      librechat:
-        defaultBucket: true
-        cors:
-          maxAgeSeconds: 3600
-          responseHeader:
-            - Content-Type
-          method:
-            - GET
-            - POST
-          origin:
-            - https://gpt.home.muehlbachler.io
     scaleway:
       cloudnative-pg:
         backupBucket: true
