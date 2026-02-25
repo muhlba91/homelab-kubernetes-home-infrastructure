@@ -5,7 +5,6 @@ go 1.25.3
 require (
 	github.com/muhlba91/pulumi-shared-library v0.0.0-20260225164717-f2afb30d337b
 	github.com/pulumi/pulumi-command/sdk v1.2.0
-	github.com/pulumi/pulumi-gcp/sdk/v9 v9.13.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.26.0
 	github.com/pulumi/pulumi/sdk/v3 v3.223.0
 	github.com/pulumiverse/pulumi-scaleway/sdk v1.43.0
@@ -34,7 +33,7 @@ require (
 	github.com/clipperhouse/displaywidth v0.6.2 // indirect
 	github.com/clipperhouse/stringish v0.1.1 // indirect
 	github.com/clipperhouse/uax29/v2 v2.3.0 // indirect
-	github.com/cloudflare/circl v1.6.1 // indirect
+	github.com/cloudflare/circl v1.6.3 // indirect
 	github.com/cyphar/filepath-securejoin v0.6.1 // indirect
 	github.com/djherbis/times v1.6.0 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
@@ -73,6 +72,7 @@ require (
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
 	github.com/pulumi/esc v0.20.0 // indirect
+	github.com/pulumi/pulumi-gcp/sdk/v9 v9.13.0 // indirect
 	github.com/pulumi/pulumi-google-native/sdk v0.32.0 // indirect
 	github.com/pulumi/pulumi-random/sdk/v4 v4.19.1 // indirect
 	github.com/pulumi/pulumi-vault/sdk/v7 v7.7.0 // indirect
