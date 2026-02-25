@@ -184,6 +184,8 @@ github.com/pulumi/pulumi-command/sdk v1.2.0 h1:tUHM5mYoVcw5fQC38Vm7NWaDSc0cJIfTA
 github.com/pulumi/pulumi-command/sdk v1.2.0/go.mod h1:hQxv9DXg6bFjcd9BEiNdMImQ/V1rnC9D115q5VXYNps=
 github.com/pulumi/pulumi-gcp/sdk/v9 v9.12.0 h1:2Pzxskx9SspnaWpf2MjdK6vlN4XaWv+fkV3ZQF79tDE=
 github.com/pulumi/pulumi-gcp/sdk/v9 v9.12.0/go.mod h1:tHTLtlgVOBMB9zsXOgeKumlQSUiiX8TSSpyu2hVISZI=
+github.com/pulumi/pulumi-gcp/sdk/v9 v9.13.0 h1:pJRHhcOniAUt1J+sYn8fGkUnhK0oPE+UGxiif7T0wBc=
+github.com/pulumi/pulumi-gcp/sdk/v9 v9.13.0/go.mod h1:8btEkUcU48pghsNuHXkw6nQiNo78KTMPWfCEdgACcWQ=
 github.com/pulumi/pulumi-google-native/sdk v0.32.0 h1:QrHaP6jJGCnJbjfgEnMNtX6Y2rNwy97H+afrDbk80co=
 github.com/pulumi/pulumi-google-native/sdk v0.32.0/go.mod h1:7VXK3f8iBB1fyj2ZAWPPNR80BWuXnqqRtgDoPJCVKqU=
 github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.26.0 h1:3aIXR7yic12Pythq7UeRHwYIYa4/03ipSTBrGqCZyD0=
