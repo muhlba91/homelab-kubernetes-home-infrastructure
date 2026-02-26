@@ -20,7 +20,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        go-version: [1.25.x]
+        go-version: [1.26.x]
         site:
           - vie
           - muc
@@ -100,7 +100,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        go-version: [1.25.x]
+        go-version: [1.26.x]
         site:
           - vie
           # - muc

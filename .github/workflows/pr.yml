@@ -31,7 +31,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        go-version: [1.25.x]
+        go-version: [1.26.x]
 
     steps:
       - uses: step-security/harden-runner@a90bcbc6539c36a85cdfeb73f7e2f433735f215b # v2.15.0
@@ -78,7 +78,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        go-version: [1.25.x]
+        go-version: [1.26.x]
 
     steps:
       - uses: step-security/harden-runner@a90bcbc6539c36a85cdfeb73f7e2f433735f215b # v2.15.0
@@ -117,7 +117,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        go-version: [1.25.x]
+        go-version: [1.26.x]
         site:
           - vie
           # - muc
