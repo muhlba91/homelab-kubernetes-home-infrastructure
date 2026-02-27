@@ -26,7 +26,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - uses: fluxcd/flux2/action@e7314e8926eb4f7b70225299adf48cb7e371244d # main
+      - uses: fluxcd/flux2/action@52b1c1152bd0d6332290048717dc86cafedc3904 # main
 
       - id: update
         run: |
