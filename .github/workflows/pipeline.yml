@@ -83,11 +83,9 @@ jobs:
           command: preview
           stack-name: ${{ matrix.site }}
           refresh: true
-          continue-on-error: true # FIXME: temporary workaround for MUC being down...
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           VAULT_ADDR: "${{ secrets.VAULT_ADDR }}"
-        continue-on-error: true # FIXME: temporary workaround for MUC being down...
 
   deploy:
     runs-on: ubuntu-latest
@@ -103,7 +101,7 @@ jobs:
         go-version: [1.26.x]
         site:
           - vie
-          # - muc
+          - muc
 
     steps:
       - uses: step-security/harden-runner@a90bcbc6539c36a85cdfeb73f7e2f433735f215b # v2.15.0

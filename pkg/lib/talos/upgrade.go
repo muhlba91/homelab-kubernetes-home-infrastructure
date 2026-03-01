@@ -1,7 +1,9 @@
 package talos
 
 import (
+	"errors"
 	"fmt"
+	"io"
 	"strings"
 
 	"github.com/rs/zerolog/log"
@@ -104,18 +106,30 @@ func getKubernetesVersion(controlplane pulumi.Output) pulumi.StringOutput {
 
 // getControlplaneContent extracts the controlplane content as a map.
 func getControlplaneContent() map[string]any {
-	content, err := file.ReadContents(fmt.Sprintf("./outputs/%s/controlplane.yml", config.Environment))
-	if err != nil {
-		log.Error().Err(err).Msg("[talos][upgrade] failed to read controlplane.yml")
+	content, rErr := file.ReadContents(fmt.Sprintf("./outputs/%s/controlplane.yml", config.Environment))
+	if rErr != nil {
+		log.Error().Err(rErr).Msg("[talos][upgrade] failed to read controlplane.yml")
 	}
 
-	var doc map[string]any
-	err = yaml.Unmarshal([]byte(content), &doc)
-	if err != nil {
-		log.Error().Err(err).Msg("[talos][upgrade] failed to unmarshal controlplane.yml")
+	var docs []map[string]any
+
+	decoder := yaml.NewDecoder(strings.NewReader(content))
+	docCount := 0
+	for {
+		var temp map[string]any
+		dErr := decoder.Decode(&temp)
+		if errors.Is(dErr, io.EOF) {
+			break
+		}
+		if dErr != nil {
+			log.Error().Err(dErr).Msg("[talos][upgrade] failed to unmarshal controlplane.yml")
+		}
+
+		docs = append(docs, temp)
+		docCount++
 	}
 
-	return doc
+	return docs[docCount-1]
 }
 
 // extractVersion extracts the version from the given path in the controlplane configuration.
