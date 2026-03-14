@@ -97,7 +97,7 @@ machine:
   install:
     disk: {{ .talos.Machine.Disk }}
     # renovate: datasource=github-releases packageName=siderolabs/talos
-    image: factory.talos.dev/metal-installer/{{ .talos.Cluster.InstallImageHash }}:v1.12.4
+    image: factory.talos.dev/metal-installer/{{ .talos.Cluster.InstallImageHash }}:v1.12.5
     wipe: true
   kernel:
     modules:
