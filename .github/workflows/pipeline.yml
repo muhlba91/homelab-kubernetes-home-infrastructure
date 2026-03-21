@@ -117,7 +117,7 @@ jobs:
           repo: siderolabs/talos
           name: talosctl
 
-      - uses: yokawasa/action-setup-kube-tools@3e3886c11bfa25fe33f8eb90f59542dd151da442 # v0.13.1
+      - uses: yokawasa/action-setup-kube-tools@4710caf20bc62368b8edab32f7c9cc7dc3a2ac31 # v0.13.3
         with:
           setup-tools: helm
 
