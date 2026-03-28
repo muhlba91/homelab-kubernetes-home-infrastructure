@@ -9,7 +9,7 @@ require (
 	github.com/pulumi/pulumi/sdk/v3 v3.228.0
 	github.com/pulumiverse/pulumi-scaleway/sdk v1.44.1
 	github.com/pulumiverse/pulumi-talos/sdk v0.7.1
-	github.com/rs/zerolog v1.34.0
+	github.com/rs/zerolog v1.35.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
