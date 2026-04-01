@@ -68,8 +68,6 @@ config:
       cloudnative-pg:
         backupBucket: true
         vaultPath: cloudnativepg
-      frigate:
-        mainBucket: true
       velero:
         backupBucket: true
       home-assistant:
