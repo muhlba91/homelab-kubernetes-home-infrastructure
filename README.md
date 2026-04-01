@@ -48,7 +48,6 @@ To successfully run, and configure the Pulumi plugins, you need to set a list of
 The following stacks are available:
 
 - `vie`: identifies the cluster in Vienna
-- `muc`: identifies the cluster in Munich
 
 ---
 

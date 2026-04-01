@@ -31,7 +31,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        go-version: [1.26.x]
+        go-version: [ 1.26.x ]
 
     steps:
       - uses: step-security/harden-runner@fe104658747b27e96e4f7e80cd0a94068e53901d # v2.16.1
@@ -78,7 +78,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        go-version: [1.26.x]
+        go-version: [ 1.26.x ]
 
     steps:
       - uses: step-security/harden-runner@fe104658747b27e96e4f7e80cd0a94068e53901d # v2.16.1
@@ -118,10 +118,9 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        go-version: [1.26.x]
+        go-version: [ 1.26.x ]
         site:
           - vie
-          - muc
 
     steps:
       - uses: step-security/harden-runner@fe104658747b27e96e4f7e80cd0a94068e53901d # v2.16.1
@@ -181,7 +180,8 @@ jobs:
           command: preview
           stack-name: ${{ matrix.site }}
           comment-on-pr: true
-          refresh: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+          refresh: ${{ github.event.pull_request.head.repo.full_name == github.repository
+            }}
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           VAULT_ADDR: "${{ secrets.VAULT_ADDR }}"

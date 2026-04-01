@@ -3,7 +3,7 @@ module github.com/muhlba91/homelab-kubernetes-home-infrastructure
 go 1.26.0
 
 require (
-	github.com/muhlba91/pulumi-shared-library v0.0.0-20260401055802-3d7300b7771b
+	github.com/muhlba91/pulumi-shared-library v0.0.0-20260401092102-d95c059fc1b5
 	github.com/pulumi/pulumi-command/sdk v1.2.1
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.28.0
 	github.com/pulumi/pulumi/sdk/v3 v3.228.0
@@ -33,7 +33,6 @@ require (
 	github.com/charmbracelet/x/term v0.2.2 // indirect
 	github.com/cheggaaa/pb v1.0.29 // indirect
 	github.com/clipperhouse/displaywidth v0.11.0 // indirect
-	github.com/clipperhouse/stringish v0.1.1 // indirect
 	github.com/clipperhouse/uax29/v2 v2.7.0 // indirect
 	github.com/cloudflare/circl v1.6.3 // indirect
 	github.com/cyphar/filepath-securejoin v0.6.1 // indirect
