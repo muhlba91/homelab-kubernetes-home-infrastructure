@@ -3,7 +3,7 @@ module github.com/muhlba91/homelab-kubernetes-home-infrastructure
 go 1.26.0
 
 require (
-	github.com/muhlba91/pulumi-shared-library v0.0.0-20260401175157-fd7541fb688b
+	github.com/muhlba91/pulumi-shared-library v0.0.0-20260402050729-8a92d2d1b39a
 	github.com/pulumi/pulumi-command/sdk v1.2.1
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.28.0
 	github.com/pulumi/pulumi/sdk/v3 v3.228.0
@@ -81,7 +81,7 @@ require (
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
 	github.com/pulumi/esc v0.20.0 // indirect
-	github.com/pulumi/pulumi-gcp/sdk/v9 v9.17.1 // indirect
+	github.com/pulumi/pulumi-gcp/sdk/v9 v9.18.0 // indirect
 	github.com/pulumi/pulumi-google-native/sdk v0.32.0 // indirect
 	github.com/pulumi/pulumi-random/sdk/v4 v4.19.2 // indirect
 	github.com/pulumi/pulumi-vault/sdk/v7 v7.8.0 // indirect
