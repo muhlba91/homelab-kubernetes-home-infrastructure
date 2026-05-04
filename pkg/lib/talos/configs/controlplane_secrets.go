@@ -111,8 +111,10 @@ func renderControlplaneFile(
 				},
 				"Certs": map[string]any{
 					"Os": map[string]any{
+						//nolint:goconst // these keys are used in the template and should not be changed
 						"Cert": certOs,
-						"Key":  keyOs,
+						//nolint:goconst // these keys are used in the template and should not be changed
+						"Key": keyOs,
 					},
 					"Etcd": map[string]any{
 						"Cert": certEtcd,

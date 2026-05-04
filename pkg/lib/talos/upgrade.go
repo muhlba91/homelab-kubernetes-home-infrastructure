@@ -17,6 +17,9 @@ import (
 	talosModel "github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/talos"
 )
 
+// upgradeTimeout is the timeout for the cluster upgrade.
+const upgradeTimeout = "60m"
+
 // upgradeCluster upgrades the cluster.
 // ctx: Pulumi context.
 // controlplane: the controlplane output.
@@ -37,14 +40,16 @@ func upgradeCluster(
 		Create: pulumi.String("./assets/talos/noop.sh"),
 		Update: pulumi.String("./assets/talos/upgrade_talos.sh"),
 		Environment: pulumi.StringMap{
-			"ENVIRONMENT":        pulumi.String(config.Environment),
+			//nolint:goconst // these keys are used in the template and should not be changed
+			"ENVIRONMENT": pulumi.String(config.Environment),
+			//nolint:goconst // these keys are used in the template and should not be changed
 			"CONTROL_PLANE_IP":   pulumi.String(talosConfig.Machine.Network.IP.V4),
 			"INSTALL_IMAGE_HASH": pulumi.String(talosConfig.Cluster.InstallImageHash),
 			"TALOS_VERSION":      talosVersion,
 		},
 		Triggers: pulumi.Array{talosVersion},
 	}, pulumi.Timeouts(&pulumi.CustomTimeouts{
-		Create: "60m",
+		Create: upgradeTimeout,
 	}), pulumi.DependsOn([]pulumi.Resource{installResource}))
 	if errTalos != nil {
 		log.Error().Err(errTalos).Msg("[talos][upgrade] failed to create talosctl-upgrade command")
@@ -61,7 +66,7 @@ func upgradeCluster(
 		},
 		Triggers: pulumi.Array{kubernetesVersion},
 	}, pulumi.Timeouts(&pulumi.CustomTimeouts{
-		Create: "60m",
+		Create: upgradeTimeout,
 	}), pulumi.DependsOn([]pulumi.Resource{installResource, talosctlUpgrade}))
 	if errK8s != nil {
 		log.Error().Err(errK8s).Msg("[talos][upgrade] failed to create talosctl-upgrade-k8s command")
