@@ -32,7 +32,7 @@ config:
     vaultMount: kubernetes-home-cluster
   home_cluster-infrastructure-proxmox:talos:
     cluster:
-      installImageHash: f720b2d7926d6e4b00137e4b386052d848f67a179ad2452d6c3a3b50ec96fdac
+      installImageHash: bdf3fdcf33210292e338259ae2df5b3a32ca0933668393d5b7855c7d994a2a21
       revision: rev2
       vip: 10.0.70.1
       network:

@@ -89,15 +89,17 @@ machine:
   #    - i915
   #    - intel-ucode
   #    - iscsi-tools
+  #    - multipath-tools
   #    - nvidia-container-toolkit-production # only for nvidia
   #    - nvidia-open-gpu-kernel-modules-production # only for nvidia
+  #    - nvme-cli
   #    - thunderbolt
   #    - util-linux-tools
   # - extra kernel arguments: intel_iommu=on iommu=pt
   install:
     disk: {{ .talos.Machine.Disk }}
     # renovate: datasource=github-releases packageName=siderolabs/talos
-    image: factory.talos.dev/metal-installer/{{ .talos.Cluster.InstallImageHash }}:v1.12.6
+    image: factory.talos.dev/metal-installer/{{ .talos.Cluster.InstallImageHash }}:v1.13.2
     wipe: true
   kernel:
     modules:
@@ -109,6 +111,8 @@ machine:
       - name: vfio_pci
       - name: vfio_iommu_type1
       - name: uio_pci_generic
+      - name: dm_multipath
+      - name: dm_round_robin
 {{- if .gates.Nvidia }}
       - name: nvidia
         parameters:
