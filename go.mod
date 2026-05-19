@@ -5,7 +5,7 @@ go 1.26.0
 require (
 	github.com/muhlba91/pulumi-shared-library v0.0.0-20260519140008-21938ae9c7fa
 	github.com/pulumi/pulumi-command/sdk v1.2.1
-	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.31.0
+	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.31.1
 	github.com/pulumi/pulumi/sdk/v3 v3.242.0
 	github.com/pulumiverse/pulumi-scaleway/sdk v1.49.0
 	github.com/pulumiverse/pulumi-talos/sdk v0.8.0
