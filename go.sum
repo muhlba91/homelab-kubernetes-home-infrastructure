@@ -305,6 +305,8 @@ github.com/pulumiverse/pulumi-scaleway/sdk v1.48.1 h1:EZnIVSX5zD1zMBTlnNLbWCLfVf
 github.com/pulumiverse/pulumi-scaleway/sdk v1.48.1/go.mod h1:wnkYrRJIEiDaVzdPTXuJmF5/ySgvMEKL5FfvKQYMZ/A=
 github.com/pulumiverse/pulumi-scaleway/sdk v1.49.0 h1:8YTfp1+9TgiD1KBVTIdt0ppDvbgoJROxMKKqaGtMy7A=
 github.com/pulumiverse/pulumi-scaleway/sdk v1.49.0/go.mod h1:wnkYrRJIEiDaVzdPTXuJmF5/ySgvMEKL5FfvKQYMZ/A=
+github.com/pulumiverse/pulumi-scaleway/sdk v1.50.0 h1:uix2onsCSJKSG89sq2eMfIVMn18/a37NTbapjBPG404=
+github.com/pulumiverse/pulumi-scaleway/sdk v1.50.0/go.mod h1:wnkYrRJIEiDaVzdPTXuJmF5/ySgvMEKL5FfvKQYMZ/A=
 github.com/pulumiverse/pulumi-talos/sdk v0.7.1 h1:sBpHfk72A+nd9vL2H5Ys6P+HoXa8PWttfo44A7sHd0M=
 github.com/pulumiverse/pulumi-talos/sdk v0.7.1/go.mod h1:VSNqCq2tv5XV0o7w9IClrE8IBYJh4Xq5CN22UO/+0fc=
 github.com/pulumiverse/pulumi-talos/sdk v0.8.0 h1:gMZFDbDk4QNVjRGfi1yzsx19dyq5lP0PfcSL2Sj/Taw=
