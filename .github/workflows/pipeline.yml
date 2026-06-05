@@ -157,7 +157,7 @@ jobs:
           workload_identity_provider: ${{ env.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ env.GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT }}
 
-      - uses: fluxcd/flux2/action@ed778892df5c2bc4b6f413a2b2bbd38cbdcd9777 # main
+      - uses: fluxcd/flux2/action@04b23241e18674cd702b7793392e747288c817ab # main
 
       - uses: tailscale/github-action@306e68a486fd2350f2bfc3b19fcd143891a4a2d8 # v4
         with:
