@@ -7,7 +7,7 @@ require (
 	github.com/pulumi/pulumi-command/sdk v1.2.1
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.32.0
 	github.com/pulumi/pulumi/sdk/v3 v3.246.0
-	github.com/pulumiverse/pulumi-scaleway/sdk v1.50.0
+	github.com/pulumiverse/pulumi-scaleway/sdk v1.50.1
 	github.com/pulumiverse/pulumi-talos/sdk v0.8.0
 	github.com/rs/zerolog v1.35.1
 	gopkg.in/yaml.v3 v3.0.1
