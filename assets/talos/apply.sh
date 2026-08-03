@@ -8,7 +8,7 @@ while [ ! -f ./outputs/${ENVIRONMENT}/talosconfig ]; do sleep 5; done
 
 # install talos
 talosctl apply-config --insecure --nodes ${CONTROL_PLANE_IP} --file ./outputs/${ENVIRONMENT}/controlplane.yml
-sleep 120
+sleep 240
 
 # bootstrap talos
 TALOSCONFIG="./outputs/${ENVIRONMENT}/talosconfig" talosctl bootstrap
@@ -24,7 +24,7 @@ while test "$(kubectl --kubeconfig ./outputs/${ENVIRONMENT}/kubeconfig get node 
 kubectl --kubeconfig ./outputs/${ENVIRONMENT}/kubeconfig get csr -o go-template='{{range .items}}{{if not .status}}{{.metadata.name}}{{"\n"}}{{end}}{{end}}' | xargs --no-run-if-empty kubectl --kubeconfig ./outputs/${ENVIRONMENT}/kubeconfig certificate approve
 
 # apply workaround for discovery service
-kubectl --kubeconfig ./outputs/${ENVIRONMENT}/kubeconfig create clusterrolebinding manual-system-node-crb --user system:node:home-cluster-001 --clusterrole system:node
+kubectl --kubeconfig ./outputs/${ENVIRONMENT}/kubeconfig create clusterrolebinding manual-system-node-crb --user system:node:${NODE_NAME} --clusterrole system:node
 
 # wait for some reconciliation
 sleep 15

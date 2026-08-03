@@ -78,9 +78,9 @@ func LoadConfig(
 	cfg.RequireObject("cilium", &ciliumConfig)
 
 	var clusterIntegrationConfig clusterintegration.Config
-	err := cfg.GetObject("clusterIntegration", &clusterIntegrationConfig)
-	if err != nil {
-		log.Error().Err(err).Msg("[config] failed to get optional clusterIntegration config")
+	ciErr := cfg.GetObject("clusterIntegration", &clusterIntegrationConfig)
+	if ciErr != nil {
+		log.Error().Err(ciErr).Msg("[config] failed to get optional clusterIntegration config")
 	}
 
 	var networkConfig network.Config
@@ -90,10 +90,16 @@ func LoadConfig(
 	cfg.RequireObject("secretStores", &secretStoresConfig)
 
 	var bucketsConfig bucket.Config
-	cfg.RequireObject("buckets", &bucketsConfig)
+	bErr := cfg.GetObject("buckets", &bucketsConfig)
+	if bErr != nil {
+		log.Error().Err(bErr).Msg("[config] failed to get optional buckets config")
+	}
 
 	var passwordsConfig password.Config
-	cfg.RequireObject("passwords", &passwordsConfig)
+	pErr := cfg.GetObject("passwords", &passwordsConfig)
+	if pErr != nil {
+		log.Error().Err(pErr).Msg("[config] failed to get optional passwords config")
+	}
 
 	return &gatesConfig,
 		&googleConfig,

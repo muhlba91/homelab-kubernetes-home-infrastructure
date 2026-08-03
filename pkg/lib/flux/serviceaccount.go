@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/config"
+	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/google/serviceaccount"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/google"
 )
 
@@ -20,8 +21,16 @@ func createFluxServiceAccount(
 	ctx *pulumi.Context,
 	googleConfig *google.Config,
 ) pulumi.StringOutput {
+	name := fmt.Sprintf("flux-%s-%s", config.GlobalName, config.Environment)
+	truncatedName := name
+	if len(name) > serviceaccount.MaxServiceAccountNameLength {
+		truncatedName = name[:serviceaccount.MaxServiceAccountNameLength]
+		log.Warn().
+			Msgf("[flux] service account name '%s' is longer than %d characters, truncating to '%s'", name, serviceaccount.MaxServiceAccountNameLength, truncatedName)
+	}
+
 	iamUser, errUser := slServiceAccount.CreateServiceAccountUser(ctx, &slServiceAccount.CreateOptions{
-		Name:    fmt.Sprintf("flux-%s-%s", config.GlobalName, config.Environment),
+		Name:    truncatedName,
 		Project: pulumi.String(googleConfig.Project),
 	})
 	if errUser != nil {

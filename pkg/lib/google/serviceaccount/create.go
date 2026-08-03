@@ -27,8 +27,15 @@ func createAccount(
 	googleConfig *google.Config,
 	secretStoresConfig *secretstores.Config,
 ) *gmodel.User {
+	truncatedName := fmt.Sprintf("%s-%s-%s", name, config.GlobalName, config.Environment)
+	if len(truncatedName) > MaxServiceAccountNameLength {
+		truncatedName = truncatedName[:MaxServiceAccountNameLength]
+		log.Warn().
+			Msgf("[google][serviceaccount] name %s is longer than %d characters, truncating to %s", name, MaxServiceAccountNameLength, truncatedName)
+	}
+
 	iam, err := slServiceAccount.CreateServiceAccountUser(ctx, &slServiceAccount.CreateOptions{
-		Name:    fmt.Sprintf("%s-%s-%s", name, config.GlobalName, config.Environment),
+		Name:    truncatedName,
 		Project: pulumi.String(googleConfig.Project),
 	})
 	if err != nil {

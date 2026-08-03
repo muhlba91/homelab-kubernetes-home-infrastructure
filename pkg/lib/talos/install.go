@@ -33,8 +33,10 @@ func installCluster(
 
 	cmd, errApp := local.NewCommand(ctx, "talosctl-apply", &local.CommandArgs{
 		Create: pulumi.String("./assets/talos/apply.sh"),
+		Update: pulumi.String("./assets/talos/noop.sh"),
 		Environment: pulumi.StringMap{
 			"ENVIRONMENT": pulumi.String(config.Environment),
+			"NODE_NAME":   pulumi.String(talosConfig.Machine.Hostname),
 			//nolint:goconst // these keys are used in the template and should not be changed
 			"CONTROL_PLANE_IP": pulumi.String(talosConfig.Machine.Network.IP.V4),
 		},

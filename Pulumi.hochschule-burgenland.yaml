@@ -1,0 +1,67 @@
+secretsprovider: gcpkms://projects/tuxnet-385112/locations/europe/keyRings/infrastructure-encryption/cryptoKeys/infrastructure-encryption
+encryptedkey: CiQA9PdEcO3p0TvAEJywwXyBzg0Eeoebwv4NaT4KPebpXsuqqfkSSQA2N6cC4nk2eWITFzzQZFyMTHi6ttHIC4JC7rN+cWpHtCKgBcGCVLrzPAVJR1XhzGrU9K3dy7sZsY8bBpRe+MumNHWww7UspnA=
+config:
+  home_cluster-infrastructure-proxmox:backupBucketId: infrastructure-backups-5274ba70-fde0-47de-8e9a-f1bc64c11157
+  home_cluster-infrastructure-proxmox:bucketId: infrastructure-assets-5274ba70-fde0-47de-8e9a-f1bc64c11157
+  home_cluster-infrastructure-proxmox:google:
+    dnsProject: muehlbachler-dns
+    encryptionKey:
+      cryptoKeyId: infrastructure-encryption
+      keyringId: infrastructure-encryption
+      location: europe
+    project: tuxnet-385112
+  home_cluster-infrastructure-proxmox:network:
+    domain: fra.hetzner.internal.muehlbachler.io
+    ipv4:
+      cidrMask: 16
+      enabled: true
+      gateway: 10.100.0.1
+    ipv6:
+      cidrMask: 80
+      enabled: true
+      gateway: 2a01:4f8:121:14e2:100::1
+    nameservers:
+      - 10.100.0.1
+      - 1.1.1.1
+      - 2a01:4f8:121:14e2:100::1
+      - 2606:4700:4700::1111
+  home_cluster-infrastructure-proxmox:secretStores:
+    vault: true
+    vaultMount: kubernetes-hochschule-burgenland-cluster
+  home_cluster-infrastructure-proxmox:talos:
+    cluster:
+      installImageHash: 1dcb7af7c311b0fbf96e3bb121f9998761f55b9d0ba946f0e1666376b4eea0ba
+      revision: rev1
+      vip: 10.100.70.1
+      network:
+        podSubnets:
+          v4: 10.245.0.0/16
+          v6: fc00:db8:20::/56
+        serviceSubnets:
+          v4: 10.106.0.0/16
+          v6: fc00:db8:106::/112
+    machine:
+      disk: /dev/sda
+      hostname: hochschule-burgenland-cluster-001
+      network:
+        ip:
+          v4: 10.100.50.1
+          v6: 2a01:4f8:121:14e2:100:1:1:1
+        mac: bc:24:11:fb:c4:df
+  home_cluster-infrastructure-proxmox:gates:
+    homeAssistant: false
+    externalDns: true
+    certManager: true
+    cluster: true
+    flux: true
+    nvidia: false
+    coralTpu: false
+    influxdb: false
+  home_cluster-infrastructure-proxmox:cilium:
+    podSubnets:
+      v4: 10.102.0.0/16
+      v6: fc00:db8:102::/112
+  home_cluster-infrastructure-proxmox:scaleway:
+    project: 456d64b1-c82a-48c5-af76-3e523b17dda0
+    dnsProject: bc87ca3f-e096-46cc-b849-fef5cb361511
+    organizationId: 2535e3b0-5c19-476b-8c0b-8a2a5bfac7c3

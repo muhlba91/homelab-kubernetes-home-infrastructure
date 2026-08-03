@@ -12,6 +12,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/config"
+	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/google/serviceaccount"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/gates"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/google"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/secretstores"
@@ -33,24 +34,33 @@ func CreateResources(
 	}
 
 	name := fmt.Sprintf("cert-manager-%s-%s", config.GlobalName, config.Environment)
+	truncatedName := name
+	if len(name) > serviceaccount.MaxServiceAccountNameLength {
+		truncatedName = name[:serviceaccount.MaxServiceAccountNameLength]
+		log.Warn().
+			Msgf("[certmanager] service account name '%s' is longer than %d characters, truncating to '%s'", name, serviceaccount.MaxServiceAccountNameLength, truncatedName)
+	}
 
 	roles := []string{"roles/dns.admin"}
 	iam, err := slServiceAccount.CreateServiceAccountUser(ctx, &slServiceAccount.CreateOptions{
-		Name:    name,
+		Name:    truncatedName,
 		Project: pulumi.String(googleConfig.Project),
 	})
 	if err != nil {
 		log.Error().Err(err).Msg("[certmanager] failed to create service account user")
 	}
 
-	_, errMember := role.CreateMember(ctx, name, &role.MemberOptions{
-		Member:  pulumi.Sprintf("serviceAccount:%s", iam.ServiceAccount.Email),
-		Roles:   roles,
-		Project: pulumi.String(googleConfig.DNSProject),
+	iam.ServiceAccount.Email.ApplyT(func(email string) any {
+		_, errMember := role.CreateMember(ctx, truncatedName, &role.MemberOptions{
+			Member:  pulumi.Sprintf("serviceAccount:%s", email),
+			Roles:   roles,
+			Project: pulumi.String(googleConfig.DNSProject),
+		})
+		if errMember != nil {
+			log.Error().Err(errMember).Msg("[certmanager] failed to create role member")
+		}
+		return nil
 	})
-	if errMember != nil {
-		log.Error().Err(errMember).Msg("[certmanager] failed to create role member")
-	}
 
 	vaultValue, _ := (iam.Key.PrivateKey.ApplyT(func(key string) string {
 		data, errMarshal := json.Marshal(map[string]string{
