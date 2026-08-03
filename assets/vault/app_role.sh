@@ -1,23 +1,36 @@
 #!/bin/sh
+set -eu
 
-vault login
+# RUN BEFORE EXECUTING:
+# vault login
 
-# create a policy for the kubernetes-home-cluster-external-secrets role
-vault policy write kubernetes-home-cluster-external-secrets -<<EOF
-path "kubernetes-home-cluster/*" {
+# list of cluster names to provision
+CLUSTERS="home-cluster hochschule-burgenland-cluster"
+
+for cluster in $CLUSTERS; do
+    role_name="kubernetes-${cluster}-external-secrets"
+
+    echo "=== Setting up ${role_name} ==="
+
+    # create a policy for the role
+    vault policy write "${role_name}" -<<EOF
+path "kubernetes-${cluster}/*" {
   capabilities = ["read", "list"]
 }
 EOF
 
-# create a role for the kubernetes-home-cluster-external-secrets
-vault write auth/approle/role/kubernetes-home-cluster-external-secrets \
-    token_policies="kubernetes-home-cluster-external-secrets" \
-    secret_id_num_uses=0 \
-    secret_id_ttl=0 \
-    token_num_uses=0 \
-    token_ttl=1h \
-    token_max_ttl=4h
+    # create the approle role
+    vault write "auth/approle/role/${role_name}" \
+        token_policies="${role_name}" \
+        secret_id_num_uses=0 \
+        secret_id_ttl=0 \
+        token_num_uses=0 \
+        token_ttl=1h \
+        token_max_ttl=4h
 
-# get the role id and secret id for the kubernetes-home-cluster-external-secrets role
-vault read auth/approle/role/kubernetes-home-cluster-external-secrets/role-id
-vault write -f auth/approle/role/kubernetes-home-cluster-external-secrets/secret-id
+    # get the role id and secret id
+    vault read "auth/approle/role/${role_name}/role-id"
+    vault write -f "auth/approle/role/${role_name}/secret-id"
+
+    echo
+done
