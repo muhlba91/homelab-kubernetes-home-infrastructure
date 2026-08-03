@@ -65,3 +65,9 @@ config:
     project: 456d64b1-c82a-48c5-af76-3e523b17dda0
     dnsProject: bc87ca3f-e096-46cc-b849-fef5cb361511
     organizationId: 2535e3b0-5c19-476b-8c0b-8a2a5bfac7c3
+  home_cluster-infrastructure-proxmox:passwords:
+    data:
+      dex-argocd:
+        special: false
+        vaultKey: client_secret
+        length: 40
