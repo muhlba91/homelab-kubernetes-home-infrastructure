@@ -18,4 +18,6 @@ type PasswordConfig struct {
 	Length *int `yaml:"length,omitempty"`
 	// Special indicates if special characters should be used.
 	Special *bool `yaml:"special,omitempty"`
+	// Password is the password value.
+	Password *string `yaml:"password,omitempty"`
 }

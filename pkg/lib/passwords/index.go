@@ -35,9 +35,16 @@ func Create(
 			Special: defaults.GetOrDefault(config.Special, defaultsPasswordSpecial),
 		}
 
-		pw, err := random.CreatePassword(ctx, fmt.Sprintf("password-%s", name), opts)
-		if err != nil {
-			log.Error().Err(err).Msgf("[passwords] failed to create password for %s", name)
+		var passwordValue pulumi.StringOutput
+		if config.Password != nil && *config.Password != "" {
+			log.Info().Msgf("[passwords] using provided password for %s", name)
+			passwordValue = pulumi.String(*config.Password).ToStringOutput()
+		} else {
+			pw, err := random.CreatePassword(ctx, fmt.Sprintf("password-%s", name), opts)
+			if err != nil {
+				log.Error().Err(err).Msgf("[passwords] failed to create password for %s", name)
+			}
+			passwordValue = pw.Password
 		}
 
 		vaultPath := name
@@ -50,7 +57,7 @@ func Create(
 			vaultKey = *config.VaultKey
 		}
 
-		vaultValue, _ := (pw.Password.ApplyT(func(passwd string) string {
+		vaultValue, _ := (passwordValue.ApplyT(func(passwd string) string {
 			data, errMarshal := json.Marshal(map[string]string{
 				vaultKey: passwd,
 			})
