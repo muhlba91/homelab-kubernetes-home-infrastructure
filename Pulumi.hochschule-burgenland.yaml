@@ -71,3 +71,12 @@ config:
         special: false
         vaultKey: client_secret
         length: 40
+      dex-registry:
+        special: false
+        length: 40
+        vaultKey: client_secret
+  home_cluster-infrastructure-proxmox:buckets:
+    scaleway:
+      registry:
+        defaultBucket: true
+        defaultName: reg
