@@ -75,6 +75,30 @@ config:
         special: false
         length: 40
         vaultKey: client_secret
+      harbor-jobservice:
+        length: 16
+        special: false
+        vaultKey: secret
+      harbor-registry:
+        length: 16
+        special: false
+        vaultKey: secret
+      harbor-encryption:
+        length: 16
+        special: false
+        vaultKey: secret
+      harbor-csrf:
+        length: 32
+        special: false
+        vaultKey: key
+      harbor-admin-password:
+        password:
+          secure: v1:ZPBRbZS4csWYMN/q:oBWyndCkwNKzSNQlgpDjdBY/4GPnmlREdjvQUfO9p7QscrcBVlzaCsgPw96qrtax
+        vaultPath: harbor-admin
+      harbor-communication:
+        length: 16
+        special: false
+        vaultKey: secret
   home_cluster-infrastructure-proxmox:buckets:
     scaleway:
       registry:
