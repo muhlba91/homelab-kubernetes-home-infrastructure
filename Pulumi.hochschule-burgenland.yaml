@@ -92,13 +92,19 @@ config:
         special: false
         vaultKey: key
       harbor-admin-password:
-        password:
-          secure: v1:ZPBRbZS4csWYMN/q:oBWyndCkwNKzSNQlgpDjdBY/4GPnmlREdjvQUfO9p7QscrcBVlzaCsgPw96qrtax
         vaultPath: harbor-admin
+        special: false
+        length: 32
       harbor-communication:
         length: 16
         special: false
         vaultKey: secret
+      harbor-registry-password:
+        password:
+          secure: v1:8rXil5rtx+G0zIUF:wC/88IjygkguCjRbo3Fm/D0KW1os65Rgss6NxBL8k700oy3YVYjD30EqbAwp5Xw4
+      harbor-registry-htpasswd:
+        password:
+          secure: v1:T+vt2mPDf8WiV8Vc:JF457lKjjI1k3NhtmJcNNYICxDFeMZTAF1PpT3YZF5ebN8RnYngg2dEO6G1u8a/9JwdXGARbQqPkwAEejtHmOPlrdK1xF09EBsSto736XUpdeQ2+xYZfHP+w7rb2NIkJWQ==
   home_cluster-infrastructure-proxmox:buckets:
     scaleway:
       registry:
