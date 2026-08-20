@@ -43,7 +43,7 @@ func CreateResources(
 		log.Error().Err(errTok).Msg("[influxdb] failed to create admin token")
 	}
 
-	vaultValue, _ := (pulumi.All(password.Password, token.Password).ApplyT(func(args []any) (string, error) {
+	vaultValue, _ := pulumi.All(password.Password, token.Password).ApplyT(func(args []any) (string, error) {
 		pw, ok := args[0].(string)
 		if !ok {
 			log.Error().Msg("[influxdb] failed to cast password")
@@ -60,7 +60,7 @@ func CreateResources(
 			log.Error().Err(err).Msg("[influxdb][vault] failed to marshal admin credentials")
 		}
 		return string(data), nil
-	})).(pulumi.StringOutput)
+	}).(pulumi.StringOutput)
 
 	_, errVault := secret.Create(ctx, &secret.CreateOptions{
 		Key:   "influxdb-user-admin",

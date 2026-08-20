@@ -42,7 +42,7 @@ func createAccount(
 		log.Error().Err(err).Msgf("[google][serviceaccount] failed to create service account user for %s", name)
 	}
 
-	vaultValue, _ := (iam.Key.PrivateKey.ApplyT(func(creds string) string {
+	vaultValue, _ := iam.Key.PrivateKey.ApplyT(func(creds string) string {
 		data, errMarshal := json.Marshal(map[string]string{
 			"credentials": creds,
 		})
@@ -50,7 +50,7 @@ func createAccount(
 			log.Error().Err(errMarshal).Msgf("[google][serviceaccount][vault] failed to marshal credentials for %s", name)
 		}
 		return string(data)
-	})).(pulumi.StringOutput)
+	}).(pulumi.StringOutput)
 
 	_, errVault := secret.Create(ctx, &secret.CreateOptions{
 		Key:   fmt.Sprintf("%s-google-cloud", name),

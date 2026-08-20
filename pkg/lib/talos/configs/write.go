@@ -42,7 +42,7 @@ func writeTalosConfigFiles(
 		log.Error().Err(errCmd).Msg("[talos][configs] failed to create talos-config-files command")
 	}
 
-	files, _ := (configFiles.Stdout.ApplyT(func(_ string) []string {
+	files, _ := configFiles.Stdout.ApplyT(func(_ string) []string {
 		talosconfig, err := fileUtil.ReadContents(fmt.Sprintf("./outputs/%s/talosconfig.tmp", config.Environment))
 		if err != nil {
 			log.Error().Err(err).Msg("[talos][configs] failed to read temporary talosconfig")
@@ -51,7 +51,7 @@ func writeTalosConfigFiles(
 		_ = file.WriteAndUpload(ctx, "talosconfig", pulumi.String(talosconfig))
 
 		return []string{talosconfig}
-	})).(pulumi.StringArrayOutput)
+	}).(pulumi.StringArrayOutput)
 
 	return files
 }

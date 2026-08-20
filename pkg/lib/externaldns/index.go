@@ -62,7 +62,7 @@ func CreateResources(
 		return nil
 	})
 
-	vaultValue, _ := (iam.Key.PrivateKey.ApplyT(func(key string) (string, error) {
+	vaultValue, _ := iam.Key.PrivateKey.ApplyT(func(key string) (string, error) {
 		data, errMarshal := json.Marshal(map[string]string{
 			"credentials": key,
 		})
@@ -70,7 +70,7 @@ func CreateResources(
 			log.Error().Err(errMarshal).Msg("[externaldns][vault] failed to marshal credentials")
 		}
 		return string(data), nil
-	})).(pulumi.StringOutput)
+	}).(pulumi.StringOutput)
 
 	_, errVault := secret.Create(ctx, &secret.CreateOptions{
 		Key:   "external-dns-google-cloud",

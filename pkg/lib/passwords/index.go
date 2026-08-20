@@ -57,7 +57,7 @@ func Create(
 			vaultKey = *config.VaultKey
 		}
 
-		vaultValue, _ := (passwordValue.ApplyT(func(passwd string) string {
+		vaultValue, _ := passwordValue.ApplyT(func(passwd string) string {
 			data, errMarshal := json.Marshal(map[string]string{
 				vaultKey: passwd,
 			})
@@ -65,7 +65,7 @@ func Create(
 				log.Error().Err(errMarshal).Msgf("[passwords][vault] failed to marshal password for %s", name)
 			}
 			return string(data)
-		})).(pulumi.StringOutput)
+		}).(pulumi.StringOutput)
 
 		_, errVault := secret.Create(ctx, &secret.CreateOptions{
 			Key:   vaultPath,

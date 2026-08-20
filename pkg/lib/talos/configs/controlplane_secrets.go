@@ -33,7 +33,7 @@ func writeControlplaneAndSecretsFiles(
 ) pulumi.Output {
 	controlplaneFile := renderControlplaneFile(ctx, machineSecrets, networkConfig, talosConfig, gatesConfig)
 
-	secretsFile, _ := (machineSecrets.ApplyT(func(secrets any) string {
+	secretsFile, _ := machineSecrets.ApplyT(func(secrets any) string {
 		var b bytes.Buffer
 		enc := yaml.NewEncoder(&b)
 		enc.SetIndent(defaultIndent)
@@ -42,7 +42,7 @@ func writeControlplaneAndSecretsFiles(
 			log.Error().Err(err).Msg("[talos][configs] failed to encode machine secrets")
 		}
 		return sanitizeSecretsFile(b.String())
-	})).(pulumi.StringOutput)
+	}).(pulumi.StringOutput)
 
 	_ = file.WriteAndUpload(ctx, "secrets.yaml", secretsFile)
 
