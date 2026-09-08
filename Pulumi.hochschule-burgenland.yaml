@@ -68,43 +68,39 @@ config:
   home_cluster-infrastructure-proxmox:passwords:
     data:
       dex-argocd:
-        special: false
-        vaultKey: client_secret
-        length: 40
+        client_secret:
+          special: false
+          length: 40
       dex-registry:
-        special: false
-        length: 40
-        vaultKey: client_secret
+        client_secret:
+          special: false
+          length: 40
       harbor-jobservice:
-        length: 16
-        special: false
-        vaultKey: secret
+        secret:
+          length: 16
+          special: false
       harbor-registry:
-        length: 16
-        special: false
-        vaultKey: secret
+        secret:
+          length: 16
+          special: false
       harbor-encryption:
-        length: 16
-        special: false
-        vaultKey: secret
+        secret:
+          length: 16
+          special: false
       harbor-csrf:
-        length: 32
-        special: false
-        vaultKey: key
-      harbor-admin-password:
-        vaultPath: harbor-admin
-        special: false
-        length: 32
+        key:
+          length: 32
+          special: false
       harbor-communication:
-        length: 16
-        special: false
-        vaultKey: secret
-      harbor-registry-password:
+        secret:
+          length: 16
+          special: false
+      harbor-registry-password: {password: {password: {secure: 'v1:LApE2BnAYDtD26xR:p00p3w2Zrbha+PXOKyyOrll4B9zakexOYqbucpm5xter2RLmhKoI5opGYNq4pPSH'}}}
+      harbor-registry-htpasswd: {password: {password: {secure: 'v1:Dhmwphotko3JBfoc:dImheRUJbjz0zIBT2a7RnjUCorFbtsk+ycaKIx8fD9YbLn85CTl6hUV9gkDuE/HbmqPo78Xr32GoA+9Vu07h1/++RSwiv9hHfedTbu11PuKtm1qwsvxk36qq6b+98TVX9Q=='}}}
+      harbor-admin:
         password:
-          secure: v1:8rXil5rtx+G0zIUF:wC/88IjygkguCjRbo3Fm/D0KW1os65Rgss6NxBL8k700oy3YVYjD30EqbAwp5Xw4
-      harbor-registry-htpasswd:
-        password:
-          secure: v1:T+vt2mPDf8WiV8Vc:JF457lKjjI1k3NhtmJcNNYICxDFeMZTAF1PpT3YZF5ebN8RnYngg2dEO6G1u8a/9JwdXGARbQqPkwAEejtHmOPlrdK1xF09EBsSto736XUpdeQ2+xYZfHP+w7rb2NIkJWQ==
+          special: false
+          length: 32
   home_cluster-infrastructure-proxmox:buckets:
     scaleway:
       registry:

@@ -98,13 +98,15 @@ buckets:
 
 ```yaml
 passwords:
-  data: # map of password names to their configuration
-    <name>:
-      vaultPath: the Vault path to store the credentials at (optional)
-      vaultKey: the key in Vault to store the password at (optional)
-      length: the length of the password (optional)
-      special: whether to include special characters (optional)
+  data: # map of Vault paths to the password entries stored at that path
+    <vaultPath>:
+      <vaultKey>: # map of keys to store within the secret at vaultPath
+        length: the length of the password (optional)
+        special: whether to include special characters (optional)
+        password: a literal password value to use instead of generating one (optional)
 ```
+
+Multiple `<vaultKey>` entries under the same `<vaultPath>` are merged into a single Vault secret object, e.g. setting `example-path.token.length: 16` and `example-path.credential.length: 32` writes one Vault secret at `example-path` containing both a `token` and a `credential` key.
 
 ### Google Cloud
 
