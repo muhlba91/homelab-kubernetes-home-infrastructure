@@ -75,32 +75,31 @@ config:
         client_secret:
           special: false
           length: 40
-      harbor-jobservice:
-        secret:
-          length: 16
-          special: false
-      harbor-registry:
-        secret:
-          length: 16
-          special: false
-      harbor-encryption:
-        secret:
-          length: 16
-          special: false
-      harbor-csrf:
-        key:
+      harbor:
+        admin-password:
           length: 32
           special: false
-      harbor-communication:
-        secret:
+        jobservice-secret:
           length: 16
           special: false
-      harbor-registry-password: {password: {password: {secure: 'v1:LApE2BnAYDtD26xR:p00p3w2Zrbha+PXOKyyOrll4B9zakexOYqbucpm5xter2RLmhKoI5opGYNq4pPSH'}}}
-      harbor-registry-htpasswd: {password: {password: {secure: 'v1:Dhmwphotko3JBfoc:dImheRUJbjz0zIBT2a7RnjUCorFbtsk+ycaKIx8fD9YbLn85CTl6hUV9gkDuE/HbmqPo78Xr32GoA+9Vu07h1/++RSwiv9hHfedTbu11PuKtm1qwsvxk36qq6b+98TVX9Q=='}}}
-      harbor-admin:
-        password:
+        registry-secret:
+          length: 16
           special: false
+        encryption-secret:
+          length: 16
+          special: false
+        csrf-key:
           length: 32
+          special: false
+        communication-secret:
+          length: 16
+          special: false
+        registry-password:
+          password:
+            secure: v1:ZxP50M54JF6A8+1R:0o1mBH694IJuNOTE/T9l2FDMhj+SeRR/8QN+ANEotNCDN5u7QjsSA0NAhYU2SvwI
+        registry-htpasswd:
+          password:
+            secure: v1:UlXLgpEEyFQh1Ic8:920JfJh1YT9pRI5Q13A/4xQRS4tCW5D9Ve+8KYMYTnS8QtW3ndRY9kCTiVeT86RolLLS+8YttiIedkVQ4OY7Sp28OaCjnArgaMUKL1Nv/APIZvUXnd7YINiWwXm6irQHPQ==
   home_cluster-infrastructure-proxmox:buckets:
     scaleway:
       registry:
