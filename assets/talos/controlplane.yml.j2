@@ -14,6 +14,17 @@ apiVersion: v1alpha1
 kind: KubeSpanConfig
 enabled: false
 ---
+apiVersion: v1alpha1
+kind: EtcFileConfig
+name: multipath.conf
+mode: 0o644
+contents: |
+  defaults {
+      user_friendly_names yes
+      find_multipaths yes
+      path_selector "round-robin 0"
+  }
+---
 version: v1alpha1
 debug: false
 persist: true
@@ -30,7 +41,7 @@ machine:
   #   - {{ .talos.Cluster.VIP }}
   kubelet:
     # renovate: datasource=github-releases packageName=siderolabs/kubelet
-    image: ghcr.io/siderolabs/kubelet:v1.36.3
+    image: ghcr.io/siderolabs/kubelet:v1.37.0
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
     extraArgs:
@@ -99,7 +110,7 @@ machine:
   install:
     disk: {{ .talos.Machine.Disk }}
     # renovate: datasource=github-releases packageName=siderolabs/talos
-    image: factory.talos.dev/metal-installer/{{ .talos.Cluster.InstallImageHash }}:v1.13.9
+    image: factory.talos.dev/metal-installer/{{ .talos.Cluster.InstallImageHash }}:v1.14.0
     wipe: true
   kernel:
     modules:
@@ -161,7 +172,7 @@ cluster:
     key: {{ .secrets.Certs.K8sServiceAccount.Key }}
   apiServer:
     # renovate: datasource=github-releases packageName=siderolabs/kubelet
-    image: registry.k8s.io/kube-apiserver:v1.36.3
+    image: registry.k8s.io/kube-apiserver:v1.37.0
     certSANs:
       - {{ .talos.Machine.Network.IP.V4 }}
       - {{ .talos.Machine.Network.IP.V6 }}
@@ -191,12 +202,12 @@ cluster:
         - level: Metadata
   controllerManager:
     # renovate: datasource=github-releases packageName=siderolabs/kubelet
-    image: registry.k8s.io/kube-controller-manager:v1.36.3
+    image: registry.k8s.io/kube-controller-manager:v1.37.0
     extraArgs:
       bind-address: 0.0.0.0
   scheduler:
     # renovate: datasource=github-releases packageName=siderolabs/kubelet
-    image: registry.k8s.io/kube-scheduler:v1.36.3
+    image: registry.k8s.io/kube-scheduler:v1.37.0
     extraArgs:
       bind-address: 0.0.0.0
   discovery:
