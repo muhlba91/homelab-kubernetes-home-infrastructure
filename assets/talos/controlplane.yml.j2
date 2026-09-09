@@ -6,6 +6,14 @@ name: 0000:05:00.0
 targetDriver: vfio-pci
 {{- end }}
 ---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: {{ .talos.Machine.Hostname }}
+---
+apiVersion: v1alpha1
+kind: KubeSpanConfig
+enabled: false
+---
 version: v1alpha1
 debug: false
 persist: true
@@ -32,7 +40,6 @@ machine:
     #     - {{ .talos.Machine.Network.IP.V4 }}/{{ .network.IPv4.CIDRMask }}
     #     - {{ .talos.Machine.Network.IP.V6 }}/{{ .network.IPv6.CIDRMask }}
   network:
-    hostname: {{ .talos.Machine.Hostname }}
     nameservers:
 {{- range .network.Nameservers }}
       - {{ . }}
@@ -48,20 +55,12 @@ machine:
         routes:
           - network: 0.0.0.0/0
             gateway: {{ .network.IPv4.Gateway }}
-          - network: ::/0
-            gateway: {{ .network.IPv6.Gateway }}
+          # - network: ::/0
+          #   gateway: {{ .network.IPv6.Gateway }}
         # vip:
         #   ip: {{ .talos.Cluster.VIP }}
-    kubespan:
-      enabled: false
-  # disks:
-  #   - device: /dev/sdb
-  #     partitions:
-  #       - mountpoint: /var/mnt/extra
-  #     registries: {}
   features:
     rbac: true
-    stableHostname: true
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
     kubePrism:
