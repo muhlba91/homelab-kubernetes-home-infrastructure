@@ -79,9 +79,15 @@ func upgradeCluster(
 // controlplane: the controlplane output.
 func getTalosVersion(controlplane pulumi.Output) pulumi.StringOutput {
 	talosVersion, _ := controlplane.ApplyT(func(_ any) string {
-		doc := getControlplaneContent()
+		docs := getControlplaneContent()
 
-		version := extractVersion(doc, "machine", "install")
+		installDoc, ok := docs["UnattendedInstallConfig"]
+		if !ok {
+			log.Error().Msg("[talos][upgrade] failed to find UnattendedInstallConfig in controlplane.yml")
+			return ""
+		}
+
+		version := extractVersion(installDoc, "installer")
 		if version == nil {
 			log.Error().Msg("[talos][upgrade] failed to extract Talos version from controlplane.yml")
 			return ""
@@ -96,9 +102,15 @@ func getTalosVersion(controlplane pulumi.Output) pulumi.StringOutput {
 // controlplane: the controlplane output.
 func getKubernetesVersion(controlplane pulumi.Output) pulumi.StringOutput {
 	kubernetesVersion, _ := controlplane.ApplyT(func(_ any) string {
-		doc := getControlplaneContent()
+		docs := getControlplaneContent()
 
-		version := extractVersion(doc, "cluster", "apiServer")
+		kubeAPIServerDoc, ok := docs["KubeAPIServerConfig"]
+		if !ok {
+			log.Error().Msg("[talos][upgrade] failed to find KubeAPIServerConfig in controlplane.yml")
+			return ""
+		}
+
+		version := extractVersion(kubeAPIServerDoc)
 		if version == nil {
 			log.Error().Msg("[talos][upgrade] failed to extract K8s version from controlplane.yml")
 			return ""
@@ -109,17 +121,16 @@ func getKubernetesVersion(controlplane pulumi.Output) pulumi.StringOutput {
 	return kubernetesVersion
 }
 
-// getControlplaneContent extracts the controlplane content as a map.
-func getControlplaneContent() map[string]any {
+// getControlplaneContent extracts the controlplane documents mapped by kind.
+func getControlplaneContent() map[string]map[string]any {
 	content, rErr := file.ReadContents(fmt.Sprintf("./outputs/%s/controlplane.yml", config.Environment))
 	if rErr != nil {
 		log.Error().Err(rErr).Msg("[talos][upgrade] failed to read controlplane.yml")
 	}
 
-	var docs []map[string]any
+	docs := make(map[string]map[string]any)
 
 	decoder := yaml.NewDecoder(strings.NewReader(content))
-	docCount := 0
 	for {
 		var temp map[string]any
 		dErr := decoder.Decode(&temp)
@@ -128,13 +139,14 @@ func getControlplaneContent() map[string]any {
 		}
 		if dErr != nil {
 			log.Error().Err(dErr).Msg("[talos][upgrade] failed to unmarshal controlplane.yml")
+			continue
 		}
 
-		docs = append(docs, temp)
-		docCount++
+		kind, _ := temp["kind"].(string)
+		docs[kind] = temp
 	}
 
-	return docs[docCount-1]
+	return docs
 }
 
 // extractVersion extracts the version from the given path in the controlplane configuration.

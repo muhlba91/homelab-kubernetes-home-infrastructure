@@ -7,6 +7,16 @@ targetDriver: vfio-pci
 {{- end }}
 ---
 apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+installer:
+  # renovate: datasource=github-releases packageName=siderolabs/talos
+  image: factory.talos.dev/metal-installer/{{ .talos.Cluster.InstallImageHash }}:v1.14.0
+provisioning:
+  diskSelector:
+    match: disk.dev_path == "{{ .talos.Machine.Disk }}"
+  wipe: true
+---
+apiVersion: v1alpha1
 kind: HostnameConfig
 hostname: {{ .talos.Machine.Hostname }}
 ---
@@ -25,6 +35,246 @@ contents: |
       path_selector "round-robin 0"
   }
 ---
+apiVersion: v1alpha1
+kind: SysctlConfig
+params:
+  net.core.bpf_jit_harden: "1"
+  vm.max_map_count: "131060"
+  net.ipv6.conf.all.accept_ra: "2"
+---
+apiVersion: v1alpha1
+kind: KubeProxyConfig
+enabled: false
+---
+# KubeClusterConfig intentionally NOT applied yet — known upstream bug:
+# https://github.com/siderolabs/talos/issues/14338
+#
+apiVersion: v1alpha1
+kind: KubeClusterConfig
+clusterName: {{ .clusterName }}-cluster
+endpoint: https://{{ .talos.Machine.Network.IP.V4 }}:6443
+---
+apiVersion: v1alpha1
+kind: KubeServiceAccountConfig
+issuer:
+  privateKey: |
+{{ .secrets.Certs.K8sServiceAccount.Key }}
+  issuerURL: https://{{ .talos.Machine.Network.IP.V4 }}:6443
+---
+apiVersion: v1alpha1
+kind: KubeAPIServerConfig
+# renovate: datasource=github-releases packageName=siderolabs/kubelet
+image: registry.k8s.io/kube-apiserver:v1.37.0
+certExtraSANs:
+  - {{ .talos.Machine.Network.IP.V4 }}
+  - {{ .talos.Machine.Network.IP.V6 }}
+---
+apiVersion: v1alpha1
+kind: KubeAuthorizerConfig
+name: node
+type: Node
+---
+apiVersion: v1alpha1
+kind: KubeAuthorizerConfig
+name: rbac
+type: RBAC
+---
+apiVersion: v1alpha1
+kind: KubeAuthenticationConfig
+configuration:
+  anonymous:
+    conditions:
+      - path: /livez
+      - path: /readyz
+      - path: /healthz
+    enabled: true
+  jwt: []
+---
+apiVersion: v1alpha1
+kind: KubeAuditPolicyConfig
+configuration:
+  apiVersion: audit.k8s.io/v1
+  kind: Policy
+  rules:
+    - level: Metadata
+---
+apiVersion: v1alpha1
+kind: KubeControllerManagerConfig
+# renovate: datasource=github-releases packageName=siderolabs/kubelet
+image: registry.k8s.io/kube-controller-manager:v1.37.0
+extraArgs:
+  bind-address: 0.0.0.0
+---
+apiVersion: v1alpha1
+kind: KubeSchedulerConfig
+# renovate: datasource=github-releases packageName=siderolabs/kubelet
+image: registry.k8s.io/kube-scheduler:v1.37.0
+extraArgs:
+  bind-address: 0.0.0.0
+---
+apiVersion: v1alpha1
+kind: KubePrismConfig
+port: 7445
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: wan0
+selector:
+  match: mac(link.hardware_addr) == "{{ .talos.Machine.Network.MAC }}"
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: wan0
+mtu: 1500
+addresses:
+  - address: {{ .talos.Machine.Network.IP.V4 }}/{{ .network.IPv4.CIDRMask }}
+    routePriority: 1024
+  - address: {{ .talos.Machine.Network.IP.V6 }}/{{ .network.IPv6.CIDRMask }}
+    routePriority: 1024
+routes:
+  - gateway: {{ .network.IPv4.Gateway }}
+  # - gateway: {{ .network.IPv6.Gateway }}
+---
+apiVersion: v1alpha1
+kind: ResolverConfig
+nameservers:
+{{- range .network.Nameservers }}
+  - address: {{ . }}
+{{- end }}
+hostDNS:
+  enabled: true
+---
+apiVersion: v1alpha1
+kind: KubeTalosAPIAccessConfig
+allowedRoles:
+  - os:admin
+allowedKubernetesNamespaces:
+  - kube-system
+  - talos-system
+---
+apiVersion: v1alpha1
+kind: KubeNetworkConfig
+dnsDomain: cluster.local
+podSubnets:
+  - {{ .talos.Cluster.Network.PodSubnets.V4 }}
+  - {{ .talos.Cluster.Network.PodSubnets.V6 }}
+serviceSubnets:
+  - {{ .talos.Cluster.Network.ServiceSubnets.V4 }}
+  - {{ .talos.Cluster.Network.ServiceSubnets.V6 }}
+---
+apiVersion: v1alpha1
+kind: KubeletConfig
+# renovate: datasource=github-releases packageName=siderolabs/kubelet
+image: ghcr.io/siderolabs/kubelet:v1.37.0
+defaultRuntimeSeccompProfileEnabled: true
+extraArgs:
+  rotate-server-certificates: "true"
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+labels:
+  node-role.kubernetes.io/control-plane: ""
+---
+apiVersion: v1alpha1
+kind: KubeAPIServerCAConfig
+issuingCA:
+  cert: |
+{{ .secrets.Certs.K8s.Cert }}
+  key: |
+{{ .secrets.Certs.K8s.Key }}
+---
+apiVersion: v1alpha1
+kind: KubeAggregatorCAConfig
+issuingCA:
+  cert: |
+{{ .secrets.Certs.K8sAggregator.Cert }}
+  key: |
+{{ .secrets.Certs.K8sAggregator.Key }}
+---
+apiVersion: v1alpha1
+kind: KubeEtcdEncryptionConfig
+config:
+  resources:
+    - providers:
+        - secretbox:
+            keys:
+              - name: key2
+                secret: {{ .secrets.Secrets.SecretboxEncryptionSecret }}
+      resources:
+        - secrets
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: binfmt_misc
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: btrfs
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: thunderbolt
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: thunderbolt_net
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: usbserial
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: vfio_pci
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: vfio_iommu_type1
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: uio_pci_generic
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: dm_multipath
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: dm_round_robin
+{{- if .gates.Nvidia }}
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: nvidia
+parameters:
+  - NVreg_OpenRmEnableUnsupportedGpus=1
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: nvidia_uvm
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: nvidia_drm
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: nvidia_modeset
+parameters:
+  - NVreg_OpenRmEnableUnsupportedGpus=1
+{{- end }}
+{{- if .gates.CoralTPU }}
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: gasket
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: apex
+{{- end }}
+---
 version: v1alpha1
 debug: false
 persist: true
@@ -35,57 +285,10 @@ machine:
     crt: {{ .secrets.Certs.Os.Cert }}
     key: {{ .secrets.Certs.Os.Key }}
   certSANs: []
-  # certSANs:
-  #   - {{ .talos.Machine.Network.IP.V4 }}
-  #   - {{ .talos.Machine.Network.IP.V6 }}
-  #   - {{ .talos.Cluster.VIP }}
-  kubelet:
-    # renovate: datasource=github-releases packageName=siderolabs/kubelet
-    image: ghcr.io/siderolabs/kubelet:v1.37.0
-    defaultRuntimeSeccompProfileEnabled: true
-    disableManifestsDirectory: true
-    extraArgs:
-      rotate-server-certificates: true
-    # nodeIP:
-    #   validSubnets:
-    #     - {{ .talos.Machine.Network.IP.V4 }}/{{ .network.IPv4.CIDRMask }}
-    #     - {{ .talos.Machine.Network.IP.V6 }}/{{ .network.IPv6.CIDRMask }}
-  network:
-    nameservers:
-{{- range .network.Nameservers }}
-      - {{ . }}
-{{- end }}
-    interfaces:
-      - deviceSelector:
-          hardwareAddr: "{{ .talos.Machine.Network.MAC }}"
-        dhcp: false
-        mtu: 1500
-        addresses:
-          - {{ .talos.Machine.Network.IP.V4 }}/{{ .network.IPv4.CIDRMask }}
-          - {{ .talos.Machine.Network.IP.V6 }}/{{ .network.IPv6.CIDRMask }}
-        routes:
-          - network: 0.0.0.0/0
-            gateway: {{ .network.IPv4.Gateway }}
-          # - network: ::/0
-          #   gateway: {{ .network.IPv6.Gateway }}
-        # vip:
-        #   ip: {{ .talos.Cluster.VIP }}
   features:
     rbac: true
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
-    kubePrism:
-      enabled: true
-      port: 7445
-    hostDNS:
-      enabled: true
-    kubernetesTalosAPIAccess:
-      enabled: true
-      allowedRoles:
-        - os:admin
-      allowedKubernetesNamespaces:
-        - kube-system
-        - talos-system
   # configuration for the installer and kernel/extensions:
   # - hardware type: bare metal
   # - machine architecture: amd64
@@ -107,109 +310,10 @@ machine:
   #    - thunderbolt
   #    - util-linux-tools
   # - extra kernel arguments: intel_iommu=on iommu=pt
-  install:
-    disk: {{ .talos.Machine.Disk }}
-    # renovate: datasource=github-releases packageName=siderolabs/talos
-    image: factory.talos.dev/metal-installer/{{ .talos.Cluster.InstallImageHash }}:v1.14.0
-    wipe: true
-  kernel:
-    modules:
-      - name: binfmt_misc
-      - name: btrfs
-      - name: thunderbolt
-      - name: thunderbolt_net
-      - name: usbserial
-      - name: vfio_pci
-      - name: vfio_iommu_type1
-      - name: uio_pci_generic
-      - name: dm_multipath
-      - name: dm_round_robin
-{{- if .gates.Nvidia }}
-      - name: nvidia
-        parameters:
-          - NVreg_OpenRmEnableUnsupportedGpus=1
-      - name: nvidia_uvm
-      - name: nvidia_drm
-      - name: nvidia_modeset
-        parameters:
-          - NVreg_OpenRmEnableUnsupportedGpus=1
-{{- end }}
-{{- if .gates.CoralTPU }}
-      - name: gasket
-      - name: apex
-{{- end }}
-  sysctls:
-    net.core.bpf_jit_harden: 1
-    vm.max_map_count: 131060
-    net.ipv6.conf.all.accept_ra: 2
 cluster:
   id: {{ .secrets.Cluster.Id }}
   secret: {{ .secrets.Cluster.Secret }}
-  controlPlane:
-    endpoint: https://{{ .talos.Machine.Network.IP.V4 }}:6443
-  clusterName: {{ .clusterName }}-cluster
-  network:
-    dnsDomain: cluster.local
-    podSubnets:
-      - {{ .talos.Cluster.Network.PodSubnets.V4 }}
-      - {{ .talos.Cluster.Network.PodSubnets.V6 }}
-    serviceSubnets:
-      - {{ .talos.Cluster.Network.ServiceSubnets.V4 }}
-      - {{ .talos.Cluster.Network.ServiceSubnets.V6 }}
-    cni:
-      name: none
-  proxy:
-    disabled: true
   token: {{ .secrets.Secrets.BootstrapToken }}
-  secretboxEncryptionSecret: {{ .secrets.Secrets.SecretboxEncryptionSecret }}
-  ca:
-    crt: {{ .secrets.Certs.K8s.Cert }}
-    key: {{ .secrets.Certs.K8s.Key }}
-  aggregatorCA:
-    crt: {{ .secrets.Certs.K8sAggregator.Cert }}
-    key: {{ .secrets.Certs.K8sAggregator.Key }}
-  serviceAccount:
-    key: {{ .secrets.Certs.K8sServiceAccount.Key }}
-  apiServer:
-    # renovate: datasource=github-releases packageName=siderolabs/kubelet
-    image: registry.k8s.io/kube-apiserver:v1.37.0
-    certSANs:
-      - {{ .talos.Machine.Network.IP.V4 }}
-      - {{ .talos.Machine.Network.IP.V6 }}
-    #   - {{ .talos.Cluster.VIP }}
-    disablePodSecurityPolicy: true
-    admissionControl: []
-      # - name: PodSecurity
-      #   configuration:
-      #     apiVersion: pod-security.admission.config.k8s.io/v1alpha1
-      #     defaults:
-      #       audit: restricted
-      #       audit-version: latest
-      #       enforce: baseline
-      #       enforce-version: latest
-      #       warn: restricted
-      #       warn-version: latest
-      #     exemptions:
-      #       namespaces:
-      #         - kube-system
-      #       runtimeClasses: []
-      #       usernames: []
-      #     kind: PodSecurityConfiguration
-    auditPolicy:
-      apiVersion: audit.k8s.io/v1
-      kind: Policy
-      rules:
-        - level: Metadata
-  controllerManager:
-    # renovate: datasource=github-releases packageName=siderolabs/kubelet
-    image: registry.k8s.io/kube-controller-manager:v1.37.0
-    extraArgs:
-      bind-address: 0.0.0.0
-  scheduler:
-    # renovate: datasource=github-releases packageName=siderolabs/kubelet
-    image: registry.k8s.io/kube-scheduler:v1.37.0
-    extraArgs:
-      bind-address: 0.0.0.0
   discovery:
     enabled: true
     registries:
@@ -224,6 +328,3 @@ cluster:
     # advertisedSubnets:
     #   - {{ .talos.Machine.Network.IP.V4 }}/{{ .network.IPv4.CIDRMask }}
     #   - {{ .talos.Machine.Network.IP.V6 }}/{{ .network.IPv6.CIDRMask }}
-  extraManifests: []
-  inlineManifests: []
-  allowSchedulingOnControlPlanes: true

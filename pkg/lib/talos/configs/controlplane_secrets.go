@@ -2,7 +2,9 @@ package configs
 
 import (
 	"bytes"
+	"strings"
 
+	"github.com/muhlba91/pulumi-shared-library/pkg/util/encoding"
 	"github.com/muhlba91/pulumi-shared-library/pkg/util/template"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumiverse/pulumi-talos/sdk/go/talos/machine"
@@ -16,7 +18,10 @@ import (
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/util/file"
 )
 
-const defaultIndent = 2
+const (
+	defaultIndent = 2
+	certIndent    = 4
+)
 
 // writeControlplaneAndSecretsFiles writes the controlplane and machine secrets files.
 // ctx: Pulumi context.
@@ -97,6 +102,16 @@ func renderControlplaneFile(
 			log.Error().Msg("[talos][configs] failed to cast one or more machine secrets for controlplane rendering")
 		}
 
+		certK8s, dErr1 := decodeAndIndent(certK8s)
+		keyK8s, dErr2 := decodeAndIndent(keyK8s)
+		certK8sAggregator, dErr3 := decodeAndIndent(certK8sAggregator)
+		keyK8sAggregator, dErr4 := decodeAndIndent(keyK8sAggregator)
+		keyK8sServiceAccount, dErr5 := decodeAndIndent(keyK8sServiceAccount)
+
+		if dErr1 != nil || dErr2 != nil || dErr3 != nil || dErr4 != nil || dErr5 != nil {
+			log.Error().Msg("[talos][configs] failed to decode one or more machine secrets for controlplane rendering")
+		}
+
 		cp, err := template.Render("./assets/talos/controlplane.yml.j2", map[string]any{
 			"clusterName": config.GlobalName,
 			"network":     networkConfig,
@@ -147,4 +162,20 @@ func renderControlplaneFile(
 	}).(pulumi.StringOutput)
 
 	return file.WriteAndUpload(ctx, "controlplane.yml", controlplane)
+}
+
+// decodeAndIndent base64 decodes a string and indents each line by the specified number of spaces.
+// b64: the base64 encoded string.
+func decodeAndIndent(b64 string) (string, error) {
+	decoded, err := encoding.B64Decode(b64)
+	if err != nil {
+		return "", err
+	}
+
+	prefix := strings.Repeat(" ", certIndent)
+	lines := strings.Split(strings.TrimSpace(decoded), "\n")
+	for i, l := range lines {
+		lines[i] = prefix + l
+	}
+	return strings.Join(lines, "\n"), nil
 }
