@@ -83,6 +83,8 @@ config:
             - POST
           origin:
             - https://gpt.home.muehlbachler.io
+      percona-mongodb:
+        backupBucket: true
   home_cluster-infrastructure-proxmox:passwords:
     data:
       home-assistant-influxdb:
