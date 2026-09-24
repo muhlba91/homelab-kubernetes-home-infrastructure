@@ -169,6 +169,8 @@ image: ghcr.io/siderolabs/kubelet:v1.37.0
 defaultRuntimeSeccompProfileEnabled: true
 extraArgs:
   rotate-server-certificates: "true"
+config:
+  maxPods: 250
 ---
 apiVersion: v1alpha1
 kind: KubeNodeConfig
