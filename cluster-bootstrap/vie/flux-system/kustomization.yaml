@@ -58,8 +58,8 @@ patches:
         path: /spec/template/spec/containers/0/resources
         value:
           requests:
-            cpu: 30m
-            memory: 251Mi
+            cpu: 59m
+            memory: 293Mi
           limits:
             memory: 384Mi
     target:
@@ -76,9 +76,9 @@ patches:
         value:
           requests:
             cpu: 125m
-            memory: 280Mi
+            memory: 292Mi
           limits:
-            memory: 280Mi
+            memory: 384Mi
     target:
       kind: Deployment
       name: kustomize-controller
@@ -92,8 +92,8 @@ patches:
         path: /spec/template/spec/containers/0/resources
         value:
           requests:
-            cpu: 15m
-            memory: 192Mi
+            cpu: 27m
+            memory: 203Mi
           limits:
             memory: 256Mi
     target:
