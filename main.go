@@ -13,7 +13,6 @@ import (
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/flux"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/google/serviceaccount"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/homeassistant"
-	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/influxdb"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/kubernetes"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/passwords"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/talos"
@@ -33,9 +32,10 @@ func main() {
 		// resources
 		iam := serviceaccount.Create(ctx, googleConfig, secretStoresConfig)
 		buckets.CreateBuckets(ctx, scalewayConfig, bucketsConfig, secretStoresConfig)
-		passwords.Create(ctx, passwordsConfig, secretStoresConfig)
+		if errPasswords := passwords.Create(ctx, passwordsConfig, secretStoresConfig); errPasswords != nil {
+			return errPasswords
+		}
 		homeassistant.CreateResources(ctx, gatesConfig, googleConfig, secretStoresConfig, iam["home-assistant"])
-		influxdb.CreateResources(ctx, gatesConfig, secretStoresConfig)
 		externaldns.CreateResources(ctx, gatesConfig, googleConfig, secretStoresConfig)
 		certmanager.CreateResources(ctx, gatesConfig, googleConfig, secretStoresConfig)
 

@@ -2,6 +2,7 @@ package passwords
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"sort"
 
@@ -29,7 +30,11 @@ func Create(
 	ctx *pulumi.Context,
 	passwordsConfig *password.Config,
 	secretStoresConfig *secretstores.Config,
-) {
+) error {
+	if err := validate(passwordsConfig); err != nil {
+		return err
+	}
+
 	for vaultPath, entries := range passwordsConfig.Data {
 		keys := make([]string, 0, len(entries))
 		for vaultKey := range entries {
@@ -68,6 +73,29 @@ func Create(
 			log.Error().Err(errVault).Msgf("[passwords][vault] failed to create secret for %s", vaultPath)
 		}
 	}
+
+	return nil
+}
+
+// validate checks that no entry mixes a provided password with generation options.
+// passwordsConfig: Configuration for passwords.
+func validate(passwordsConfig *password.Config) error {
+	var errs []error
+	for vaultPath, entries := range passwordsConfig.Data {
+		for vaultKey, config := range entries {
+			if config == nil || config.Password == nil || *config.Password == "" {
+				continue
+			}
+			if config.Length != nil || config.Special != nil || config.Prefix != nil {
+				errs = append(errs, fmt.Errorf(
+					"[passwords] %s/%s: 'password' cannot be combined with 'length', 'special' or 'prefix'",
+					vaultPath,
+					vaultKey,
+				))
+			}
+		}
+	}
+	return errors.Join(errs...)
 }
 
 // createPasswordValue returns the password value for a single Vault path/key entry.
@@ -94,6 +122,9 @@ func createPasswordValue(
 	pw, err := random.CreatePassword(ctx, fmt.Sprintf("password-%s-%s", vaultPath, vaultKey), opts)
 	if err != nil {
 		log.Error().Err(err).Msgf("[passwords] failed to create password for %s/%s", vaultPath, vaultKey)
+	}
+	if config.Prefix != nil && *config.Prefix != "" {
+		return pulumi.Sprintf("%s%s", *config.Prefix, pw.Password)
 	}
 	return pw.Password
 }

@@ -56,7 +56,6 @@ config:
     flux: true
     nvidia: false
     coralTpu: false
-    influxdb: false
   home_cluster-infrastructure-proxmox:cilium:
     podSubnets:
       v4: 10.102.0.0/16
@@ -100,8 +99,47 @@ config:
         registry-htpasswd:
           password:
             secure: v1:UlXLgpEEyFQh1Ic8:920JfJh1YT9pRI5Q13A/4xQRS4tCW5D9Ve+8KYMYTnS8QtW3ndRY9kCTiVeT86RolLLS+8YttiIedkVQ4OY7Sp28OaCjnArgaMUKL1Nv/APIZvUXnd7YINiWwXm6irQHPQ==
+      gatus-ntfy:
+        token:
+          password:
+            secure: v1:c5DaK7ryzrCLAnrc:7SMFXyQZ8219Xk47x4IbI5QVQiN8g7h/ZyYzEb1h04Lx7rYOyr6mOvvexta7pLaF
+        topic:
+          password:
+            secure: v1:AwNTHqUeZy3IXTIZ:PplzManddJHWcVDlKxP7o+Z1+0lokeceyK14pC6sbgMN
+      dex-github:
+        client_id:
+          password:
+            secure: v1:hCDklWp0iXsvRM57:p6isihnNJDor32SCtxEAqPfiSE1nBIPseoqD5Paf2Uv6g2cP
+        client_secret:
+          password:
+            secure: v1:80m5r312DNNJKwPb:sMiGDmdLlbbR4lXfp4ykaIzdvlUxw0DVk+VOrFAaV6tAbmEg42R2mNijAntWJyW0RqdgYU6X/rs=
+      github-app:
+        app_id:
+          password:
+            secure: v1:xlRYvrg0ONSVTe2o:QgVxillJ7p+1FCMPjm4TiWP7iXz/ug==
+        muhlba91_installation_id:
+          password:
+            secure: v1:f57TmBUPoIgKD1WN:CJ5C0nkBCjVOg2Qm39jbJJEuyWSMpSQC
+        organization_installation_id:
+          password:
+            secure: v1:CEpypkZE3RSpGaYA:JpN55RzUrLfy41nr0dhnvUeSQp4eAfkdiQ==
+        private_key:
+          password:
+            secure: v1:P8zjwihXm/U1e/2m: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
+      registry-credentials:
+        dockerconfigjson:
+          password:
+            secure: v1:CL8ZazD9e8Mqu86r:hmUY9zcyxj/4z8RU5X3miWzib51NIJ0M72DZMVJkjKq/4AudTNzkPqQ10IqDLnYAUog5DqIvhyCiWUoEzDc30VbG2WP2sdG5jlzJ8Rr/WXIdpCsZiuQseaNUOj57VzWqWopy1odOmXFCEanpiQppklK4NROt0QlC/wY8L+uhocCsSnGcXFkcrJTZEQGNzD2c29Ul6uzf72TsnfoCc1lD8P3y7+dQCHtPVmY1pkgScqoLt+7jv6nSlZKaChulRRN9xjuEZy+rdUC82pgQp4XOX97xvsPA8DGL36ipShSvuJfPyyTgltS8O7nXy+hAYBU+7YLXCYgSFdMDFqMaLttcjy3Yr0DLr8GUKcw3Ch1YYmMpgTCarjs115B9mFVCETd7qMx3Xmm+6TkZ359XY1/BUoA0yMEHkP5Q0fZmVpn0lfuaXNSD6mzRnKCB7dM9aG23jgf2pcwgQ97E1mqjqToYtyHfR0w=
+        name:
+          password:
+            secure: v1:/LQ1QkmgEvsdpHes:r1SnSGqxlSS8JGGq8QetK4vMvt4bbrLWI0jnTlvJKpexsxqU3BIbHjO87Uhdbe/mow==
+        secret_key:
+          password:
+            secure: v1:z8N9VR7gcXAjwhCq:6SPVWvBBcQVZSa41SlHqaQxc3YPB4dNMh2DByX9Kv7lSlXiptOXF4wee8xkI3RIr
   home_cluster-infrastructure-proxmox:buckets:
     scaleway:
       registry:
         defaultBucket: true
         defaultName: reg
+      crossplane:
+        defaultBucket: false

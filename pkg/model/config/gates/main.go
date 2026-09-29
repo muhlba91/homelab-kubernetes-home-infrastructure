@@ -4,8 +4,6 @@ package gates
 type Config struct {
 	// HomeAssistant indicates if Home Assistant is enabled.
 	HomeAssistant bool `yaml:"homeAssistant,omitempty"`
-	// InfluxDB indicates if InfluxDB is enabled.
-	InfluxDB bool `yaml:"influxdb,omitempty"`
 	// ExternalDNS indicates if ExternalDNS is enabled.
 	ExternalDNS bool `yaml:"externalDns,omitempty"`
 	// CertManager indicates if CertManager is enabled.
