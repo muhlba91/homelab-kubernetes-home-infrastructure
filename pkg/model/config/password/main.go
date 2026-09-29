@@ -16,4 +16,6 @@ type PasswordConfig struct {
 	Special *bool `yaml:"special,omitempty"`
 	// Password is the password value.
 	Password *string `yaml:"password,omitempty"`
+	// Prefix is prepended to the generated password (not counted in Length).
+	Prefix *string `yaml:"prefix,omitempty"`
 }

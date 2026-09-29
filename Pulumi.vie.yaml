@@ -58,7 +58,6 @@ config:
     flux: true
     nvidia: true
     coralTpu: false
-    influxdb: true
   home_cluster-infrastructure-proxmox:cilium:
     podSubnets:
       v4: 10.101.0.0/16
@@ -88,15 +87,10 @@ config:
   home_cluster-infrastructure-proxmox:passwords:
     data:
       home-assistant-influxdb:
-        password:
-          special: false
+        password: {password: {secure: 'v1:QjvFszXYEbfYtXBT:bJUXiXux8cpcrix8LmFfmiW7mrSb8JShLdcuSq8E1BE='}}
       home-assistant-emqx:
         password:
           length: 20
-      home-assistant-node-red:
-        credential_secret:
-          length: 16
-          special: true
       qdrant-zoocode:
         api-key:
           length: 32
@@ -105,11 +99,318 @@ config:
           length: 32
           special: false
       librechat-mongodb-user:
-        password:
-          special: false
+        password: {password: {secure: 'v1:5/g/nvri0C4o3VXb:XxetMNcMFWXYIRk46AJzwbisGBTrVyQa7rS/h4OgYxU='}}
       omada-controller-mongodb-user:
+        password: {password: {secure: 'v1:wR3NV50TJpuCH3cU:FigGDPu2AcgAM3bdlB9iPlL5E/4Qneg8+J1reXdpvB4='}}
+      gatus-ntfy:
+        token:
+          password:
+            secure: v1:vAGT/zqRXxCjSE65:48TqIbI7quatR1lrfENj66IaXOdgkf1XwEqQhdymd9pqRJR7T7d1J2KE1Pt4uxQB
+        topic:
+          password:
+            secure: v1:fXrolR+IO09ncCWa:83G3rQA1J3IBOTwSews/gkyNmwSquaYCkD8a403/aV1k
+      mikrotik-snmp:
+        auth_password:
+          password:
+            secure: v1:TmCTd9TtEbNHnuXH:/OZZWMCWm/rvkY/1G9LdRaDhawvXZYK1fC301Qo/iMZAYQ6awSDGBiIHcLhmdcNI
+        priv_password:
+          password:
+            secure: v1:EOJaE9sy5tQgdrdo:xNWyastDfDDLPiTSKRKnOIuLdIArZLJhNYs7qH2D1JvQHOQi6l0j3Y2pOYxc0XD8
+        username:
+          password:
+            secure: v1:MV3D4zC/z8dzX896:/CvFQDgxaJPPjwuboaRymnFMoeP1VEQ=
+      external-dns-adguard:
+        admin_password:
+          password:
+            secure: v1:1P2UvxB7+hYh7Yo6:Jrat7Wv13G1Im/GksB8I3WVLCZSS7r5GoUMjzTJcP/o=
+      home-assistant-home-assistant-ntfy:
+        token:
+          password:
+            secure: v1:ZZeRV2ITsrH3M6jt:Ln331QafXp9OQK4bnyWrHcCmM4/FCZKw6xYBqTr6pV62etKIiUauByxE+vqAku0L
+      agents-bot-opsbot-mcp-servers:
+        github:
+          password:
+            secure: v1:y+J210z6o0VdK9sP:Wuz0NnB4JdiAD9uPhtYl7HdMVhf2A2xTXq43G9BhGwA38HDzWLtxDKU5jOTnX+AwNJqmZ7Tkqog=
+      agents-bot-opsbot-providers:
+        litellm:
+          password:
+            secure: v1:9O2sPW3mM55NUX8v:HguE3jfnSqNagx4wzz050RRTIzgq+a2BJT6m44ZcrOw86t41FD1Lt18=
+      agents-bot-opsbot-channels:
+        discord:
+          password:
+            secure: v1:CphwUS0yxgC3FHxe:XkO4sVHXhOymSMTRyErzr23Fb9Fjp9rVriQfYsI6dCgQSFBpzqKhK6hpWydDvj7xBzPVABhWsQ1eLXWefYDhOzXrBZoxK+sR21dQsmQvMIC1RmYP8pGFGw==
+      mealie-litellm:
+        api-key:
+          password:
+            secure: v1:xlEgi8TJt/ZpMe4B:95HBdqstHYFwZxz/7PCrvJAFximoHw6fQwcSxk8O2Gg0awZceVCdBOg=
+      flux-github:
+        token:
+          password:
+            secure: v1:B1FewclFFNhNcHTG:11hoykwcfG05wx0rj7z0RHG0OWmPj+qoWMLnZHKDUXrTET0wwZpC9LfprRBng5MSUSdtH6uzqlk=
+      librechat-apis:
+        jina:
+          password:
+            secure: v1:lqxweUu2BZOgr4OH:DLbrILNNMiYzMb50alZ6L4vNRJzl77EacpVta/9i0wXyvH22qbhxhpv1XQmzHAeVFrMnPzNiEfprUT7V/vKD3M7+O7twZW9mqUYAPgmNsQno
+        litellm:
+          password:
+            secure: v1:vP13PjwcTkmnxmsL:yZb8lBNYStHd/9Rlj9RYSSLcLtNSzP1ZrP4eowgZgUMwaxo/9o2RpQc=
+        openweather:
+          password:
+            secure: v1:5dTl4EF0v5j4rPn8:LqA5RImfO0XCR+whiLwLSNLsuSPJRuhUj2Ko6sN47qFflWERfp/Rw/pKGuzrbxEx
+        serper:
+          password:
+            secure: v1:IlKGKnGclFgEJaCg:M9b9KdFCKOB/v5YHw8f4xR585U6RTBsZclW7Ba9uAsIAhaxEIZufnArWZ7jXbH0naHknzN178So=
+      email-smtp:
+        encryption:
+          password:
+            secure: v1:AcTzYJuPGmTdEleh:tQKMJq9kq8fMMNuMhjob2bFsHQ==
+        host:
+          password:
+            secure: v1:fBsgu2qv01xh1Jbh:uhxgkvJJc37jx32CXedwJC2UYECgz2y4nQ94WRHn+ELfB9qKyQ==
         password:
+          password:
+            secure: v1:6zrMAxnyizAgy6th:EXhQR1S1XR/NHTwNW9n5JeXjJ9orc5rZ40TuX6iYFzxefj6TlFbejA==
+        port:
+          password:
+            secure: v1:wDAOoUPUWrg+v5ix:/rfG6sSXMBqV0wcW33iUPvJgvg==
+        ssl:
+          password:
+            secure: v1:AtIBTO04W3MRlH0d:Dz1W4qU16uDSAQPNJEnHfJyNmdc=
+        tls:
+          password:
+            secure: v1:m2+3yqeJUn26lX7S:76A4h2Jbz5BMcB4csSpyqWt4lSk=
+        username:
+          password:
+            secure: v1:zMseODTeV8z44DFY:j1ljAUEvKHl3sC8X+nqYsroCzM1yLtDvV2ibEMQEItOjJam0r32q
+      grafana-oidc:
+        client_id:
+          password:
+            secure: v1:V5f9/NsBP1JZVH0V:pUaw5VBGK40hHxrUXXV8iJajFBViAH5tHSlIOQx/gH4JnOhAcVn1YYI=
+        client_secret:
+          password:
+            secure: v1:Gc/6O1R40jtKkHsM:wbuzJvolibfspVSAGTMM0cUhlE8UAKp9eetmZ0Vh0UyiA7oUachc4dEKUjFnTcncx8lMbPSac6+BjLQFkZT+SXCnt3zigImXL6evQRQRilY=
+      home-assistant-home-assistant-oidc:
+        client_id:
+          password:
+            secure: v1:obLKuTvuq/gQafer:TuL+ohZt5M03als+5uyxXWqriRiZU4/JgHRpCV08jAdCvA==
+        client_secret:
+          password:
+            secure: v1:Fuo2gj90pq2WihAB:VrESU+OTdmGRNaALw1j7m72OUTnNVU+SJGx5q5RJ/AsoDTdaS029RaFZEPNmmtThFwJbBZkKucouDdExzEFT9H17C1Mk9GmDWOVR3woOE7Q=
+      immich-oidc:
+        client_id:
+          password:
+            secure: v1:TcDCextwiMIzqwKz:vI/0HZhpusghYYKQ/tDkBmC5xLz+O6K/wl/5qOT76EYDHAk/B41OXlU=
+        client_secret:
+          password:
+            secure: v1:iHcV7670r27uSxWf:3VMc7I/M99MEikLkG2CBYTK+bsewmiGBmJ7qZYx3bx502pSED7eWhZp+zz+ELK+swuZRalqORmMH3zYXsdA6QBUkHcAN+b86Nd6Q3iuow3c=
+      litellm-oidc:
+        client_id:
+          password:
+            secure: v1:WB5L6+qibtimNBKO:rLAiD+TsA43Rs7zC/83pzAcgB2L3k/0fwP5MfS2wxlLXMQ==
+        client_secret:
+          password:
+            secure: v1:tciC9OwVfTnh9gYq:lQ/fJv3Ax8UiLPTNcUurN6ATkfx8cZOXAa50MLBlEn9y/d9XXwT72FEkTV3ijTtV6ZupkwO8aMpiqfOXNF1qDAOUDTq0WBap/L2qxsaOLmU=
+      mealie-oidc:
+        client_id:
+          password:
+            secure: v1:xYuXHfOplDwkWlA2:anKGHwV6DM36qFf0UrA9eOI955T3ZZ8p0/2YljX0CGjnDw==
+        client_secret:
+          password:
+            secure: v1:m2xuqhn1HWVdT3UT:YhIk+yx/brFZ+BIjmnLry75zPU3kltk6ZN4VR/ySI+GYaZIJJmmCya35pi1BLn5RGC1HWgkv9fhW2OYnHoO07cagDCm5ru/I3wmzfxrlLLE=
+        groups_claim:
+          password:
+            secure: v1:ZzjIqF1GHKzrcyZJ:VrStaHefpg2oevc89zwr5O7rsVgI7hLnNzgcQS64in0BqIXtOUuet4Cw7/wFvidWOi5x9mSweNfV186eZg6UE6xNcQE=
+      zitadel:
+        authz_url:
+          password:
+            secure: v1:sk6OWLOgTF1/ZRQO:rSIvVxfNqUplgLnR5ud/XyAwd+Gi6dGuy03IOWl4wcqMcs9pszcNimqx6oUoLsSqmRFPeCPWE4J5mfmXKV7xNDy++5BYH9u2g+fwiA==
+        issuer:
+          password:
+            secure: v1:mwa4i+TG+6d3KEIf:qApc1IJ7ZlgdIMBcCQWcme0W1pzDQ76G1eEPkZoE4fpQPTVIO8CwO7PabpCS8VJJhc54f6WohLX7
+        jwks_url:
+          password:
+            secure: v1:ozdJ/4asm9PzpIP5:mnFy7J45fGAXeeC30JliK4Khx9mEY6mDn7sJ0Tf9loZojvF7byJc6OW3Pk3oZJdHtO9HCWFcT+TFjxkJLdBt4gbbU5pN9Rw=
+        signout_url:
+          password:
+            secure: v1:/rm+jLrj8wKl6KUI:+BNhbNeZP32Ck46PO8Pd6SphhYGkIO7sstkwiz5mQmxVADSygcLJmFyfoMPkSfQ31obBAe4lr8TPOtYxRYYpUvjATPE+f89Qh/14jOw=
+        token_url:
+          password:
+            secure: v1:i35HiDXN9j89a+En:4Hu9larE8ocyWoHrQuPcSo+Ui3JlZihWDOuJLf3omm5RLtWc3ofV0BC3gCUnW1GOLIlrGkb+tpsSA9EMUFuP2c78TE9RQned
+        user_info_url:
+          password:
+            secure: v1:uNy9F3+GKbrpxLYg:/uW78OPGhaY8+MKRgsEHOsf4tXuChIDiVTD7l7cy0vzPA41WXR7NOk0nuH3BirtSdNybNlchfoEFj/oViAoStnTH4nPJQ4V2vQc=
+        well_known_url:
+          password:
+            secure: v1:mQQKE5ZFdE/4yWgB:S5joxhxs8qrJrfz3AcFLDSpGjHGBtzJdQ/c0OF3hh3UphX8WUURHZf6yn8O8fYuhEOD8B1tR/TA20a4o0y7gV230ZDbh3xI4gjgppgkOj8Yv63UeHHvrIjlS
+      grafana-admin:
+        password:
+          password:
+            secure: v1:F0Ov3RB37mDY05+i:8hb7XJIWorhsHJhQOOlp+4NiD2dUdqw0q1+s8T+uozI=
+        username:
+          password:
+            secure: v1:pxUDg9Qq+mKqtPlH:ohjafIeSxqJLzfV8K0YWzXMBLjtQ
+      home-assistant-zwave-admin:
+        password:
+          password:
+            secure: v1:f4mywuTh5VcCuziK:bqYYM2sQBX/SoWqzveW443uiPnoJTe4bdgQ/u7F0qNw=
+        username:
+          password:
+            secure: v1:iuK+nhi6EGZuzNRJ:Z957GRZNULfehw78xeXMZDdo/UFu
+      librechat-creds:
+        creds_iv:
+          password:
+            secure: v1:wfppykUB2uFmTh6b:XnK45NaZ1eLTcqMWS4uyFLTyUDMQaC17J5t1j7ylDePolqRPau7CB34ag4xCg9Ke
+        creds_key:
+          password:
+            secure: v1:0BORQUoUfbdmMjdk:+r0dI4apYJXF4QJ85s8sKu6s7wyJ3EH7a3oRnnWJKwCvSQ2JtF2rutNSqtPg6nrq+dV970SJmq4VoEe4kTIx2h7YzWrr77CBFaeVsvwNWm8=
+      librechat-mongodb-secrets:
+        backup_password:
+          password:
+            secure: v1:RQ7TIQzcKI/h1xq2:eXRRii2KabNbna+N4wu5o0P7wZFb26/o8yFuoqLMJs+5dw==
+        backup_user:
+          password:
+            secure: v1:TIm5VkrSXj9h9vyJ:dZUMAzYr55rPhy7Lpi0LyZXqfbNCew==
+        cluster_admin_password:
+          password:
+            secure: v1:MbYFN1lsCVQ8HQD9:JIvNTOLC5rVAxqwDjzmtXWTQTn6Rn+QuaVSrA+YBXEB6GQ==
+        cluster_admin_user:
+          password:
+            secure: v1:QyoKAq/+ujBsnX+R:nc5fXlGy+6c1fu545LPAzRhrGLTf2eV2hKCkxQ==
+        cluster_monitor_password:
+          password:
+            secure: v1:md+8txi9obKpUuya:FG9UNk/81O0jTt9AfGM2L6uH+0dSymGoc3nuLxNvUtVP/g==
+        cluster_monitor_user:
+          password:
+            secure: v1:HHW/aHo/T4WJBJPr:j33OmJfuInOuhVqMIjZf7rn4mMjCJOtCz318F9sQ
+        database_admin_password:
+          password:
+            secure: v1:FmGGnDApkZ7GWPTL:Iov7LDPBCts2jwa1FOeWayoRZuounQ6Fr1u0J9UD0bu/xA==
+        database_admin_user:
+          password:
+            secure: v1:PMxIYu6o69wcfggL:NJkmdFOpbhMkjkvELy1MHiYC8giF3nTWPGcW6W8=
+        user_admin_password:
+          password:
+            secure: v1:91hoLg2jMwkwjgy8:SEBRlf0GvUX9/IqcBFdNkRkWyL9P1nf56OX1nNaYysnvsg==
+        user_admin_user:
+          password:
+            secure: v1:H+CpHWflimMyDXU2:Tr9qYxVkiIna2+gm4aCtCcfczBxCYK4GIw==
+      omada-controller-mongodb-secrets:
+        backup_password:
+          password:
+            secure: v1:oVdP/pVnzE3V2ZNp:8PTCakxrZpsyCXLKdHfiBBMoNtvaSRZGuhTrZh1pXGY=
+        backup_user:
+          password:
+            secure: v1:QDWyzjCh3NJb7fpx:E8sWG0VbFQFAYWXb8Ez/BXpsSs8Fyg==
+        cluster_admin_password:
+          password:
+            secure: v1:edyaUYIEhCbwZrK5:FYxN5/eHDPSllDx8zOnEXOgYLli+K5/bUyyBg3EH5goDgD8=
+        cluster_admin_user:
+          password:
+            secure: v1:zINd0gjc0A2OJdLM:/TFeBFhysTWWjYE+D5fwEwPR3YdIF9OteYKVuA==
+        cluster_monitor_password:
+          password:
+            secure: v1:nZlogTPcT6yqy4Dn:gQ97oras3sqaYz+ONZxZ4mtsaab1rmBYJIpaOm8BQ/+bkvA=
+        cluster_monitor_user:
+          password:
+            secure: v1:Kxk/sq+zvA35RY9v:pxZX3yzbLYo4lzEUekVJvtNBxiJs7IRGFBTEk33R
+        database_admin_password:
+          password:
+            secure: v1:chTjgwgOLbQBjESM:QA+uE221vVasN59+fOfst4yFUN51uVaQ0iiYz72zeRI=
+        database_admin_user:
+          password:
+            secure: v1:/t8mx1Ud0q3USYVX:rZW+QY72kYM+nKHILBbe79BZ1tGtRO62UizLBMs=
+        user_admin_password:
+          password:
+            secure: v1:4I0fI1zLO4/KbfYx:sMUmSQF5jk35vllDeDvGkyQz3TJBCY/AUiNeie94RRib
+        user_admin_user:
+          password:
+            secure: v1:PFFDsU1ckoP8UAED:xEnKWxrozaEq1V4Zh1/+9Ym4/m68pKLazA==
+      librechat-meilisearch:
+        master_key:
+          length: 32
           special: false
+      litellm-keys:
+        masterkey:
+          length: 32
+          special: false
+          prefix: sk-
+      immich-database:
+        username:
+          password:
+            secure: v1:8Pf/QkSfg9kpxMSQ:/i9aCskRbTyJPpxv3xNz9RQHcqK6iA==
+        password:
+          length: 25
+          special: false
+      mealie-database:
+        username:
+          password:
+            secure: v1:lahv5FOQeg1kyHwH:ubfqD8CAqRZqzMdNG0X8O094D3IV7g==
+        password:
+          length: 32
+          special: false
+      librechat-database:
+        username:
+          password:
+            secure: v1:dDJWLOY+cenyEyHQ:s0EazxEBm4UUN9xvJbnyMVMrZGu3Cck2cA==
+        password:
+          length: 32
+          special: false
+      litellm-database:
+        salt_key:
+          password:
+            secure: v1:adAwiTSPSch6QX5t:2yA2iUQLaCw/Eyh1sUDjDYcezgXcs8cygORcgs3ylGq05qp5xjzo0/uMr1sLf4iG
+        username:
+          password:
+            secure: v1:4H2+fnf/F3mj2z1j:ypiuFUZgiqq1iHvawIBV+t9BYhy4/nI=
+        password:
+          length: 32
+          special: false
+      home-assistant-zwave:
+        s0_legacy_key:
+          password:
+            secure: v1:QuntxVS/0zJbRY9z:ppF0NRE+qMFapUobcdemMGbik7pTyMVXC/cnn+ku/gL3U2ausEEIMJyGeunWkk8k
+        s2_accesscontrol_key:
+          password:
+            secure: v1:TZTepqKyoibe+HcV:rzBiEkIGBq/6G5Ae/w5Y7kWQz2qJON2wNwg6jba1sEjR4Rts6JEVH0Bnpztf5vi2
+        s2_authenticated_key:
+          password:
+            secure: v1:c/4MO2OmTFRmUWUx:+eUO4xJ0CrlxQLY5QoWEzdh8G8xvsKZTvutGAsr9Nrl0ARNcuxGPRsGzc1xpMLlS
+        s2_unauthenticated_key:
+          password:
+            secure: v1:kmH48hiWPlVLURnU:Li2etog5Ti9MDP1cyjucK0ZAl4rVqu/3VG6V2JoKCCCS2QJX6Bltsovtd2NAwvMx
+        session_secret:
+          length: 16
+          special: true
+      librechat-oidc:
+        client_id:
+          password:
+            secure: v1:Ufst6ptFq/EwztdW:jPljwDD45taEN0t6zDALjb7Xt+2BdP7PnTOHDTE0pgUZ2iOhbY+IgVg=
+        client_secret:
+          password:
+            secure: v1:CnAT2kzGw+wXmuIM:mhK7DEx9a7eeHkj4NAQ/mO8UJb63s6xVO4GeS5VHR7tiybPC+l1BiN3wowtuLXWgirXdKVIIUPJk3qoiT1WNb5tSxO/SLx5ixOchCf4OdCk=
+        jwt_refresh_secret:
+          length: 64
+          special: true
+        jwt_secret:
+          length: 64
+          special: true
+        session_secret:
+          length: 64
+          special: true
+      samba-passwords:
+        daniel:
+          length: 32
+          special: false
+        kasia:
+          length: 32
+          special: false
+      influxdb-user-admin:
+        password:
+          password:
+            secure: v1:/EbfYgAnaeRevaKA:u3NCUSBotp1b17bi2UisdBg3XJ5bpAy8iwShTZF+LAI=
+        token:
+          password:
+            secure: v1:CP/z7jMWhLRfoua1:5DbA6N5akoAeJ3wCmvANrUyQsbksWLfu79f+9ybhCdfOMwmkCbCnlMYGiwGDpAAq
   home_cluster-infrastructure-proxmox:scaleway:
     project: b47e1b1d-8201-4e51-9ce0-9d39678751a6
     dnsProject: bc87ca3f-e096-46cc-b849-fef5cb361511
