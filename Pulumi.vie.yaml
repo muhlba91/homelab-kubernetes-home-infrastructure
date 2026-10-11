@@ -122,7 +122,7 @@ config:
       external-dns-adguard:
         admin_password:
           password:
-            secure: v1:1P2UvxB7+hYh7Yo6:Jrat7Wv13G1Im/GksB8I3WVLCZSS7r5GoUMjzTJcP/o=
+            secure: v1:UD89is6MLEVx0rN1:n3rmVDRs6SFbxSt8c530F2fJScRsNTkHiuAtLt/7kyqVsaGO3wfzdiaMA26WU6PG
       home-assistant-home-assistant-ntfy:
         token:
           password:
