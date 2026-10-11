@@ -134,7 +134,7 @@ config:
       agents-bot-opsbot-providers:
         litellm:
           password:
-            secure: v1:9O2sPW3mM55NUX8v:HguE3jfnSqNagx4wzz050RRTIzgq+a2BJT6m44ZcrOw86t41FD1Lt18=
+            secure: v1:qBJydRNrYK0jL/4v:1AGS5A8Uowvs/ELbDkIOja/E0lAiJfT6T0aMKb/Ks8ozcXTUvlUdjcE=
       agents-bot-opsbot-channels:
         discord:
           password:
