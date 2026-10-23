@@ -3,11 +3,11 @@ module github.com/muhlba91/homelab-kubernetes-home-infrastructure
 go 1.27.0
 
 require (
-	github.com/muhlba91/pulumi-shared-library v0.0.0-20261017053037-bd3ed1754406
+	github.com/muhlba91/pulumi-shared-library v0.0.0-20261023023231-c102c6ded197
 	github.com/pulumi/pulumi-command/sdk v1.2.1
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.34.2
-	github.com/pulumi/pulumi/sdk/v3 v3.270.0
-	github.com/pulumiverse/pulumi-scaleway/sdk v1.58.0
+	github.com/pulumi/pulumi/sdk/v3 v3.272.0
+	github.com/pulumiverse/pulumi-scaleway/sdk v1.59.0
 	github.com/pulumiverse/pulumi-talos/sdk v0.8.1
 	github.com/rs/zerolog v1.35.1
 	gopkg.in/yaml.v3 v3.0.1
@@ -83,7 +83,7 @@ require (
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
 	github.com/pulumi/pulumi-cloud-sdk/go v1.20260918.0 // indirect
-	github.com/pulumi/pulumi-gcp/sdk/v10 v10.1.1 // indirect
+	github.com/pulumi/pulumi-gcp/sdk/v10 v10.2.0 // indirect
 	github.com/pulumi/pulumi-gcp/sdk/v9 v9.37.1 // indirect
 	github.com/pulumi/pulumi-google-native/sdk v0.32.0 // indirect
 	github.com/pulumi/pulumi-random/sdk/v4 v4.21.4 // indirect
@@ -121,7 +121,7 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/crypto v0.57.0 // indirect
 	golang.org/x/mod v0.41.0 // indirect
-	golang.org/x/net v0.59.0 // indirect
+	golang.org/x/net v0.60.0 // indirect
 	golang.org/x/sync v0.23.0 // indirect
 	golang.org/x/sys v0.48.0 // indirect
 	golang.org/x/term v0.46.0 // indirect
