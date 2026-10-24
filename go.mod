@@ -6,7 +6,7 @@ require (
 	github.com/muhlba91/pulumi-shared-library v0.0.0-20261017053037-bd3ed1754406
 	github.com/pulumi/pulumi-command/sdk v1.2.1
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.34.2
-	github.com/pulumi/pulumi/sdk/v3 v3.270.0
+	github.com/pulumi/pulumi/sdk/v3 v3.272.0
 	github.com/pulumiverse/pulumi-scaleway/sdk v1.58.0
 	github.com/pulumiverse/pulumi-talos/sdk v0.8.1
 	github.com/rs/zerolog v1.35.1
@@ -121,7 +121,7 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/crypto v0.57.0 // indirect
 	golang.org/x/mod v0.41.0 // indirect
-	golang.org/x/net v0.59.0 // indirect
+	golang.org/x/net v0.60.0 // indirect
 	golang.org/x/sync v0.23.0 // indirect
 	golang.org/x/sys v0.48.0 // indirect
 	golang.org/x/term v0.46.0 // indirect

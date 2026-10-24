@@ -299,6 +299,8 @@ github.com/pulumi/pulumi/sdk/v3 v3.269.0 h1:15v/0HLz/j/A45d2P8l0xNumPcxOBXX3CeWG
 github.com/pulumi/pulumi/sdk/v3 v3.269.0/go.mod h1:aUQk7DpZpqUsxLSUUWUCzIapJNb4+Smgh81ONxIdfCo=
 github.com/pulumi/pulumi/sdk/v3 v3.270.0 h1:qzqmv8CoZyZI9JT7yQTkgeu0fPFnjWl6421kwS+nwR4=
 github.com/pulumi/pulumi/sdk/v3 v3.270.0/go.mod h1:aUQk7DpZpqUsxLSUUWUCzIapJNb4+Smgh81ONxIdfCo=
+github.com/pulumi/pulumi/sdk/v3 v3.272.0 h1:MoJElH3Y/VwV1tfTVNCh2BJuc3HxB7OPmvvYzaDe89c=
+github.com/pulumi/pulumi/sdk/v3 v3.272.0/go.mod h1:i10HR5xF3FMeMNYcinudY1asWhVge4tz75gJU/9yd4A=
 github.com/pulumiverse/pulumi-scaleway/sdk v1.55.1 h1:YtVWNtWOHEzlQEiO21dp00Ou7cM3wPjnp1qaPpw7NY8=
 github.com/pulumiverse/pulumi-scaleway/sdk v1.55.1/go.mod h1:+FXaMy3p+5127gxC6w2ReTGRObkok874uLeylwsOKfc=
 github.com/pulumiverse/pulumi-scaleway/sdk v1.56.0 h1:DeIVpArCspEB5IchMA7Wqogb+cwMZdVZLgnA/ttOEa8=
@@ -422,6 +424,8 @@ golang.org/x/net v0.0.0-20200421231249-e086a090c8fd/go.mod h1:qpuaurCH72eLCgpAm/
 golang.org/x/net v0.0.0-20201021035429-f5854403a974/go.mod h1:sp8m0HH+o8qH0wwXwYZr8TS3Oi6o0r6Gce1SSxlDquU=
 golang.org/x/net v0.59.0 h1:5zfYln+w5XCxwrnMMJPufRgNoXEaGxl0wo5GqPXyues=
 golang.org/x/net v0.59.0/go.mod h1:2DA/G1UfVbCpQPeWTmMPGY7Cs2PkBkwu743bVX5PIVg=
+golang.org/x/net v0.60.0 h1:79p50tfZlm0J9YfoDsSi639qSXNGVwEzOPLCxM2FsYU=
+golang.org/x/net v0.60.0/go.mod h1:2DA/G1UfVbCpQPeWTmMPGY7Cs2PkBkwu743bVX5PIVg=
 golang.org/x/sync v0.0.0-20190423024810-112230192c58/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
 golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
 golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
