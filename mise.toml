@@ -7,7 +7,7 @@ lockfile_platforms = ["macos-arm64", "linux-x64", "linux-arm64"]
 [tools]
 go = "1.27.3"
 golangci-lint = "2.15.0"
-pulumi = "3.268.0"
+pulumi = "3.272.0"
 talosctl = "1.14.4"
 helm = "3.22.1"
 flux2 = "2.9.6"
