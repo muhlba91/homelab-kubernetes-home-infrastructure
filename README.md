@@ -10,9 +10,7 @@ This repository contains the infrastructure as code (IaC) for the `home-cluster`
 
 ## Requirements
 
-- [Go](https://golang.org/dl/)
-- [Pulumi](https://www.pulumi.com/docs/install/)
-- [talosctl](https://github.com/siderolabs/talos)
+- [mise](https://mise.jdx.dev), which provides Go, Pulumi, talosctl, helm, flux and golangci-lint (see [Development](#development))
 
 ## Creating the Infrastructure
 
@@ -172,6 +170,12 @@ talos:
 clusterIntegration:
   kubeconfig: the kubeconfig to use for the cluster integration
 ```
+
+---
+
+## Development
+
+Tool versions (Go, golangci-lint, Pulumi, talosctl, helm, flux) are managed with [mise](https://mise.jdx.dev): run `mise trust` and `mise install` once, then use the usual commands (`make ...`, `go test ./...`).
 
 ---
 
