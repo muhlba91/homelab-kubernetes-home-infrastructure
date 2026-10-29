@@ -4,7 +4,7 @@ go 1.27.3
 
 require (
 	github.com/muhlba91/pulumi-shared-library v0.0.0-20261029030914-68906385b86d
-	github.com/pulumi/pulumi-command/sdk v1.2.1
+	github.com/pulumi/pulumi-command/sdk v1.3.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.34.2
 	github.com/pulumi/pulumi/sdk/v3 v3.273.0
 	github.com/pulumiverse/pulumi-scaleway/sdk v1.60.0
