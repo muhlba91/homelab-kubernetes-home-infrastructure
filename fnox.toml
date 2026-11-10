@@ -1,0 +1,70 @@
+# Secrets for CI and local runs, read from Vault with fnox (https://fnox.jdx.dev)
+#
+# - CI: FNOX_PROFILE=ci (the default secrets plus the runner's Tailscale login and Flux's GitHub token); the Vault
+#   token comes from the GitHub OIDC login (hashicorp/vault-action, exportToken) and is used by Pulumi's Vault provider
+# - developer machines: FNOX_PROFILE=dev adds the Pulumi token, Google Cloud credentials (impersonating the CI service
+#   account) from the machine's global fnox config (provider `dev-infrastructure`, GCP_SOURCE_CREDENTIALS) and a
+#   short-lived Vault token with this repository's CI policy for Pulumi's Vault provider (the `vault` lease)
+#
+# run: fnox exec -- pulumi preview --stack vie
+
+if_missing = "error"
+
+# the repository's Vault mount; the token from VAULT_TOKEN (CI) or the Vault CLI's token helper
+[providers.vault]
+type = "vault"
+path = "github-homelab-kubernetes-home-infrastructure"
+credential_command = "vault print token"
+
+[secrets]
+CLOUDSDK_COMPUTE_REGION = { provider = "vault", value = "google-cloud/region" }
+GOOGLE_WORKLOAD_IDENTITY_PROVIDER = { provider = "vault", value = "google-cloud/workload_identity_provider" }
+GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT = { provider = "vault", value = "google-cloud/ci_service_account" }
+SCW_ORGANIZATION_ID = { provider = "vault", value = "scaleway/organization_id" }
+SCW_PROJECT_ID = { provider = "vault", value = "scaleway/project_id" }
+SCW_DEFAULT_REGION = { provider = "vault", value = "scaleway/region" }
+SCW_DEFAULT_ZONE = { provider = "vault", value = "scaleway/zone" }
+SCW_ACCESS_KEY = { provider = "vault", value = "scaleway/access_key" }
+SCW_SECRET_KEY = { provider = "vault", value = "scaleway/secret_key" }
+
+# CI only: the runner joins the tailnet to reach the cluster; Flux's bootstrap token
+[profiles.ci.secrets]
+TS_OAUTH_CLIENT_ID = { provider = "vault", value = "tailscale/oauth_client_id" }
+TS_OAUTH_SECRET = { provider = "vault", value = "tailscale/oauth_secret" }
+GH_PAT_TOKEN = { provider = "vault", value = "github/token" }
+
+# developer machines only
+[profiles.dev.secrets]
+PULUMI_ACCESS_TOKEN = { provider = "dev-infrastructure", value = "pulumi-muhlba91/token", description = "Pulumi Cloud (muhlba91)" }
+# the CI service account's project: in CI google-github-actions/auth sets it; impersonated credentials carry none
+GOOGLE_CLOUD_PROJECT = { default = "tuxnet-385112", description = "default GCP project (as in CI)" }
+
+# impersonate the CI service account with the machine's own key
+[profiles.dev.secrets.GOOGLE_APPLICATION_CREDENTIALS]
+as_file = true
+default = '''{
+  "type": "impersonated_service_account",
+  "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/${GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT}:generateAccessToken",
+  "delegates": [],
+  "source_credentials": ${GCP_SOURCE_CREDENTIALS}
+}'''
+description = "impersonated CI service account (Google client libraries, gcpkms://)"
+
+# gcloud ignores GOOGLE_APPLICATION_CREDENTIALS
+[profiles.dev.secrets.CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE]
+as_file = true
+default = "${GOOGLE_APPLICATION_CREDENTIALS}"
+description = "impersonated CI service account (gcloud)"
+
+# VAULT_TOKEN for Pulumi's Vault provider: a token with this repository's CI policy (the GitHub repository's name),
+# minted with the machine's token through the token role dev-infrastructure-repo-tokens (orphan, at most 4 hours).
+# fnox reuses it until 5 minutes before it expires; no revoke command: the token expires on its own (and the VM's host
+# token may not revoke by accessor).
+[profiles.dev.leases.vault]
+type = "command"
+duration = "1h"
+create_command = '''
+vault token create -role=dev-infrastructure-repo-tokens -policy=github-homelab-kubernetes-home-infrastructure \
+  -ttl="${FNOX_LEASE_DURATION}s" -format=json \
+  | jq -c '{credentials: {VAULT_TOKEN: .auth.client_token}, lease_id: .auth.accessor, expires_at: (now + .auth.lease_duration | floor | todate)}'
+'''

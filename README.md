@@ -32,12 +32,24 @@ pulumi destroy
 
 ## Environment Variables
 
-To successfully run, and configure the Pulumi plugins, you need to set a list of environment variables. Alternatively, refer to the used Pulumi provider's configuration documentation.
+The program needs Google Cloud credentials (secrets encryption: Cloud KMS; Google Cloud resources), the Scaleway
+variables (`SCW_*`), a Vault token (`VAULT_ADDR`, `VAULT_TOKEN`) and a Pulumi token. They come from Vault through
+[fnox](https://fnox.jdx.dev) (`fnox.toml`, installed by mise), in CI and locally:
 
-- `CLOUDSDK_CORE_PROJECT`: the Google Cloud (GCP) project
-- `CLOUDSDK_COMPUTE_REGION` the Google Cloud (GCP) region
-- `GOOGLE_APPLICATION_CREDENTIALS`: reference to a file containing the Google Cloud (GCP) service account credentials
-- `GITHUB_TOKEN`: the GitHub Personal Access Token (PAT)
+- **CI** (`FNOX_PROFILE=ci`): `hashicorp/vault-action` only logs in (GitHub OIDC, `exportToken`; Pulumi's Vault
+  provider uses that token); fnox reads the values listed in `fnox.toml`, plus the runner's Tailscale login and Flux's
+  GitHub token (`GH_PAT_TOKEN`). Pulumi logs in through OIDC (`pulumi/auth-actions`).
+- **Locally** (`FNOX_PROFILE=dev`, set on the Mac by the dotfiles and on the dev VMs by NixOS): the Pulumi token,
+  Google Cloud credentials impersonating the CI service account (built from the machine's own key,
+  `GCP_SOURCE_CREDENTIALS` in the global fnox config), and a short-lived `VAULT_TOKEN` with this repository's CI
+  policy, minted with the machine's Vault token through the token role `dev-infrastructure-repo-tokens` (the `vault`
+  lease; reused for up to an hour).
+
+```bash
+fnox exec -- pulumi preview --stack vie
+```
+
+`fnox.local.toml` (git-ignored) can override values for experiments.
 
 ---
 
