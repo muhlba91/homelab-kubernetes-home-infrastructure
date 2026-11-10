@@ -51,19 +51,18 @@ jobs:
           role: ${{ secrets.VAULT_ROLE }}
           exportToken: true
           outputToken: true
-          secrets: |
-            github-homelab-kubernetes-home-infrastructure/data/google-cloud region | CLOUDSDK_COMPUTE_REGION ;
-            github-homelab-kubernetes-home-infrastructure/data/google-cloud workload_identity_provider | GOOGLE_WORKLOAD_IDENTITY_PROVIDER ;
-            github-homelab-kubernetes-home-infrastructure/data/google-cloud ci_service_account | GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT ;
-            github-homelab-kubernetes-home-infrastructure/data/github token | GH_PAT_TOKEN ;
-            github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_client_id | TS_OAUTH_CLIENT_ID ;
-            github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_secret | TS_OAUTH_SECRET ;
-            github-homelab-kubernetes-home-infrastructure/data/scaleway organization_id | SCW_ORGANIZATION_ID ;
-            github-homelab-kubernetes-home-infrastructure/data/scaleway project_id | SCW_PROJECT_ID ;
-            github-homelab-kubernetes-home-infrastructure/data/scaleway region | SCW_DEFAULT_REGION ;
-            github-homelab-kubernetes-home-infrastructure/data/scaleway zone | SCW_DEFAULT_ZONE ;
-            github-homelab-kubernetes-home-infrastructure/data/scaleway access_key | SCW_ACCESS_KEY ;
-            github-homelab-kubernetes-home-infrastructure/data/scaleway secret_key | SCW_SECRET_KEY
+          # login only: the secrets are read by fnox (fnox.toml), the same list as on the developer machines
+
+      - name: Load secrets
+        env:
+          VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+          FNOX_PROFILE: ci
+        run: |
+          fnox ci-redact
+          fnox export --format json \
+            | jq -r '.secrets | to_entries[]
+                | if (.value | test("\n")) then error("multi-line value: \(.key)") else "\(.key)=\(.value)" end' \
+            >> "$GITHUB_ENV"
 
       - uses: pulumi/auth-actions@273044cc19e63ea565285da8edd4e059126a0bdb # v2.1.2
         with:
@@ -128,19 +127,18 @@ jobs:
           role: ${{ secrets.VAULT_ROLE }}
           exportToken: true
           outputToken: true
-          secrets: |
-            github-homelab-kubernetes-home-infrastructure/data/google-cloud region | CLOUDSDK_COMPUTE_REGION ;
-            github-homelab-kubernetes-home-infrastructure/data/google-cloud workload_identity_provider | GOOGLE_WORKLOAD_IDENTITY_PROVIDER ;
-            github-homelab-kubernetes-home-infrastructure/data/google-cloud ci_service_account | GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT ;
-            github-homelab-kubernetes-home-infrastructure/data/github token | GH_PAT_TOKEN ;
-            github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_client_id | TS_OAUTH_CLIENT_ID ;
-            github-homelab-kubernetes-home-infrastructure/data/tailscale oauth_secret | TS_OAUTH_SECRET ;
-            github-homelab-kubernetes-home-infrastructure/data/scaleway organization_id | SCW_ORGANIZATION_ID ;
-            github-homelab-kubernetes-home-infrastructure/data/scaleway project_id | SCW_PROJECT_ID ;
-            github-homelab-kubernetes-home-infrastructure/data/scaleway region | SCW_DEFAULT_REGION ;
-            github-homelab-kubernetes-home-infrastructure/data/scaleway zone | SCW_DEFAULT_ZONE ;
-            github-homelab-kubernetes-home-infrastructure/data/scaleway access_key | SCW_ACCESS_KEY ;
-            github-homelab-kubernetes-home-infrastructure/data/scaleway secret_key | SCW_SECRET_KEY
+          # login only: the secrets are read by fnox (fnox.toml), the same list as on the developer machines
+
+      - name: Load secrets
+        env:
+          VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+          FNOX_PROFILE: ci
+        run: |
+          fnox ci-redact
+          fnox export --format json \
+            | jq -r '.secrets | to_entries[]
+                | if (.value | test("\n")) then error("multi-line value: \(.key)") else "\(.key)=\(.value)" end' \
+            >> "$GITHUB_ENV"
 
       - uses: pulumi/auth-actions@273044cc19e63ea565285da8edd4e059126a0bdb # v2.1.2
         with:
