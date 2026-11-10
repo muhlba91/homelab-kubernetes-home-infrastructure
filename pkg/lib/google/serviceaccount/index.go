@@ -3,7 +3,7 @@ package serviceaccount
 import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 
-	gmodel "github.com/muhlba91/pulumi-shared-library/pkg/model/google/iam/serviceaccount"
+	gmodel "github.com/muhlba91/pulumi-shared-library/pkg/model/google/native/iam/serviceaccount"
 
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/google"
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/model/config/secretstores"

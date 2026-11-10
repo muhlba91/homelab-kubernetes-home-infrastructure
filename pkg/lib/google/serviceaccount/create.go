@@ -7,8 +7,8 @@ import (
 	"github.com/rs/zerolog/log"
 
 	"github.com/muhlba91/pulumi-shared-library/pkg/lib/vault/secret"
-	gmodel "github.com/muhlba91/pulumi-shared-library/pkg/model/google/iam/serviceaccount"
-	slServiceAccount "github.com/muhlba91/pulumi-shared-library/pkg/util/google/iam/serviceaccount"
+	gmodel "github.com/muhlba91/pulumi-shared-library/pkg/model/google/native/iam/serviceaccount"
+	slServiceAccount "github.com/muhlba91/pulumi-shared-library/pkg/util/google/native/iam/serviceaccount"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/config"

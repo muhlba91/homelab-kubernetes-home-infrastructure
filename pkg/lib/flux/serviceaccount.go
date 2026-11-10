@@ -6,7 +6,7 @@ import (
 	"github.com/rs/zerolog/log"
 
 	"github.com/muhlba91/pulumi-shared-library/pkg/lib/google/kms/iam"
-	slServiceAccount "github.com/muhlba91/pulumi-shared-library/pkg/util/google/iam/serviceaccount"
+	slServiceAccount "github.com/muhlba91/pulumi-shared-library/pkg/util/google/native/iam/serviceaccount"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 
 	"github.com/muhlba91/homelab-kubernetes-home-infrastructure/pkg/lib/config"

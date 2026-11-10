@@ -436,6 +436,10 @@ linters:
       - common-false-positives
     # Excluding configuration per-path, per-linter, per-text and per-source.
     rules:
+      # temporary: the google-native service accounts until this repository migrates to the gcp provider (playbook
+      # on CreateServiceAccountUser in pulumi-shared-library/pkg/util/google/native/iam/serviceaccount)
+      - text: 'SA1019: github.com/muhlba91/pulumi-shared-library/pkg/(lib|util|model)/google/native/'
+        linters: [ staticcheck ]
       - source: 'TODO'
         linters: [ godot ]
       - text: 'should have a package comment'
