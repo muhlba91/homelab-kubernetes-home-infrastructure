@@ -13,4 +13,4 @@ helm = "4.3.1"
 flux2 = "2.10.0"
 fnox = { version = "1.47.0", workflow = "release.yml" }
 vault = "2.2.1"
-jq = "1.8.1"
+jq = "1.8.2"
