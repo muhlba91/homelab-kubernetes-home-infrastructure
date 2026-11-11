@@ -13,6 +13,14 @@
                 "siderolabs/*",
                 "talosctl"
             ],
+            "groupName": "talos",
+            "automerge": false
+        },
+        {
+            "matchPackageNames": [
+                "siderolabs/kubelet"
+            ],
+            "groupName": "kubelet",
             "automerge": false
         }
     ],
