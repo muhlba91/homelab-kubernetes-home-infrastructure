@@ -3,10 +3,10 @@ module github.com/muhlba91/homelab-kubernetes-home-infrastructure
 go 1.27.4
 
 require (
-	github.com/muhlba91/pulumi-shared-library v0.0.0-20261111204230-ee6edde72971
+	github.com/muhlba91/pulumi-shared-library v0.0.0-20261113060525-dc39c28a6d6a
 	github.com/pulumi/pulumi-command/sdk v1.3.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.34.3
-	github.com/pulumi/pulumi/sdk/v3 v3.274.1
+	github.com/pulumi/pulumi/sdk/v3 v3.276.0
 	github.com/pulumiverse/pulumi-scaleway/sdk v1.62.0
 	github.com/pulumiverse/pulumi-talos/sdk v0.8.1
 	github.com/rs/zerolog v1.35.1
@@ -60,7 +60,7 @@ require (
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/kevinburke/ssh_config v1.6.0 // indirect
-	github.com/klauspost/compress v1.20.0 // indirect
+	github.com/klauspost/compress v1.20.2 // indirect
 	github.com/lucasb-eyer/go-colorful v1.4.1 // indirect
 	github.com/mattn/go-colorable v0.1.15 // indirect
 	github.com/mattn/go-isatty v0.0.24 // indirect
