@@ -160,6 +160,7 @@ jobs:
       - uses: pulumi/actions@96c7761824268174e0d2a4e8c7d75671eebd24a7 # v7
         with:
           command: up
+          refresh: true
           stack-name: ${{ matrix.site }}
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
