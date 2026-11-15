@@ -118,6 +118,9 @@ jobs:
         with:
           cache: false
 
+      # Go comes from mise; setup-go only restores the module cache.
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+
       - uses: hashicorp/vault-action@892a26828f195e65540a40b4768ae4571f51ebfc # v4.0.0
         id: import-secrets
         with:
