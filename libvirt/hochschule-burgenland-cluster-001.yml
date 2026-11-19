@@ -1,0 +1,17 @@
+---
+# the Talos node on a bare-metal router: ./router libvirt-deploy <site> <this file>
+# (homelab-router-infrastructure, docs/libvirt.md)
+name: hochschule-burgenland-cluster-001
+vcpu: 8
+# GiB
+memory: 38
+mac: "bc:24:11:fb:c4:df"
+# sda: OS, sdb and sdc: Ceph OSDs (Rook deviceFilter ^sd[bc])
+disks:
+  - size: 128
+  - size: 128
+  - size: 128
+# metal ISO of the installer image hash (Pulumi.hochschule-burgenland.yaml) and Talos version (assets/talos/controlplane.yml.j2)
+iso:
+  url: https://factory.talos.dev/image/1dcb7af7c311b0fbf96e3bb121f9998761f55b9d0ba946f0e1666376b4eea0ba/v1.14.5/metal-amd64.iso
+  name: talos-1dcb7af7-v1.14.5.iso

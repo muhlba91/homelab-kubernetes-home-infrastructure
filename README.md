@@ -61,6 +61,12 @@ The following stacks are available:
 
 ---
 
+## Creating the Virtual Machine
+
+On a bare-metal router the Talos node is a libvirt VM, defined by [libvirt/hochschule-burgenland-cluster-001.yml](libvirt/hochschule-burgenland-cluster-001.yml). Create it from a checkout of [homelab-router-infrastructure](https://github.com/muhlba91/homelab-router-infrastructure) with `./router libvirt-deploy <site> <path to the spec>` (see its `docs/libvirt.md`).
+
+---
+
 ## Configuration
 
 The following section describes the configuration which must be set in the Pulumi Stack.
