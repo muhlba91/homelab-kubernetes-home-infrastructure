@@ -14,21 +14,84 @@ This repository contains the infrastructure as code (IaC) for the `home-cluster`
 
 ## Creating the Infrastructure
 
-To create the infrastructure and deploy the cluster, a [Pulumi Stack](https://www.pulumi.com/docs/concepts/stack/) with the correct configuration needs to exists.
+To create the infrastructure and deploy the cluster, a [Pulumi Stack](https://www.pulumi.com/docs/concepts/stack/) with the correct configuration needs to exist.
 
-The stack can be deployed via:
+### Creating the Virtual Machine
+
+The Talos node of the stack `hochschule-burgenland` (`hochschule-burgenland-cluster-001`) is a libvirt VM on the bare-metal NixOS router and hypervisor host of the site `hetzner-fra-router-001`. It is defined by `libvirt/hochschule-burgenland-cluster-001.yml`:
+
+- 8 vCPUs, 38 GiB memory, MAC address `bc:24:11:fb:c4:df`
+- three 128 GiB disks as zvols in the pool `guests`: `sda` is the Talos OS disk, `sdb` and `sdc` are the Ceph OSDs (Rook `deviceFilter` `^sd[bc]`)
+- the Talos metal ISO of the stack's `installImageHash`, in the Talos version of the installer tag in `assets/talos/controlplane.yml.j2`, as installer image
+
+Create the VM from a checkout of [homelab-router-infrastructure](https://github.com/muhlba91/homelab-router-infrastructure), in its `nix/` folder, with the site data set up as for `./router deploy`. The command creates missing disks, uploads the ISO, defines the VM, enables autostart and starts it. It is idempotent and deletes nothing. The tool is documented in `docs/libvirt.md` of that repository.
+
+```bash
+# create or update the VM from the spec
+./router libvirt-deploy hetzner-fra-router-001 <path to libvirt/hochschule-burgenland-cluster-001.yml>
+
+# print the domain XML without changing anything
+./router libvirt-render <path to libvirt/hochschule-burgenland-cluster-001.yml>
+```
+
+The ISO boots Talos into maintenance mode.
+
+### Deploying the Stack
+
+With the VM running, the stack can be deployed via:
 
 ```bash
 pulumi up
 ```
 
+The program applies the machine config (`talosctl apply-config`), bootstraps the cluster and installs Cilium and Flux.
+
+After the install, eject the ISO and remove `iso` from the spec:
+
+```bash
+# eject the installer ISO from the running VM and its definition
+virsh -c qemu+ssh://virt@<management address of hetzner-fra-router-001>/system change-media hochschule-burgenland-cluster-001 sdz --eject --live --config
+```
+
+The console is a VNC display on `127.0.0.1` of the host only. Query its display number and tunnel the port over SSH to the host:
+
+```bash
+# print the VNC display of the VM
+virsh -c qemu+ssh://virt@<management address of hetzner-fra-router-001>/system vncdisplay hochschule-burgenland-cluster-001
+```
+
+```bash
+# forward the VNC port (5900 plus the display number) to the workstation, then connect a VNC client to localhost:5900
+ssh -N -L 5900:127.0.0.1:<5900 + display number> deploy@<management address of hetzner-fra-router-001>
+```
+
+### Recreating the Virtual Machine
+
+If the VM is recreated with new disks for the same stack, create it again as above. `talosctl-apply` and `helm-cilium` are create-only Pulumi commands, so they need to be replaced:
+
+```bash
+# list the resource URNs
+pulumi stack --show-urns
+
+# replace the create-only commands
+pulumi up --replace <URN of talosctl-apply> --replace <URN of helm-cilium>
+
+# sync the state, then apply the rest
+pulumi refresh
+pulumi up
+```
+
+Check `cilium status` afterwards, as `assets/helm/install.sh` hides errors.
+
 ## Destroying the Infrastructure
 
-The entire infrastructure can be destroyed via:
+The Pulumi resources can be destroyed via:
 
 ```bash
 pulumi destroy
 ```
+
+The VM is not managed by Pulumi and stays in place.
 
 ## Environment Variables
 
@@ -58,12 +121,7 @@ fnox exec -- pulumi preview --stack vie
 The following stacks are available:
 
 - `vie`: identifies the cluster in Vienna
-
----
-
-## Creating the Virtual Machine
-
-On a bare-metal router the Talos node is a libvirt VM, defined by [libvirt/hochschule-burgenland-cluster-001.yml](libvirt/hochschule-burgenland-cluster-001.yml). Create it from a checkout of [homelab-router-infrastructure](https://github.com/muhlba91/homelab-router-infrastructure) with `./router libvirt-deploy <site> <path to the spec>` (see its `docs/libvirt.md`).
+- `hochschule-burgenland`: identifies the Kubernetes cluster on a bare-metal router in Hetzner (Frankfurt)
 
 ---
 
