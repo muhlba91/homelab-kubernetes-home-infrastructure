@@ -46,18 +46,18 @@ pulumi up
 
 The program applies the machine config (`talosctl apply-config`), bootstraps the cluster and installs Cilium and Flux.
 
-After the install, eject the ISO and remove `iso` from the spec:
+After the install, eject the ISO and remove `iso` from the spec (run the `./router` commands from `nix/` of the homelab-router-infrastructure checkout):
 
 ```bash
 # eject the installer ISO from the running VM and its definition
-virsh -c qemu+ssh://virt@<management address of hetzner-fra-router-001>/system change-media hochschule-burgenland-cluster-001 sdz --eject --live --config
+./router virsh hetzner-fra-router-001 change-media hochschule-burgenland-cluster-001 sdz --eject --live --config
 ```
 
 The console is a VNC display on `127.0.0.1` of the host only. Query its display number and tunnel the port over SSH to the host:
 
 ```bash
 # print the VNC display of the VM
-virsh -c qemu+ssh://virt@<management address of hetzner-fra-router-001>/system vncdisplay hochschule-burgenland-cluster-001
+./router virsh hetzner-fra-router-001 vncdisplay hochschule-burgenland-cluster-001
 ```
 
 ```bash
