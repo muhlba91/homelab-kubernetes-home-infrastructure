@@ -11,6 +11,9 @@ concurrency:
 permissions:
   contents: read
 
+env:
+  GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
 jobs:
   conform:
     runs-on: ubuntu-latest

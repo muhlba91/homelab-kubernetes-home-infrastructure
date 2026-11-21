@@ -14,6 +14,9 @@ permissions:
   contents: write
   pull-requests: write
 
+env:
+  GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
 jobs:
   check:
     runs-on: ubuntu-latest
