@@ -3,11 +3,11 @@
 set -e
 
 # wait for all files to exist
-while [ ! -f ./outputs/${ENVIRONMENT}/controlplane.yml ]; do sleep 5; done
-while [ ! -f ./outputs/${ENVIRONMENT}/talosconfig ]; do sleep 5; done
+while [ ! -f "./outputs/${ENVIRONMENT}/controlplane.yml" ]; do sleep 5; done
+while [ ! -f "./outputs/${ENVIRONMENT}/talosconfig" ]; do sleep 5; done
 
 # install talos
-talosctl apply-config --insecure --nodes ${CONTROL_PLANE_IP} --file ./outputs/${ENVIRONMENT}/controlplane.yml
+talosctl apply-config --insecure --nodes "${CONTROL_PLANE_IP}" --file "./outputs/${ENVIRONMENT}/controlplane.yml"
 sleep 240
 
 # bootstrap talos
@@ -15,16 +15,16 @@ TALOSCONFIG="./outputs/${ENVIRONMENT}/talosconfig" talosctl bootstrap
 sleep 90
 
 # get kubeconfig
-TALOSCONFIG="./outputs/${ENVIRONMENT}/talosconfig" talosctl kubeconfig ./outputs/${ENVIRONMENT}/kubeconfig
+TALOSCONFIG="./outputs/${ENVIRONMENT}/talosconfig" talosctl kubeconfig "./outputs/${ENVIRONMENT}/kubeconfig"
 
 # wait for nodes to appear
-while test "$(kubectl --kubeconfig ./outputs/${ENVIRONMENT}/kubeconfig get node | grep NotReady | wc -l)" -lt "1"; do sleep 10; done
+while test "$(kubectl --kubeconfig "./outputs/${ENVIRONMENT}/kubeconfig" get node | grep -c NotReady)" -lt "1"; do sleep 10; done
 
 # approve all CSRs
-kubectl --kubeconfig ./outputs/${ENVIRONMENT}/kubeconfig get csr -o go-template='{{range .items}}{{if not .status}}{{.metadata.name}}{{"\n"}}{{end}}{{end}}' | xargs --no-run-if-empty kubectl --kubeconfig ./outputs/${ENVIRONMENT}/kubeconfig certificate approve
+kubectl --kubeconfig "./outputs/${ENVIRONMENT}/kubeconfig" get csr -o go-template='{{range .items}}{{if not .status}}{{.metadata.name}}{{"\n"}}{{end}}{{end}}' | xargs --no-run-if-empty kubectl --kubeconfig "./outputs/${ENVIRONMENT}/kubeconfig" certificate approve
 
 # apply workaround for discovery service
-kubectl --kubeconfig ./outputs/${ENVIRONMENT}/kubeconfig create clusterrolebinding manual-system-node-crb --user system:node:${NODE_NAME} --clusterrole system:node
+kubectl --kubeconfig "./outputs/${ENVIRONMENT}/kubeconfig" create clusterrolebinding manual-system-node-crb --user "system:node:${NODE_NAME}" --clusterrole system:node
 
 # wait for some reconciliation
 sleep 15

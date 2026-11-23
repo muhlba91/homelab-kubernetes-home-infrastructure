@@ -6,6 +6,7 @@ lockfile_platforms = ["macos-arm64", "linux-x64", "linux-arm64"]
 
 [tools]
 go = "1.27.4"
+actionlint = "1.7.12"
 golangci-lint = "2.15.0"
 pulumi = "3.277.0"
 talosctl = "1.14.6"
@@ -14,3 +15,4 @@ flux2 = "2.10.1"
 fnox = { version = "v1.50.0", workflow = "release.yml" }
 vault = "2.2.2"
 jq = "1.8.2"
+shellcheck = "0.11.0"

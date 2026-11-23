@@ -43,7 +43,7 @@ jobs:
             --export > ./cluster-bootstrap/${{ matrix.site }}/flux-system/gotk-components.yaml
 
           VERSION="$(flux -v)"
-          echo "flux_version=$VERSION" >> $GITHUB_OUTPUT
+          echo "flux_version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - uses: peter-evans/create-pull-request@3ffccacd46053766916f087ce41d627c0b8cf2d1 # v8.1.3
         with:
