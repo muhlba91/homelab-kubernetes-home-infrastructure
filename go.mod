@@ -3,10 +3,10 @@ module github.com/muhlba91/homelab-kubernetes-home-infrastructure
 go 1.27.4
 
 require (
-	github.com/muhlba91/pulumi-shared-library v0.0.0-20261124065013-8293486f6101
+	github.com/muhlba91/pulumi-shared-library v0.0.0-20261126063950-90f3eda6363e
 	github.com/pulumi/pulumi-command/sdk v1.3.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.35.0
-	github.com/pulumi/pulumi/sdk/v3 v3.277.0
+	github.com/pulumi/pulumi/sdk/v3 v3.278.0
 	github.com/pulumiverse/pulumi-scaleway/sdk v1.62.1
 	github.com/pulumiverse/pulumi-talos/sdk v0.8.1
 	github.com/rs/zerolog v1.35.1
