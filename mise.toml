@@ -9,7 +9,7 @@ go = "1.27.4"
 actionlint = "1.7.12"
 golangci-lint = "2.15.0"
 pulumi = "3.278.0"
-talosctl = "1.14.6"
+talosctl = "1.14.7"
 helm = "4.3.2"
 flux2 = "2.10.1"
 fnox = { version = "v1.50.0", workflow = "release.yml" }
